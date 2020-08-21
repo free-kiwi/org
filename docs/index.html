@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.3</a></h1>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.4</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -363,9 +363,7 @@ pre {
             if (array[tracker]) {
 			  console.log(Object.keys(array[tracker]));
 			  console.log(...Object.keys(array[tracker]));
-			  let latest = max(...Object.keys(array[tracker]));
-			  //latest = function() {
-			  //  for ([key,values] in 
+			  let latest = Math.max(...Object.keys(array[tracker]));
 			  console.log(latest);
 			  buildTrackerTable(tracker, array[tracker]);
               if (array[tracker][latest]["s"] > seeders) {
