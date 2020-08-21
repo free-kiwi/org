@@ -59,6 +59,7 @@ a:hover {
   cursor: pointer;
 }
 #searchtable {
+  display: none;
   max-width: 1000px;
   margin: 10px auto 10px 5%;
 }
@@ -66,6 +67,7 @@ a:hover {
   font-size: 1.2em;
 }
 #moreresults {
+  display: none;
   width: 100%;
   padding: 5px;
 }
@@ -89,6 +91,7 @@ tr:nth-child(even) {
   background-color: #e9e9e9;
 }
 #Hash {
+  display: none;
   margin: 0 auto;
   width: 680px;
   background: #f5f7fa;
@@ -113,7 +116,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.7</a></h1>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.8</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -157,7 +160,7 @@ pre {
     <p id="trackerinfo"></p>
     <p id="uploaded"></p>
     <p id="size"></p>
-    <p><span id="numberoffiles""></span></p>
+    <p><span id="numberoffiles"></span></p>
     <ol id="filelist"></ol>
     <pre id="description"></pre>
     <table id="hashtable">
@@ -445,12 +448,14 @@ pre {
     return uploaded;
   }
   function getAge(unixtime) { //convert unixtime to age
+    if (typeof unixtime != 'number') {
+	  return 'unknown';
+	}
     let date = new Date(unixtime*1000);
     let yyyy = new Date().getUTCFullYear() - date.getUTCFullYear();
     let MM = new Date().getUTCMonth() - date.getUTCMonth();
     let dd = new Date().getUTCDate() - date.getUTCDate();
     let HH = new Date().getUTCHours() - date.getUTCHours();
-    let age = "unknown";
     if (HH < 0) {
       dd--;
       HH += 24;
