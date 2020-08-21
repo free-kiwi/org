@@ -292,6 +292,62 @@ pre {
     string = string.replace(/[^ \-"0-9a-z]/gi,' ');
     return string;
   }
+  function getUploaded(unixtime) { //convert unix time to HH:mm dd MMM yyyy
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let date = new Date(unixtime*1000);
+    let HH = date.getUTCHours();
+    if (HH < 10) {
+      HH = '0'+HH;
+    }
+    let mm = date.getUTCMinutes();
+    if (mm < 10) {
+      mm = '0'+mm;
+    }
+    let uploaded = HH+':'+mm;
+    uploaded += " "+date.getUTCDate();
+    uploaded += " "+months[date.getUTCMonth()];
+    uploaded += " "+date.getUTCFullYear();
+    return uploaded;
+  }
+  function getAge(unixtime) { //convert unixtime to age
+    let date = new Date(unixtime*1000);
+    let yyyy = new Date().getUTCFullYear() - date.getUTCFullYear();
+    let MM = new Date().getUTCMonth() - date.getUTCMonth();
+    let dd = new Date().getUTCDate() - date.getUTCDate();
+    let HH = new Date().getUTCHours() - date.getUTCHours();
+    let age = "unknown";
+    if (HH < 0) {
+      dd--;
+      HH += 24;
+    }
+    if (dd < 0) {
+      MM--;
+      dd += new Date(date.getUTCFullYear(), date.getUTCMonth(), 0).getDate(); //gets number of days in the upload month
+    }
+    if (MM < 0) {
+      yyyy--;
+      MM += 12;
+    }
+    let ages = {0:[yyyy," year"], 1:[MM," month"], 2:[dd," day"], 3:[HH," hour"]};
+    for (x in ages) {
+      if (ages[x][0] != 0) {
+        if (ages[x][0] == 1) {
+          return ages[x][0]+ages[x][1];
+        } else {
+          return ages[x][0]+ages[x][1]+'s';
+        }
+      }
+    }
+    return '0 hours';
+  }
+  function readableSize(size) { //convert bits to human readable form
+    let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
+    for (step = 1; step < 7; step++) {
+      if (size < 1024**step) {
+        return(Number((size/1024**(step-1)).toPrecision(4)).toString()+" "+sizes[step-1]);
+      }
+    }
+  }
   function onLoad() {
     if (location.search=='') {
       navigate('Home');
