@@ -8,7 +8,6 @@ body {
   font-size: 0.8em;
   margin: 0;
 }
-
 .header {
   font-size: 1.3em;
   margin: 10px 10px 0 5%;
@@ -115,7 +114,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1</a></h1>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.1</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -155,14 +154,14 @@ pre {
   <div id='Hash' class='page'>
     <p id="hashinfo">Hash info</p>
     <h4 id="hashtitle"></h4>
-    <p id="hash"></p>
+    <p id="infohash"></p>
     <p id="trackerinfo"></p>
     <p id="uploaded"></p>
     <p id="size"></p>
     <p><span id="numberoffiles""></span></p>
     <ol id="filelist"></ol>
     <pre id="description"></pre>
-    <table>
+    <table id="hashtable">
       <thead>
         <tr>
           <th>Tracker</th>
@@ -172,7 +171,7 @@ pre {
           <th>Downloads</th>
         </tr>
       </thead>
-      <tbody id="trackertablebody">
+      <tbody id="hashtablebody">
       </tbody>
     </table>
   </div>
@@ -190,7 +189,6 @@ pre {
     }
   });
   function navigate(location) {
-    console.log('navigating to',location);
     document.getElementById("pagetitle").innerHTML = location+' - Title';
     let pages = Array.from(document.getElementsByClassName('page'));
     pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
@@ -229,7 +227,7 @@ pre {
 	let sortoptions = ["u:desc,s", "u:asc,s", "b:desc,s", "b:asc,s", "s:desc,l", "s:asc,l", "l:desc,s", "l:asc,s"];
     let sort = sortoptions[location.search.split("&")[1]]
 	let url = 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort+'/';
-    document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '25'"); //More Results button url and from
+    document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
 	let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
@@ -318,6 +316,7 @@ pre {
     xhttp.send();
   }
   function hash() {
+    document.getElementById("hashtable").style.display = "none"; //hide the hashtable
     let infohash = location.search.substring(1).split("=")[1].toUpperCase(); //location.search = ?Hash=INFOHASH
     document.getElementById("hashinfo").innerHTML = "Loading...";
     let xhttp = new XMLHttpRequest();
@@ -334,7 +333,7 @@ pre {
           let files = array["p"]["s"];
           document.getElementById("pagetitle").innerHTML = title;
           document.getElementById("hashtitle").innerHTML = title;
-          document.getElementById("hash").innerHTML = hash;
+          document.getElementById("infohash").innerHTML = infohash;
           document.getElementById("size").innerHTML = readableSize(size);
           document.getElementById("size").setAttribute("title", size+" bytes");
           document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(array["p"]["u"]);
@@ -360,7 +359,7 @@ pre {
             document.getElementById("filelist").style.display = "none";
           }
           let trackers = ["c", "l", "c", "u", "o"];
-          document.getElementById("trackertablebody").innerHTML = ""; //clear the trackertablebody in case of a repeat search
+          document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
           for (tracker of trackers) {
             if (array[tracker]) {
               buildTrackerTable(tracker, array[tracker]);
@@ -374,7 +373,7 @@ pre {
           }
           document.getElementById("trackerinfo").innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
           document.getElementById("hashinfo").innerHTML = ""; //remove "Loading..."
-          //document.getElementById("hashresult").style.display = "block"; //unhide hashresult
+          document.getElementById("hashtable").style.display = "block"; //unhide the hashtable
         } else { //if status not 200 - show status and associated text
           document.getElementById("hashinfo").innerHTML = this.status+" "+this.statusText;
         }
@@ -428,9 +427,9 @@ pre {
       mm = '0'+mm;
     }
     let uploaded = HH+':'+mm;
-    uploaded += " "+date.getUTCDate();
-    uploaded += " "+months[date.getUTCMonth()];
-    uploaded += " "+date.getUTCFullYear();
+    uploaded += ' '+date.getUTCDate();
+    uploaded += ' '+months[date.getUTCMonth()];
+    uploaded += ' '+date.getUTCFullYear();
     return uploaded;
   }
   function getAge(unixtime) { //convert unixtime to age
@@ -465,6 +464,9 @@ pre {
     return '0 hours';
   }
   function readableSize(size) { //convert bits to human readable form
+    if (size == 'undefined') {
+	  return 'unknown';
+	}
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
     for (step = 1; step < 7; step++) {
       if (size < 1024**step) {
