@@ -363,7 +363,7 @@ pre {
             if (array[tracker]) {
 			  buildTrackerTable(tracker, array[tracker]);
 			  let latest = Math.max(...Object.keys(array[tracker]));
-			  if (latest > Date.now()/1000-999999):
+			  if (latest > Date.now()/1000-999999) {
                 if (array[tracker][latest]["s"] > seeders) {
                   seeders = array[tracker][latest]["s"];
                 }
