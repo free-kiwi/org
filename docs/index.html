@@ -122,7 +122,7 @@ pre {
     <a onclick='goto("Forum")'>Forum</a>
     <a onclick='goto("About")'>About</a>
     <div class='search'>
-      <input id="searchbox" onkeydown="submit(event)" type="text" placeholder="Torrent Search" autofocus>
+      <input id="searchbox" onkeydown="submit(event)" type="text" placeholder="Search" autofocus>
       <button id="searchbutton" onclick="submit(event)" type="button">Search</button>
     </div>
   </div>
@@ -226,7 +226,8 @@ pre {
     }
 	let sortoptions = ["u:desc,s", "u:asc,s", "b:desc,s", "b:asc,s", "s:desc,l", "s:asc,l", "l:desc,s", "l:asc,s"];
     let sort = sortoptions[location.search.split("&")[1]]
-    document.getElementById("moreresults").setAttribute('onclick', "moreResults('25')"); //More Results button remembers next group
+	let url = 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort+'/';
+    document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '25'"); //More Results button url and from
 	let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
@@ -258,35 +259,70 @@ pre {
       }
     }
     xhttp.timeout=5000;
-    xhttp.open("GET", 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort+'/0', true);
+    xhttp.open("GET", url+'0', true);
     xhttp.send();
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a");
-    a.setAttribute("onclick", "openHash('/hash/"+data["_id"]+"')");
-    a.setAttribute("href", "/hash/"+data["_id"]);
+    a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
+    a.setAttribute("href", "?Hash="+data["_id"]);
     a.innerHTML = data["_source"]["title"];
     td.setAttribute("id", "searchresulttitle");
     td.appendChild(a);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(getAge(data["_source"]["first_seen"])));
+    td.appendChild(document.createTextNode(getAge(data["_source"]["u"])));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(readableSize(data["_source"]["size"])));
+    td.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(data["_source"]["seeders"]));
+    td.appendChild(document.createTextNode(data["_source"]["s"]));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(data["_source"]["leechers"]));
+    td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
     document.getElementById("searchtablebody").appendChild(tr);
   }
-
+  function moreResults(ur,from) {
+    document.getElementById("moreresults").disabled = true; //stop button being pressed again
+    document.getElementById("moreresults").innerHTML = "Loading...";
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        if (this.status == 200) {
+          let array = JSON.parse(this.responseText);
+          if (array["hits"]["hits"].length == 26) {
+            array["hits"]["hits"].pop(); //remove the 26th result
+            document.getElementById("moreresults").innerHTML = "More Results"; //rename Loading...
+            document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '"+(Number(from)+25).toString()+"')");
+            document.getElementById("moreresults").disabled = false; //button can be clicked again
+          } else {
+            document.getElementById("moreresults").style.display = "none"; //hide Loading...
+          }
+          array["hits"]["hits"].forEach(buildSearchTable);
+        } else {
+          document.getElementById("moreresults").disabled = false;
+          if (this.status == 0) {
+            document.getElementById("moreresults").innerHTML = "Try again (No response)";
+          } else {
+          document.getElementById("moreresults").innerHTML = "Try again ("+this.status+" "+this.statusText+")";
+          }
+        }
+      }
+    }
+    xhttp.timeout=5000;
+    xhttp.open("GET", url+from, true);
+    xhttp.send();
+  }
   function hash() {
     let infohash = location.search.substring(1).split("=")[1]; //location.search = ?Hash=INFOHASH
     console.log("loading hash:", infohash);
+  }
+  function openHash(hash) {
+    event.preventDefault();
+    history.pushState('Hash', null, '?Hash='+hash);
+    navigate('Hash');
   }
   function replace(string) {
     string = string.replace(/[^ \-"0-9a-z]/gi,' ');
