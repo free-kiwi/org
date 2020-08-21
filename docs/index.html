@@ -1,1 +1,66 @@
-200
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title id="pagetitle"></title>
+  <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+  <div class='header'>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>Title</a></h1>
+  </div>
+  <div class='navigation'>
+    <a onclick='goto("Home")'>Home</a>
+	  <a onclick='goto("Forum")'>Forum</a>
+	  <a onclick='goto("About")'>About</a>
+	  <div class='search'>
+	    <input id="searchbox" onkeydown="submit(event)" type="text" placeholder="Torrent Search" autofocus>
+	    <button id="searchbutton" onclick="submit(event)" type="button">Search</button>
+	  </div>
+  </div>
+  <div id='Home' class='page'>
+    <h3>Home</h3>
+  </div>
+  <div id='Forum' class='page'>
+    <h3>Forum</h3>
+  </div>
+  <div id='About' class='page'>
+    <h3>About</h3>
+  </div>
+
+  <script type="text/javascript">
+  function goto(location) { //navigation bar buttons
+	  history.pushState(location, null, '#'+location);
+    navigate(location);
+	}
+  window.addEventListener('popstate', function() {  //forward/back button is pressed
+	  if (event.state==null) {
+	    navigate('Home');
+	  } else {
+        navigate(event.state);
+	  }
+  });
+	function navigate(location) {
+	  document.getElementById("pagetitle").innerHTML = location+' - Title';
+	  let pages = Array.from(document.getElementsByClassName('page'));
+	  pages.forEach(function(page){page.style.display = 'none';});//hide all pages
+	  document.getElementById(location).style.display = 'block';//unhide current page
+	}
+  function submit(event) {
+    if (event.key==='Enter' || event.buttons===0) {
+      location.pathname = "/search/"+replace(decodeURIComponent(document.getElementById("searchbox").value))+"/4";
+    }
+  }
+  function replace(string) {
+    string = string.replace(/[^ \-"0-9a-z]/gi,' ');
+    return string;
+  }
+	if (window.location.hash=='') { //initial page load
+	  navigate('Home');
+	} else {
+	  navigate(decodeURIComponent(window.location.hash.substring(1)));
+	}
+  </script>
+</body>
+</html>
