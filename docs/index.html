@@ -361,9 +361,9 @@ pre {
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
           for (tracker of trackers) {
             if (array[tracker]) {
-			  console.log(array[tracker]);
-			  console.log(...array[tracker]);
-			  let latest = Math.max(...array[tracker]);
+			  console.log(array[tracker].keys);
+			  console.log(...array[tracker].keys);
+			  let latest = Math.max(...array[tracker].keys);
 			  console.log(latest);
 			  buildTrackerTable(tracker, array[tracker]);
               if (array[tracker][latest]["s"] > seeders) {
@@ -467,7 +467,7 @@ pre {
     return '0 hours';
   }
   function readableSize(size) { //convert bits to human readable form
-    if (size == 'undefined') {
+    if (typeof size == 'undefined') {
 	  return 'unknown';
 	}
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
