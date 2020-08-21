@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.4</a></h1>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.5</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -361,17 +361,16 @@ pre {
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
           for (tracker of trackers) {
             if (array[tracker]) {
-			  console.log(Object.keys(array[tracker]));
-			  console.log(...Object.keys(array[tracker]));
-			  let latest = Math.max(...Object.keys(array[tracker]));
-			  console.log(latest);
 			  buildTrackerTable(tracker, array[tracker]);
-              if (array[tracker][latest]["s"] > seeders) {
-                seeders = array[tracker][latest]["s"];
-              }
-              if (array[tracker][latest]["l"] > leechers) {
-                leechers = array[tracker][latest]["l"];
-              }
+			  let latest = Math.max(...Object.keys(array[tracker]));
+			  if (latest > Date.now()/1000-999999):
+                if (array[tracker][latest]["s"] > seeders) {
+                  seeders = array[tracker][latest]["s"];
+                }
+                if (array[tracker][latest]["l"] > leechers) {
+                  leechers = array[tracker][latest]["l"];
+                }
+			  }
             }
           }
           document.getElementById("trackerinfo").innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
@@ -388,23 +387,23 @@ pre {
   }
   function buildTrackerTable(tracker, data) { //build tracker table
     let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "c": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]}
-    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a");
+    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), latest = Math.max(...Object.keys(data));
     a.setAttribute("href", trackers[tracker][1]);
     a.appendChild(document.createTextNode(trackers[tracker][0]));
     td.setAttribute("id", "hashresulttitle");
     td.appendChild(a);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(getAge(data["date"])+" ago"));
+    td.appendChild(document.createTextNode(getAge(latest)+" ago"));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(data["s"]));
+    td.appendChild(document.createTextNode(data[latest]["s"]));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(data["l"]));
+    td.appendChild(document.createTextNode(data[latest]["l"]));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(data["d"]));
+    td.appendChild(document.createTextNode(data[latest]["d"]));
     tr.appendChild(td);
     document.getElementById("hashtablebody").appendChild(tr);
   }
