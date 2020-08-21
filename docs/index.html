@@ -1,9 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title id="pagetitle"></title>
-  <link rel="stylesheet" href="stylesheet.css">
+<meta charset="utf-8"/>
+<title id="pagetitle"></title>
+<style>
+body {
+  /*font-size: 0.8em;*/
+  margin: 0;
+}
+a {
+  color: #00B;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.header {
+  margin: 10px 10px 0 5%;
+}
+.navigation {
+  margin: 0 5% 0 5%;
+  background-color: #333;
+  overflow: hidden;
+}
+.navigation a {
+  text-align: center;
+  padding: 14px 16px;
+  color: #f2f2f2;
+  float: left;
+}
+.navigation a:hover {
+  background-color: #ddd;
+  color: black;
+  text-decoration: none;
+}
+.navigation .search {
+  padding: 9px 16px 9px 0;
+  float: right;
+  border: none;
+  max-width: 90%;
+}
+.navigation .search button {
+  background: #ddd;
+  float: right;
+  cursor: pointer;
+  padding: 7px 6px 6px 6px;
+  border: none;
+}
+.navigation .search input {
+  padding: 7px 6px 6px 6px;
+  border: none;
+}
+.page {
+  margin: 10px auto 10px 5%;
+}
+#searchresults {
+  display: none;
+  max-width: 1000px;
+  margin: 10px auto 10px 5%;
+}
+#searchresulttitle {
+  font-size: 1.2em;
+}
+#moreresults {
+  display: none;
+  width: 100%;
+  padding: 5px;
+}
+table {
+  font-size: 0.9em;
+  font-family: Verdana, Geneva, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+}
+th {
+  font-size: 1.1em;
+}
+td, th {
+  border: 1px solid #e9e9e9;
+  text-align: left;
+  line-height: 1.3em;
+  padding: 4px 0 4px 4px;
+}
+tr:nth-child(even) {
+  background-color: #e9e9e9;
+}
+#hashresult {
+  display: none;
+  margin: 0 auto;
+  width: 680px;
+  background: #f5f7fa;
+  padding: 10px;
+}
+#numberoffiles {
+  cursor: pointer;
+  border-bottom: 1px dotted;
+}
+#filelist {
+  padding: 0;
+  display: none;
+  background: #fff;
+  list-style-type: none;
+}
+pre {
+  background: #fff;
+  white-space: pre-wrap;
+}
+</style>
 </head>
 
 <body>
