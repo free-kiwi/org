@@ -244,7 +244,7 @@ pre {
             if (array["hits"]["hits"].length == 26) {
               array["hits"]["hits"].pop(); //remove the 26th result
               document.querySelector('.'+searchurl+' #moreresults').innerHTML = "More Results";
-              document.querySelector('.'+searchurl+' #moreresults')).style.display = "block"; //unhide the More Results button
+              document.querySelector('.'+searchurl+' #moreresults').style.display = "block"; //unhide the More Results button
               document.querySelector('.'+searchurl+' #moreresults').disabled = false; //clickable
             }
             document.querySelector('.'+searchurl+' #searchtablebody').innerHTML = ""; //clear the table body
