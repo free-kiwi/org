@@ -109,7 +109,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.40</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.41</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -237,8 +237,7 @@ pre {
         } else if (this.status == 200) {
           createSearchPage(searchurl);
 		  console.log(document.getElementsByClassName(searchurl));
-		  let temp = document.getElementsByClassName(searchurl);
-		  console.log(temp.getElementById("moreresults"));
+		  console.log(document.getElementsByClassName(searchurl)[0].getElementById("moreresults"));
           document.getElementsByClassName(searchurl).getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
           let array = JSON.parse(this.responseText);
           if (array["hits"]["hits"] == "") {
