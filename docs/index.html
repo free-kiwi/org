@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.10</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.10</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -181,7 +181,7 @@ pre {
     if (event.key==='Enter' || event.buttons===0) {
       let query = decodeURIComponent(document.getElementById("searchbox").value);
       if (/^[A-F0-9]{40}$|^[a-f0-9]{40}$/.test(query)) {
-	    history.pushState('Hash', null, '?Hash='+query);
+        history.pushState('Hash', null, '?Hash='+query);
         navigate('Hash');
       } else {
         history.pushState('Search', null, '?Search='+replace(query)+'&4');
@@ -209,27 +209,27 @@ pre {
   }
   function search() {
     document.getElementById("searchtable").style.display = "none";
-	document.getElementById("moreresults").style.display = "none";
+    document.getElementById("moreresults").style.display = "none";
     let searchparameter = decodeURIComponent(location.search.split("=")[1].split('&')[0]); //location.search = ?Search=title&4
     document.getElementById("searchbox").value = searchparameter;
-	if (searchparameter == '') {
-	  document.getElementById("searchinfo").innerHTML = "Nothing to search";
+    if (searchparameter == '') {
+      document.getElementById("searchinfo").innerHTML = "Nothing to search";
       return;
-	} else {
+    } else {
       document.getElementById("searchinfo").innerHTML = "Searching...";
-	  document.getElementById("pagetitle").innerHTML = searchparameter;
+      document.getElementById("pagetitle").innerHTML = searchparameter;
       document.getElementById("searchbutton").disabled = true; //search button not clickable
-	  document.getElementById("searchbox").disabled = true; //search box not enterable
+      document.getElementById("searchbox").disabled = true; //search box not enterable
     }
-	let sortoptions = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"]; // sdel = Seeders:DEscending, then Leechers decending
+    let sortoptions = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"]; // sdel = Seeders:DEscending, then Leechers decending
     let sort = sortoptions[location.search.split("&")[1]]
-	let url = 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort;
+    let url = 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort;
     document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
-	let xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
         document.getElementById("searchbutton").disabled = false; //search button clickable
-		document.getElementById("searchbox").disabled = false; //search box enterable
+        document.getElementById("searchbox").disabled = false; //search box enterable
         if (this.status == 0) {
           document.getElementById("searchinfo").innerHTML = "No response";
         } else if (this.status == 200) {
@@ -237,7 +237,7 @@ pre {
           if (array["hits"]["hits"] == "") {
             document.getElementById("searchinfo").innerHTML = "No results in "+array["took"]+"ms";
           } else {
-		    if (array["hits"]["hits"].length == 26) {
+            if (array["hits"]["hits"].length == 26) {
               array["hits"]["hits"].pop(); //remove the 26th result
               document.getElementById("moreresults").innerHTML = "More Results";
               document.getElementById("moreresults").style.display = "block"; //unhide the More Results button
@@ -247,10 +247,10 @@ pre {
             array["hits"]["hits"].forEach(buildSearchTable); //add each result to the table individually
             if (array["timed_out"] == "true") {
               document.getElementById("searchinfo").innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
-			} else {
-			  document.getElementById("searchinfo").innerHTML = "Search took "+array["took"]+"ms";
-			}
-			document.getElementById("searchtable").style.display = "block"; //unhide the search table
+            } else {
+              document.getElementById("searchinfo").innerHTML = "Search took "+array["took"]+"ms";
+            }
+            document.getElementById("searchtable").style.display = "block"; //unhide the search table
           }
         } else { //if status not 200 - show status and message
           document.getElementById("searchinfo").innerHTML = this.status+" "+this.statusText;
@@ -270,22 +270,22 @@ pre {
     td.appendChild(a);
     tr.appendChild(td);
     td = document.createElement("td");
-	span.setAttribute("title", uploadedDate(data["_source"]["u"]));
-	span.appendChild(document.createTextNode(getAge(data["_source"]["u"])))
+    span.setAttribute("title", uploadedDate(data["_source"]["u"]));
+    span.appendChild(document.createTextNode(getAge(data["_source"]["u"])))
     td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
-	span = document.createElement("span");
-	span.setAttribute("title", data["_source"]["b"]+" bytes");
-	span.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
+    span = document.createElement("span");
+    span.setAttribute("title", data["_source"]["b"]+" bytes");
+    span.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
     td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
-	td.setAttribute("style", "text-align: right");
+    td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["s"]));
     tr.appendChild(td);
     td = document.createElement("td");
-	td.setAttribute("style", "text-align: right");
+    td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
     document.getElementById("searchtablebody").appendChild(tr);
@@ -333,7 +333,7 @@ pre {
   }
   function hash() {
     document.getElementById("hashtable").style.display = "none";
-	document.getElementById("hashinfo").innerHTML = "Loading...";
+    document.getElementById("hashinfo").innerHTML = "Loading...";
     let infohash = location.search.substring(1).split("=")[1].toUpperCase(), xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
@@ -371,12 +371,12 @@ pre {
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
           for (tracker of trackers) {
             if (array[tracker]) {
-			  buildTrackerTable(tracker, array[tracker]);
-			  let latest = Math.max(...Object.keys(array[tracker]));
-			  if (latest > Date.now()/1000-999999) {
+              buildTrackerTable(tracker, array[tracker]);
+              let latest = Math.max(...Object.keys(array[tracker]));
+              if (latest > Date.now()/1000-999999) {
                 if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
                 if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
-			  }
+              }
             }
           }
           document.getElementById("trackerinfo").innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
@@ -400,7 +400,7 @@ pre {
     td.appendChild(a);
     tr.appendChild(td);
     td = document.createElement("td");
-	span.setAttribute("title", uploadedDate(getAge(latest)));
+    span.setAttribute("title", uploadedDate(getAge(latest)));
     span.appendChild(document.createTextNode(getAge(latest)+" ago"));
     td.appendChild(span);
     tr.appendChild(td);
@@ -411,7 +411,7 @@ pre {
     td.appendChild(document.createTextNode(data[latest]["l"]));
     tr.appendChild(td);
     td = document.createElement("td");
-	if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
+    if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
     td.appendChild(document.createTextNode(data[latest]["d"]));
     tr.appendChild(td);
     document.getElementById("hashtablebody").appendChild(tr);
@@ -423,7 +423,7 @@ pre {
   }
   function replace(string) {
     string = string.replace(/[^ \-"0-9a-z]/gi,' ');
-	//replace "'" with ""
+    //replace "'" with ""
     return string;
   }
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
@@ -476,8 +476,8 @@ pre {
   }
   function readableSize(size) { //convert bits to human readable form
     if (typeof size == 'undefined') {
-	  return 'unknown';
-	}
+      return 'unknown';
+    }
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
     for (step = 1; step < 7; step++) {
       if (size < 1024**step) {
