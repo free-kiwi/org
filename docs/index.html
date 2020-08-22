@@ -6,15 +6,14 @@
 <style>
 body {
   font-size: 0.8em;
-  margin: 0;
+  margin: 20px 20px 20px 5%;
+  max-width: 1000px;
 }
 .header {
   font-size: 1.3em;
-  margin: 10px 10px 0 5%;
 }
 .navbar {
   font-size: 1.3em;
-  margin: 0 5% 0 5%;
   background-color: #333;
   overflow: hidden;
 }
@@ -48,7 +47,6 @@ body {
 }
 .page {
   display: none;
-  margin: 10px auto 10px 5%;
 }
 a {
   color: #00B;
@@ -63,7 +61,6 @@ table {
   font-family: Verdana, Geneva, sans-serif;
   border-collapse: collapse;
   width: 100%;
-  margin: 10px 0;
 }
 th {
   font-size: 1.1em;
@@ -90,7 +87,6 @@ tr:nth-child(even) {
   padding: 5px;
 }
 #Hash {
-  margin: 0 auto;
   width: 680px;
   background: #f5f7fa;
   padding: 10px;
@@ -114,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.9</a></h1>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.10</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -285,9 +281,11 @@ pre {
     td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
+	td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["s"]));
     tr.appendChild(td);
     td = document.createElement("td");
+	td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
     document.getElementById("searchtablebody").appendChild(tr);
@@ -357,7 +355,7 @@ pre {
           } else {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
-              let i = document.createElement("li"), span = document.createElement("span");
+              let li = document.createElement("li"), span = document.createElement("span");
               span.appendChild(document.createTextNode(file));
               li.appendChild(span);
               span = document.createElement("span");
