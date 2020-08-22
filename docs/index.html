@@ -237,7 +237,7 @@ pre {
         } else if (this.status == 200) {
           createSearchPage(searchurl);
 		  console.log(document.getElementsByClassName(searchurl));
-		  document.getElementById("moreresults").getElementsByClassName(searchurl));
+		  console.log(document.getElementById("moreresults").getElementsByClassName(searchurl));
           document.getElementById("moreresults").getElementsByClassName(searchurl).setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
           let array = JSON.parse(this.responseText);
           if (array["hits"]["hits"] == "") {
