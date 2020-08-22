@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.12</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.13</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -375,7 +375,7 @@ pre {
               li.appendChild(span);
               document.getElementById("filelist").appendChild(li);
             }
-            document.getElementById("filelist").style.display = "none"; //what blocks this???????????????
+            document.getElementById("filelist").style.display = "none";
           }
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
           let trackers = ["c", "l", "y", "u", "o"];
@@ -415,12 +415,15 @@ pre {
     td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
+    td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data[latest]["s"]));
     tr.appendChild(td);
     td = document.createElement("td");
+    td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data[latest]["l"]));
     tr.appendChild(td);
     td = document.createElement("td");
+    td.setAttribute("style", "text-align: right");
     if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
     td.appendChild(document.createTextNode(data[latest]["d"]));
     tr.appendChild(td);
@@ -431,6 +434,14 @@ pre {
     history.pushState('Hash', null, '?Hash='+hash);
     navigate('Hash');
   }
+  document.getElementById("numberoffiles").addEventListener("click", function() { //filelist collapse
+    let content = document.getElementById("filelist");
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
   function replace(string) {
     string = string.replace(/[^ \-"0-9a-z]/gi,' ');
     //replace "'" with ""
