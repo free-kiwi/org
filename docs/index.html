@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.32</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.33</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -379,14 +379,13 @@ pre {
             }
             document.getElementById("filelist").style.display = "none";
           }
-		  console.log(uploaded);
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
           let trackers = ["c", "l", "y", "u", "o"];
           for (tracker of trackers) {
             if (array[tracker]) {
               buildTrackerTable(tracker, array[tracker]);
               let earliest = Math.min(...Object.keys(array[tracker]));
-              if (earliest < uploaded) {uploaded = earliest;}
+              if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
               let latest = Math.max(...Object.keys(array[tracker]));
               if (latest > Date.now()/1000-999999) {
                 if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
@@ -394,8 +393,7 @@ pre {
               }
             }
           }
-		  console.log(uploaded);
-          document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(Number(uploaded));
+          document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.getElementById("trackerinfo").innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
           document.getElementById("hashinfo").innerHTML = ""; //remove "Loading..."
           document.getElementById("hash").style.display = "block"; //unhide hash
