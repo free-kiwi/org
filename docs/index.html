@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.15</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.16</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -345,11 +345,11 @@ pre {
           for (source of sources) {
             if (array[source]) {
               if (array[source]['b']) {var size = array[source]['b'];}
-              if (array[source]['t']) {var title = array[source]['t'];}
-              if (array[source]['f']) {var files = array[source]['f'], numberoffiles = array[source]['f'].length;}
+              if (array[source]['t']) {title = array[source]['t'];}
+              if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
               if (array[source]['u']) {var uploaded = array[source]['u'];}
-              if (array[source]['d']) {var description = array[source]['d'];}
-              if (array[source]['n']) {var numberoffiles = array[source]['n'];}
+              if (array[source]['d']) {description = array[source]['d'];}
+              if (array[source]['n']) {numberoffiles = array[source]['n'];}
             }
           }
           document.getElementById("pagetitle").innerHTML = title;
