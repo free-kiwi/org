@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.21</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.22</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -366,8 +366,7 @@ pre {
           } else {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
-              let li = document.createElement("li"), span = document.createElement("span");
-              span.appendChild(document.createTextNode(file));
+              let li = document.createElement("li"), span = document.createElement("span").appendChild(document.createTextNode(file));
               li.appendChild(span);
               span = document.createElement("span");
               span.appendChild(document.createTextNode(readableSize(size)));
@@ -422,9 +421,9 @@ pre {
     td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data[latest]["l"]));
     tr.appendChild(td);
-    td = document.createElement("td").setAttribute("style", "text-align: right");
     if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
-    td.appendChild(document.createTextNode(data[latest]["d"]));
+    td = document.createElement("td").appendChild(document.createTextNode(data[latest]["d"]));
+    td.setAttribute("style", "text-align: right");
     tr.appendChild(td);
     document.getElementById("hashtablebody").appendChild(tr);
   }
