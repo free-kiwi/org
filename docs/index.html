@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.17</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.18</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -341,7 +341,7 @@ pre {
           document.getElementById("hashinfo").innerHTML = "No response";
         } else if (this.status == 200) {
           let sources = ["b", "t", "m", "p"], array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
-          let title = '', uploaded = 'unknown', size = 'unknown', files = '?', description = '', numberoffiles = '';
+          let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           for (source of sources) {
             if (array[source]) {
               if (array[source]['b']) {size = array[source]['b'];}
@@ -360,9 +360,9 @@ pre {
           document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.getElementById("description").innerHTML = description;
           document.getElementById("numberoffiles").innerHTML = "Files: "+numberoffiles;
+          document.getElementById("filelist").innerHTML = "";
           if (files == '') {
             document.getElementById("numberoffiles").innerHTML += " (Filelist not available)";
-            document.getElementById("filelist").innerHTML = "";
           } else {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
@@ -410,21 +410,16 @@ pre {
     td.setAttribute("id", "hashresulttitle");
     td.appendChild(a);
     tr.appendChild(td);
-    
     span.setAttribute("title", uploadedDate(getAge(latest)));
     span.appendChild(document.createTextNode(getAge(latest)+" ago"));
     td = document.createElement("td").appendChild(span);
     tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
-    td.appendChild(document.createTextNode(data[latest]["s"]));
+    td = document.createElement("td").setAttribute("style", "text-align: right").appendChild(document.createTextNode(data[latest]["s"]));
     tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
+    td = document.createElement("td").setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data[latest]["l"]));
     tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
+    td = document.createElement("td").setAttribute("style", "text-align: right");
     if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
     td.appendChild(document.createTextNode(data[latest]["d"]));
     tr.appendChild(td);
