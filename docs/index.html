@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.13</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.14</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -342,14 +342,14 @@ pre {
         } else if (this.status == 200) {
           let sources = ["b", "t", "m", "p"], array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           for (source of sources) {
-            if (array[source]['b']) {var size = array[source]['b'];}
-            if (array[source]['t']) {var title = array[source]['t'];}
-            if (array[source]['f']) {
-              var files = array[source]['f'], numberoffiles = array[source]['f'].length;
+            if (array[source]) {
+              if (array[source]['b']) {var size = array[source]['b'];}
+              if (array[source]['t']) {var title = array[source]['t'];}
+              if (array[source]['f']) {var files = array[source]['f'], numberoffiles = array[source]['f'].length;}
+              if (array[source]['u']) {var uploaded = array[source]['u'];}
+              if (array[source]['d']) {var description = array[source]['d'];}
+              if (array[source]['n']) {var numberoffiles = array[source]['n'];}
             }
-            if (array[source]['u']) {var uploaded = array[source]['u'];}
-            if (array[source]['d']) {var description = array[source]['d'];}
-            if (array[source]['n']) {var numberoffiles = array[source]['n'];}
           }
           document.getElementById("pagetitle").innerHTML = title;
           document.getElementById("hashtitle").innerHTML = title;
