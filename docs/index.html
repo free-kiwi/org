@@ -47,9 +47,9 @@ body {
   border: none;
 }
 .page {
+  display: none;
   margin: 10px auto 10px 5%;
 }
-
 a {
   color: #00B;
   text-decoration: none;
@@ -57,19 +57,6 @@ a {
 a:hover {
   text-decoration: underline;
   cursor: pointer;
-}
-#searchtable {
-  display: none;
-  max-width: 1000px;
-  margin: 10px auto 10px 5%;
-}
-#searchresulttitle {
-  font-size: 1.2em;
-}
-#moreresults {
-  display: none;
-  width: 100%;
-  padding: 5px;
 }
 table {
   font-size: 0.9em;
@@ -90,8 +77,19 @@ td, th {
 tr:nth-child(even) {
   background-color: #e9e9e9;
 }
-#Hash {
+#searchtable {
+  max-width: 1000px;
+  margin: 10px auto 10px 5%;
+}
+#searchresulttitle {
+  font-size: 1.2em;
+}
+#moreresults {
   display: none;
+  width: 100%;
+  padding: 5px;
+}
+#Hash {
   margin: 0 auto;
   width: 680px;
   background: #f5f7fa;
@@ -116,7 +114,7 @@ pre {
 
 <body>
   <div class='header'>
-	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.8</a></h1>
+	  <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.9</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -137,7 +135,7 @@ pre {
     <h3>About</h3>
   </div>
   <div id='Search' class='page'>
-    <p id="searchinfo">Search info</p>
+    <p id="searchinfo"></p>
     <table id='searchtable'>
       <thead>
         <tr>
@@ -154,7 +152,7 @@ pre {
     <button id="moreresults" type="button"></button>
   </div>
   <div id='Hash' class='page'>
-    <p id="hashinfo">Hash info</p>
+    <p id="hashinfo"></p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
     <p id="trackerinfo"></p>
@@ -182,24 +180,6 @@ pre {
   function goto(location) { //navigation bar button
     history.pushState(location, null, '?'+location);
     navigate(location);
-    }
-  window.addEventListener('popstate', function() {  //forward or back button
-    if (event.state==null) {
-      navigate('Home');
-    } else {
-      navigate(event.state);
-    }
-  });
-  function navigate(location) {
-    document.getElementById("pagetitle").innerHTML = location+' - Title';
-    let pages = Array.from(document.getElementsByClassName('page'));
-    pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
-    document.getElementById(location).style.display = 'block'; //unhide current page
-    if (location == 'Search') {
-      search();
-    } else if (location == 'Hash') {
-      hash();
-    }
   }
   function submit(event) {
     if (event.key==='Enter' || event.buttons===0) {
@@ -211,6 +191,24 @@ pre {
         history.pushState('Search', null, '?Search='+replace(query)+'&4');
         navigate('Search');
       }
+    }
+  }
+  window.addEventListener('popstate', function() {  //forward or back button
+    if (event.state==null) {
+      navigate('Home');
+    } else {
+      navigate(event.state);
+    }
+  });
+  function navigate(location) {
+    document.getElementById("pagetitle").innerHTML = location+' - Title';
+    let pages = Array.from(document.getElementsByClassName('page'));
+    pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
+    document.getElementById(location).style.display = 'block'; //unhide selected page
+    if (location == 'Search') {
+      search();
+    } else if (location == 'Hash') {
+      hash();
     }
   }
   function search() {
@@ -225,47 +223,50 @@ pre {
       document.getElementById("searchinfo").innerHTML = "Searching...";
 	  document.getElementById("pagetitle").innerHTML = searchparameter;
       document.getElementById("searchbutton").disabled = true; //search button not clickable
+	  document.getElementById("searchbox").disabled = true; //search box not enterable
     }
-	let sortoptions = ["u:desc,s", "u:asc,s", "b:desc,s", "b:asc,s", "s:desc,l", "s:asc,l", "l:desc,s", "l:asc,s"];
+	let sortoptions = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"]; // sdel = Seeders:DEscending, then Leechers decending
     let sort = sortoptions[location.search.split("&")[1]]
-	let url = 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort+'/';
+	let url = 'https://api.freekiwi.org:9400/searchapi/'+searchparameter+'/'+sort;
     document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
 	let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
         document.getElementById("searchbutton").disabled = false; //search button clickable
+		document.getElementById("searchbox").disabled = false; //search box enterable
         if (this.status == 0) {
           document.getElementById("searchinfo").innerHTML = "No response";
         } else if (this.status == 200) {
           let array = JSON.parse(this.responseText);
-          if (array["hits"]["hits"].length == 26) {
-            array["hits"]["hits"].pop(); //remove the 26th result
-            document.getElementById("moreresults").innerHTML = "More Results";
-            document.getElementById("moreresults").style.display = "block"; //unhide the More Results button
-            document.getElementById("moreresults").disabled = false; //clickable
-          }
-          document.getElementById("searchtablebody").innerHTML = ""; //clear the table body
-          array["hits"]["hits"].forEach(buildSearchTable); //add each result to the table individually
           if (array["hits"]["hits"] == "") {
             document.getElementById("searchinfo").innerHTML = "No results in "+array["took"]+"ms";
           } else {
-            document.getElementById("searchinfo").innerHTML = "Search took "+array["took"]+"ms";
-            document.getElementById("searchtable").style.display = "block"; //unhide the search table
-          }
-          if (array["timed_out"] == "true") {
-            document.getElementById("searchinfo").innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
+		    if (array["hits"]["hits"].length == 26) {
+              array["hits"]["hits"].pop(); //remove the 26th result
+              document.getElementById("moreresults").innerHTML = "More Results";
+              document.getElementById("moreresults").style.display = "block"; //unhide the More Results button
+              document.getElementById("moreresults").disabled = false; //clickable
+            }
+            document.getElementById("searchtablebody").innerHTML = ""; //clear the table body
+            array["hits"]["hits"].forEach(buildSearchTable); //add each result to the table individually
+            if (array["timed_out"] == "true") {
+              document.getElementById("searchinfo").innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
+			} else {
+			  document.getElementById("searchinfo").innerHTML = "Search took "+array["took"]+"ms";
+			}
+			document.getElementById("searchtable").style.display = "block"; //unhide the search table
           }
         } else { //if status not 200 - show status and message
           document.getElementById("searchinfo").innerHTML = this.status+" "+this.statusText;
         }
       }
     }
-    xhttp.timeout=10000;
+    xhttp.timeout=9000;
     xhttp.open("GET", url+'0', true);
     xhttp.send();
   }
   function buildSearchTable(data) { //put one search result into the table
-    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a");
+    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
     a.setAttribute("href", "?Hash="+data["_id"]);
     a.innerHTML = data["_source"]["t"];
@@ -273,10 +274,15 @@ pre {
     td.appendChild(a);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(getAge(data["_source"]["u"])));
+	span.setAttribute("title", uploadedDate(data["_source"]["u"]));
+	span.appendChild(document.createTextNode(getAge(data["_source"]["u"])))
+    td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
+	span = document.createElement("span");
+	span.setAttribute("title", data["_source"]["b"]+" bytes");
+	span.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
+    td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
     td.appendChild(document.createTextNode(data["_source"]["s"]));
@@ -306,7 +312,7 @@ pre {
           let array = JSON.parse(this.responseText);
           if (array["hits"]["hits"].length == 26) {
             array["hits"]["hits"].pop(); //remove the 26th result
-            document.getElementById("moreresults").innerHTML = "More Results"; //rename Loading...
+            document.getElementById("moreresults").innerHTML = "More Results"; //rename
             document.getElementById("moreresults").setAttribute('onclick', "moreResults('"+url+"', '"+(Number(from)+25).toString()+"')");
             document.getElementById("moreresults").disabled = false; //button can be clicked again
           } else {
@@ -323,26 +329,20 @@ pre {
         }
       }
     }
-    xhttp.timeout=5000;
+    xhttp.timeout=9000;
     xhttp.open("GET", url+from, true);
     xhttp.send();
   }
   function hash() {
-    document.getElementById("hashtable").style.display = "none"; //hide the hashtable
-    let infohash = location.search.substring(1).split("=")[1].toUpperCase(); //location.search = ?Hash=INFOHASH
-    document.getElementById("hashinfo").innerHTML = "Loading...";
-    let xhttp = new XMLHttpRequest();
+    document.getElementById("hashtable").style.display = "none";
+	document.getElementById("hashinfo").innerHTML = "Loading...";
+    let infohash = location.search.substring(1).split("=")[1].toUpperCase(), xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
         if (this.status == 0) {
           document.getElementById("hashinfo").innerHTML = "No response";
         } else if (this.status == 200) {
-          let array = JSON.parse(this.responseText);
-          let title = array["p"]["t"];
-          let seeders = 0;
-          let leechers = 0;
-          let size = array["p"]["b"];
-          let files = array["p"]["f"];
+          let array = JSON.parse(this.responseText), title = array["p"]["t"], seeders = 0, leechers = 0, size = array["p"]["b"], files = array["p"]["f"];
           document.getElementById("pagetitle").innerHTML = title;
           document.getElementById("hashtitle").innerHTML = title;
           document.getElementById("infohash").innerHTML = infohash;
@@ -356,9 +356,8 @@ pre {
             document.getElementById("filelist").innerHTML = "";
           } else {
             for (i in files) {
-              let file = files[i].substring(0,files[i].lastIndexOf(':'));
-              let size = files[i].substring(files[i].lastIndexOf(':')+1);
-              let li = document.createElement("li"), span = document.createElement("span");
+              let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
+              let i = document.createElement("li"), span = document.createElement("span");
               span.appendChild(document.createTextNode(file));
               li.appendChild(span);
               span = document.createElement("span");
@@ -368,7 +367,7 @@ pre {
               li.appendChild(span);
               document.getElementById("filelist").appendChild(li);
             }
-            document.getElementById("filelist").style.display = "none";
+            document.getElementById("filelist").style.display = "none"; //what blocks this???????????????
           }
           let trackers = ["c", "l", "y", "u", "o"];
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
@@ -377,12 +376,8 @@ pre {
 			  buildTrackerTable(tracker, array[tracker]);
 			  let latest = Math.max(...Object.keys(array[tracker]));
 			  if (latest > Date.now()/1000-999999) {
-                if (array[tracker][latest]["s"] > seeders) {
-                  seeders = array[tracker][latest]["s"];
-                }
-                if (array[tracker][latest]["l"] > leechers) {
-                  leechers = array[tracker][latest]["l"];
-                }
+                if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
+                if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
 			  }
             }
           }
@@ -394,20 +389,22 @@ pre {
         }
       }
     }
-    xhttp.timeout=5000;
+    xhttp.timeout=9000;
     xhttp.open("GET", 'https://api.freekiwi.org:9400/hashapi/'+infohash, true);
     xhttp.send();
   }
   function buildTrackerTable(tracker, data) { //build tracker table
     let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "c": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]}
-    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), latest = Math.max(...Object.keys(data));
+    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
     a.setAttribute("href", trackers[tracker][1]);
     a.appendChild(document.createTextNode(trackers[tracker][0]));
     td.setAttribute("id", "hashresulttitle");
     td.appendChild(a);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.appendChild(document.createTextNode(getAge(latest)+" ago"));
+	span.setAttribute("title", uploadedDate(getAge(latest)));
+    span.appendChild(document.createTextNode(getAge(latest)+" ago"));
+    td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
     td.appendChild(document.createTextNode(data[latest]["s"]));
@@ -416,6 +413,7 @@ pre {
     td.appendChild(document.createTextNode(data[latest]["l"]));
     tr.appendChild(td);
     td = document.createElement("td");
+	if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
     td.appendChild(document.createTextNode(data[latest]["d"]));
     tr.appendChild(td);
     document.getElementById("hashtablebody").appendChild(tr);
@@ -448,9 +446,7 @@ pre {
     return uploaded;
   }
   function getAge(unixtime) { //convert unixtime to age
-    if (typeof unixtime != 'number') {
-	  return 'unknown';
-	}
+    if (typeof unixtime != 'number') {return 'unknown';}
     let date = new Date(unixtime*1000);
     let yyyy = new Date().getUTCFullYear() - date.getUTCFullYear();
     let MM = new Date().getUTCMonth() - date.getUTCMonth();
