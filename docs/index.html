@@ -109,7 +109,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.46</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.47</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -182,7 +182,7 @@ pre {
         history.pushState('Hash', null, '?Hash='+query);
         navigate('Hash');
       } else {
-        history.pushState('Search', null, '?Search='+replace(query)+'&4');
+        history.pushState('Search', null, '?Search='+replace(query)+'_4');
         navigate('Search');
       }
     }
@@ -210,7 +210,7 @@ pre {
     //document.getElementById("searchtable").style.display = "none";
     //document.getElementById("moreresults").style.display = "none";
     let searchurl = decodeURIComponent(location.search.split("=")[1])
-    let query = searchurl.split('&')[0]; //location.search = ?Search=title&4
+    let query = searchurl.split('_')[0]; //location.search = ?Search=title_4
     document.getElementById("searchbox").value = query;
     if (query == '') {
       document.getElementById("searchinfo").innerHTML = "Nothing to search";
@@ -225,7 +225,7 @@ pre {
     document.getElementById("searchbox").disabled = true; //search box not enterable
     document.getElementById("searchinfo").innerHTML = "Searching...";
     let sortoptions = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"]; // sdel = Seeders:DEscending, then Leechers decending
-    let sort = sortoptions[location.search.split("&")[1]]
+    let sort = sortoptions[location.search.split("_")[1]]
     let url = 'https://api.freekiwi.org:9400/searchapi/'+query+'/'+sort;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -236,7 +236,8 @@ pre {
           document.getElementById("searchinfo").innerHTML = "No response";
         } else if (this.status == 200) {
           createSearchPage(searchurl);
-		  console.log(document.querySelector('.'+searchurl));
+		  console.log(document.getElementsByClassName(searchurl));
+		  console.log(document.getElementsByClassName(searchurl).getElementById("moreresults"));
 		  console.log(document.querySelector('.'+searchurl+' #moreresults'));
           document.getElementById("moreresults").getElementsByClassName(searchurl).setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
           let array = JSON.parse(this.responseText);
@@ -319,7 +320,7 @@ pre {
   }
   function sort(sortby) {
     let query = decodeURIComponent(location.search.split("=")[1].split('&')[0]);
-    if (Number(location.search.split("=")[1].split('&')[1]) == sortby) { //if already sorted, reverse
+    if (Number(location.search.split("=")[1].split('_')[1]) == sortby) { //if already sorted, reverse
       var sort = sortby + 1;
     } else {
       var sort = sortby;
