@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.10</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.11</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -340,15 +340,26 @@ pre {
         if (this.status == 0) {
           document.getElementById("hashinfo").innerHTML = "No response";
         } else if (this.status == 200) {
-          let array = JSON.parse(this.responseText), title = array["p"]["t"], seeders = 0, leechers = 0, size = array["p"]["b"], files = array["p"]["f"];
+          let sources = ["b", "t", "m", "p"], array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
+          for (source of sources) {
+            if (array[source]['b']) {let size = array[source]['b'];}
+            if (array[source]['t']) {let title = array[source]['t'];}
+            if (array[source]['f']) {
+              console.log(array[source]['f']);
+              let files = array[source]['f'], numberoffiles = array[source]['f'].length;
+            }
+            if (array[source]['u']) {let uploaded = array[source]['u'];}
+            if (array[source]['d']) {let description = array[source]['d'];}
+            if (array[source]['n']) {let numberoffiles = array[source]['n'];}
+          }
           document.getElementById("pagetitle").innerHTML = title;
           document.getElementById("hashtitle").innerHTML = title;
           document.getElementById("infohash").innerHTML = infohash;
           document.getElementById("size").innerHTML = readableSize(size);
           document.getElementById("size").setAttribute("title", size+" bytes");
-          document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(array["p"]["u"]);
-          document.getElementById("description").innerHTML = array["p"]["d"];
-          document.getElementById("numberoffiles").innerHTML = "Files: "+array["p"]["n"]
+          document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(uploaded);
+          document.getElementById("description").innerHTML = description;
+          document.getElementById("numberoffiles").innerHTML = "Files: "+numberoffiles;
           if (files == '') {
             document.getElementById("numberoffiles").innerHTML += " (Filelist not available)";
             document.getElementById("filelist").innerHTML = "";
@@ -367,8 +378,8 @@ pre {
             }
             document.getElementById("filelist").style.display = "none"; //what blocks this???????????????
           }
-          let trackers = ["c", "l", "y", "u", "o"];
           document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
+          let trackers = ["c", "l", "y", "u", "o"];
           for (tracker of trackers) {
             if (array[tracker]) {
               buildTrackerTable(tracker, array[tracker]);
@@ -392,7 +403,7 @@ pre {
     xhttp.send();
   }
   function buildTrackerTable(tracker, data) { //build tracker table
-    let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "c": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]}
+    let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "y": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]};
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
     a.setAttribute("href", trackers[tracker][1]);
     a.appendChild(document.createTextNode(trackers[tracker][0]));
