@@ -109,7 +109,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.49</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.50</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -236,28 +236,25 @@ pre {
           document.getElementById("searchinfo").innerHTML = "No response";
         } else if (this.status == 200) {
           createSearchPage(searchurl);
-		  console.log(document.getElementsByClassName(searchurl));
-		  console.log(document.getElementById("moreresults").getElementsByClassName(searchurl));
-		  console.log(document.querySelector('.'+searchurl+' #moreresults'));
-          document.getElementById("moreresults").getElementsByClassName(searchurl).setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
+          document.querySelector('.'+searchurl+' #moreresults').setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
           let array = JSON.parse(this.responseText);
           if (array["hits"]["hits"] == "") {
-            document.getElementById("searchinfo").innerHTML = "No results in "+array["took"]+"ms";
+            document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "No results in "+array["took"]+"ms";
           } else {
             if (array["hits"]["hits"].length == 26) {
               array["hits"]["hits"].pop(); //remove the 26th result
-              document.getElementsByClassName(searchurl).getElementById("moreresults").innerHTML = "More Results";
-              document.getElementsByClassName(searchurl).getElementById("moreresults").style.display = "block"; //unhide the More Results button
-              document.getElementsByClassName(searchurl).getElementById("moreresults").disabled = false; //clickable
+              document.querySelector('.'+searchurl+' #moreresults').innerHTML = "More Results";
+              document.querySelector('.'+searchurl+' #moreresults')).style.display = "block"; //unhide the More Results button
+              document.querySelector('.'+searchurl+' #moreresults').disabled = false; //clickable
             }
-            document.getElementsByClassName(searchurl).getElementById("searchtablebody").innerHTML = ""; //clear the table body
+            document.querySelector('.'+searchurl+' #searchtablebody').innerHTML = ""; //clear the table body
             array["hits"]["hits"].forEach(buildSearchTable,searchurl); //add each result to the table individually
             if (array["timed_out"] == "true") {
-              document.getElementById("searchinfo").innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
+              document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
             } else {
-              document.getElementById("searchinfo").innerHTML = "Search took "+array["took"]+"ms";
+              document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "Search took "+array["took"]+"ms";
             }
-            document.getElementsByClassName(searchurl).getElementById("searchtable").style.display = "block"; //unhide the search table
+            document.querySelector('.'+searchurl+' #searchtable').style.display = "block"; //unhide the search table
           }
         } else { //if status not 200 - show status and message
           document.getElementById("searchinfo").innerHTML = this.status+" "+this.statusText;
