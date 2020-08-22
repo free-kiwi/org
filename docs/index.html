@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.24</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.25</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -366,7 +366,8 @@ pre {
           } else {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
-              let li = document.createElement("li"), span = document.createElement("span").appendChild(document.createTextNode(file));
+              let li = document.createElement("li"), span = document.createElement("span");
+              span.appendChild(document.createTextNode(file));
               li.appendChild(span);
               span = document.createElement("span");
               span.appendChild(document.createTextNode(readableSize(size)));
@@ -409,9 +410,10 @@ pre {
     td.setAttribute("id", "hashresulttitle");
     td.appendChild(a);
     tr.appendChild(td);
+    td = document.createElement("td");
     span.setAttribute("title", uploadedDate(latest));
     span.appendChild(document.createTextNode(getAge(latest)+" ago"));
-    td = document.createElement("td").appendChild(span);
+    td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
     td.setAttribute("style", "text-align: right");
