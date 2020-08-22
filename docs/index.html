@@ -110,7 +110,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.23</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.24</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -409,7 +409,7 @@ pre {
     td.setAttribute("id", "hashresulttitle");
     td.appendChild(a);
     tr.appendChild(td);
-    span.setAttribute("title", uploadedDate(getAge(latest)));
+    span.setAttribute("title", uploadedDate(latest));
     span.appendChild(document.createTextNode(getAge(latest)+" ago"));
     td = document.createElement("td").appendChild(span);
     tr.appendChild(td);
