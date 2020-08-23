@@ -235,11 +235,12 @@ pre {
     <table id="searchtable">
       <thead>
         <tr>
-          <th>Name (Sort by: <a onclick="sort(0)">Age</a>, <a onclick="sort(2)">Size</a>, <a onclick="sort(4)">Seeders</a>, <a onclick="sort(6)">Leechers</a>)</th>
-          <th>Age</th>
-          <th>Size</th>
-          <th>Seeds</th>
-          <th>Leeches</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th><a onclick="sort(0)">Age</a></th>
+          <th><a onclick="sort(2)">Size</a></th>
+          <th><a onclick="sort(4)">Seeds</a></th>
+          <th><a onclick="sort(6)">Leeches</a>)</th>
         </tr>
       </thead>
       <tbody id="searchtablebody">
@@ -250,6 +251,9 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
+    td.document.createTextNode(data['_source']['f']);
+    tr.appendChild(td);
+    td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
     a.setAttribute("href", "?Hash="+data["_id"]);
     a.innerHTML = data["_source"]["t"];
