@@ -108,7 +108,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.60</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.61</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -160,16 +160,14 @@ pre {
     document.getElementById("pagetitle").innerHTML = location+' - Title';
     let pages = Array.from(document.getElementsByClassName('page'));
     pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
+    document.getElementById(location).style.display = 'block'; //unhide selected page
     if (location == 'Search') {
       search();
     } else if (location == 'Hash') {
       hash();
-    } else {
-      document.getElementById(location).style.display = 'block'; //unhide selected page
     }
   }
   function search() {
-    document.getElementById('Search').style.display = 'block'; //unhide Search page
     let searchurl = decodeURIComponent(location.search.split("=")[1])
     let query = searchurl.split('_')[0]; //location.search = ?Search=title_4
     document.getElementById("searchbox").value = query;
@@ -319,11 +317,11 @@ pre {
     xhttp.send();
   }
   function hash() {
-    //document.getElementById("hash").style.display = "none";
     document.getElementById("globalhashinfo").innerHTML = "Loading...";
     let infohash = location.search.substring(1).split("=")[1].toUpperCase(), xhttp = new XMLHttpRequest();
     if (document.body.getElementsByClassName(infohash)[0]) {
       document.querySelector('.'+infohash).style.display = 'block'; //show the pre-loaded page
+      document.getElementById("pagetitle").innerHTML = document.querySelector('.h'+infohash+' #hashtitle').innerHTML;
       return;
     }
     xhttp.onreadystatechange = function() {
@@ -345,7 +343,7 @@ pre {
               if (array[source]['n']) {numberoffiles = array[source]['n'];}
             }
           }
-          document.querySelector('.h'+infohash+' #pagetitle').innerHTML = title;
+          document.getElementById("pagetitle").innerHTML = title;
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
           document.querySelector('.h'+infohash+' #size').innerHTML = 'Size: '+readableSize(size);
