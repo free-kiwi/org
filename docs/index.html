@@ -75,7 +75,6 @@ tr:nth-child(even) {
 }
 #searchtable {
   max-width: 1000px;
-  margin: 10px auto 10px 5%;
 }
 #searchresulttitle {
   font-size: 1.0em;
@@ -109,7 +108,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.57</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.58</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -126,22 +125,8 @@ pre {
   <div id='About' class='page'>
     <h3>About</h3>
   </div>
-  <div id='Search' class='page placeholder'>
-    <p id="searchinfo"></p>
-    <table id='searchtable'>
-      <thead>
-        <tr>
-          <th>Name (Sort by: <a onclick="sort(0)">Age</a>, <a onclick="sort(2)">Size</a>, <a onclick="sort(4)">Seeders</a>, <a onclick="sort(6)">Leechers</a>)</th>
-          <th>Age</th>
-          <th>Size</th>
-          <th>Seeds</th>
-          <th>Leeches</th>
-        </tr>
-      </thead>
-      <tbody id="searchtablebody">
-      </tbody>
-    </table>
-    <button id="moreresults" type="button"></button>
+  <div id='Search' class='page'>
+    <p id="globalsearchinfo"></p>
   </div>
   <div id='Hash' class='page'>
     <p id="hashinfo"></p>
@@ -207,23 +192,22 @@ pre {
     }
   }
   function search() {
-    //document.getElementById("moreresults").style.display = "none";
+    document.getElementById('Search').style.display = 'block'; //unhide Search page
     let searchurl = decodeURIComponent(location.search.split("=")[1])
     let query = searchurl.split('_')[0]; //location.search = ?Search=title_4
     document.getElementById("searchbox").value = query;
     if (query == '') {
-      document.getElementById("searchinfo").innerHTML = "Nothing to search";
+      document.getElementById("globalsearchinfo").innerHTML = "Nothing to search";
       return;
     }
     document.getElementById("pagetitle").innerHTML = query;
     if (document.body.getElementsByClassName(searchurl)[0]) {
-      console.log('showing pre-loaded page');
       document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
       return;
     }
     document.getElementById("searchbutton").disabled = true; //search button not clickable
     document.getElementById("searchbox").disabled = true; //search box not enterable
-    document.getElementById("searchinfo").innerHTML = "Searching...";
+    document.getElementById("globalsearchinfo").innerHTML = "Searching...";
     let sortoptions = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"]; // sdel = Seeders:DEscending, then Leechers decending
     let sort = sortoptions[location.search.split("_")[1]]
     let url = 'https://api.freekiwi.org:9400/searchapi/'+query+'/'+sort;
@@ -233,8 +217,9 @@ pre {
         document.getElementById("searchbutton").disabled = false; //search button clickable
         document.getElementById("searchbox").disabled = false; //search box enterable
         if (this.status == 0) {
-          document.getElementById("searchinfo").innerHTML = "No response";
+          document.getElementById("globalsearchinfo").innerHTML = "No response";
         } else if (this.status == 200) {
+          document.getElementById('Search').style.display = 'none'; //hide Search page
           createSearchPage(searchurl);
           document.querySelector('.'+searchurl+' #moreresults').setAttribute('onclick', "moreResults('"+url+"', '25')"); //More Results button url and from
           let array = JSON.parse(this.responseText);
@@ -254,10 +239,10 @@ pre {
             } else {
               document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "Search took "+array["took"]+"ms";
             }
-            document.querySelector('.'+searchurl).style.display = "block"; //unhide the search table
+            //document.querySelector('.'+searchurl).style.display = "block"; //unhide the search table
           }
-        } else { //if status not 200 - show status and message
-          document.getElementById("searchinfo").innerHTML = this.status+" "+this.statusText;
+        } else { //show status and message
+          document.getElementById("globalsearchinfo").innerHTML = this.status+" "+this.statusText;
         }
       }
     }
@@ -283,7 +268,7 @@ pre {
       <tbody id="searchtablebody">
       </tbody>
     </table>
-    <button id="moreresults" type="button"></button>`;
+    <button id="moreresults" type="button" style="display: none;"></button>`;
     document.body.appendChild(div);
   }
   function buildSearchTable(data) { //put one search result into the table
