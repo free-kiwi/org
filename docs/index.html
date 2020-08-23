@@ -60,6 +60,7 @@ table {
   font-size: 0.8em;
   font-family: Verdana, Geneva, sans-serif;
   border-collapse: collapse;
+  max-width: 1000px;
   width: 100%;
 }
 th {
@@ -86,6 +87,7 @@ tr:nth-child(even) {
   padding: 5px;
 }
 #hash {
+  margin: 0 auto;
   max-width: 720px;
   background: #f5f7fa;
   padding: 10px;
@@ -109,7 +111,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.65</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.66</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -529,14 +531,11 @@ pre {
       }
     }
   }
-  function onLoad() {
-    if (location.search=='') {
-      navigate('Home');
-    } else {
-      navigate(decodeURIComponent(location.search.substring(1).split('=')[0]));
-    }
+  if (location.search=='') {
+    navigate('Home');
+  } else {
+    navigate(decodeURIComponent(location.search.substring(1).split('=')[0]));
   }
-  onLoad(); //initial page load
   </script>
 </body>
 </html>
