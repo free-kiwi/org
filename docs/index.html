@@ -84,7 +84,7 @@ tr:nth-child(even) {
   width: 100%;
   padding: 5px;
 }
-#Hash {
+#hash {
   width: 680px;
   background: #f5f7fa;
   padding: 10px;
@@ -230,6 +230,7 @@ pre {
     let div = document.createElement("div");
     div.setAttribute("class", "page "+searchurl);
     div.innerHTML = `
+    <div id="hash">
     <p id="searchinfo"></p>
     <table id="searchtable">
       <thead>
@@ -244,7 +245,8 @@ pre {
       <tbody id="searchtablebody">
       </tbody>
     </table>
-    <button id="moreresults" type="button" style="display: none;"></button>`;
+    <button id="moreresults" type="button" style="display: none;"></button>
+    </div>`;
     document.body.appendChild(div);
   }
   function buildSearchTable(data) { //put one search result into the table
