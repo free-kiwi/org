@@ -108,7 +108,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.59</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.60</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -345,16 +345,16 @@ pre {
               if (array[source]['n']) {numberoffiles = array[source]['n'];}
             }
           }
-          document.querySelector('.'+infohash+' #pagetitle').innerHTML = title;
-          document.querySelector('.'+infohash+' #hashtitle').innerHTML = title;
-          document.querySelector('.'+infohash+' #infohash').innerHTML = infohash;
-          document.querySelector('.'+infohash+' #size').innerHTML = 'Size: '+readableSize(size);
-          document.querySelector('.'+infohash+' #size').setAttribute("title", size+" bytes");
-          document.querySelector('.'+infohash+' #description').innerHTML = description;
-          document.querySelector('.'+infohash+' #numberoffiles').innerHTML = "Files: "+numberoffiles;
-          document.querySelector('.'+infohash+' #filelist').innerHTML = "";
+          document.querySelector('.h'+infohash+' #pagetitle').innerHTML = title;
+          document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
+          document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
+          document.querySelector('.h'+infohash+' #size').innerHTML = 'Size: '+readableSize(size);
+          document.querySelector('.h'+infohash+' #size').setAttribute("title", size+" bytes");
+          document.querySelector('.h'+infohash+' #description').innerHTML = description;
+          document.querySelector('.h'+infohash+' #numberoffiles').innerHTML = "Files: "+numberoffiles;
+          document.querySelector('.h'+infohash+' #filelist').innerHTML = "";
           if (files == '') {
-            document.querySelector('.'+infohash+' #numberoffiles').innerHTML += " (Filelist not available)";
+            document.querySelector('.h'+infohash+' #numberoffiles').innerHTML += " (Filelist not available)";
           } else {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
@@ -366,11 +366,11 @@ pre {
               span.setAttribute("style", "float: right");
               span.setAttribute("title", size+" bytes");
               li.appendChild(span);
-              document.querySelector('.'+infohash+' #filelist').appendChild(li);
+              document.querySelector('.h'+infohash+' #filelist').appendChild(li);
             }
-            document.querySelector('.'+infohash+' #filelist').style.display = "none";
+            document.querySelector('.h'+infohash+' #filelist').style.display = "none";
           }
-          document.querySelector('.'+infohash+' #hashtablebody').innerHTML = ""; //clear the hashtablebody
+          document.querySelector('.h'+infohash+' #hashtablebody').innerHTML = ""; //clear the hashtablebody
           let trackers = ["c", "l", "y", "u", "o"];
           for (tracker of trackers) {
             if (array[tracker]) {
@@ -384,10 +384,10 @@ pre {
               }
             }
           }
-          document.querySelector('.'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
-          document.querySelector('.'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
-          document.querySelector('.'+infohash+' #hashinfo').innerHTML = ""; //remove "Loading..."
-          document.querySelector('.'+infohash).style.display = "block"; //show hash page
+          document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
+          document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
+          document.querySelector('.h'+infohash+' #hashinfo').innerHTML = ""; //remove "Loading..."
+          document.querySelector('.h'+infohash).style.display = "block"; //show hash page
         } else { //if status not 200 - show status and associated text
           document.getElementById("globalhashinfo").innerHTML = this.status+" "+this.statusText;
         }
@@ -399,7 +399,7 @@ pre {
   }
   function createHashPage(infohash) {
     let div = document.createElement("div");
-    div.setAttribute("class", "page "+infohash);
+    div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <p id="hashinfo"></p>
     <h4 id="hashtitle"></h4>
@@ -424,8 +424,8 @@ pre {
       </tbody>
     </table>`;
     document.body.appendChild(div);
-    document.querySelector('.'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
-      let content = document.querySelector('.'+infohash+' #filelist');
+    document.querySelector('.h'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
+      let content = document.querySelector('.h'+infohash+' #filelist');
       if (content.style.display === "block") {
         content.style.display = "none";
       } else {
