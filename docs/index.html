@@ -111,7 +111,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.2</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.3</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -292,8 +292,8 @@ pre {
     navigate('Search');
   }
   function fileType(type) {
-    if (type == 'mp3') {
-      return '&#9834;';
+    if (['mp3','m4b','flac'].includes(type)) {
+      return String.fromCharCode(9834);
     }
     return;
   }
