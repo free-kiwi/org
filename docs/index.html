@@ -173,8 +173,8 @@ pre {
     }
   }
   function search() {
-    let searchurl = encodeURIComponent(location.search.split("=")[1]); //location.search = ?Search=ex ample_4
-    let query = decodeURIComponent(searchurl.split('_')[0]);
+    let searchurl = decodeURIComponent(location.search.split("=")[1]); //location.search = ?Search=ex ample_4
+    let query = searchurl.split('_')[0];
     document.getElementById("searchbox").value = query;
     if (query == '') {
       document.getElementById("globalsearchinfo").innerHTML = "Nothing to search";
