@@ -325,7 +325,7 @@ pre {
     if (document.body.getElementsByClassName('h'+infohash)[0]) {
       document.getElementById("pagetitle").innerHTML = document.querySelector('.h'+infohash+' #hashtitle').innerHTML;
       document.getElementById('Hash').style.display = 'none'; //hide Hash page
-      document.querySelector('.'+infohash).style.display = 'block'; //show the pre-loaded page
+      document.querySelector('.h'+infohash).style.display = 'block'; //show the pre-loaded page
       return;
     }
     xhttp.onreadystatechange = function() {
