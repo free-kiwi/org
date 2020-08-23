@@ -108,7 +108,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.64</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.65</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -373,7 +373,7 @@ pre {
           let trackers = ["c", "l", "y", "u", "o"];
           for (tracker of trackers) {
             if (array[tracker]) {
-              buildTrackerTable(tracker, array[tracker]);
+              buildTrackerTable(tracker, array[tracker], infohash);
               let earliest = Math.min(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
               let latest = Math.max(...Object.keys(array[tracker]));
@@ -432,7 +432,7 @@ pre {
       }
     });
   }
-  function buildTrackerTable(tracker, data) { //build tracker table
+  function buildTrackerTable(tracker, data, infohash) { //build tracker table
     let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "y": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]};
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
     a.setAttribute("href", trackers[tracker][1]);
@@ -458,7 +458,7 @@ pre {
     if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
     td.appendChild(document.createTextNode(data[latest]["d"]))
     tr.appendChild(td);
-    document.getElementById("hashtablebody").appendChild(tr);
+    document.querySelector('.h'+infohash+' #hashtablebody').appendChild(tr);
   }
   function openHash(hash) {
     event.preventDefault();
