@@ -109,7 +109,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.56</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.57</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -216,7 +216,6 @@ pre {
       return;
     }
     document.getElementById("pagetitle").innerHTML = query;
-	console.log(document.getElementsByClassName(searchurl));
     if (document.body.getElementsByClassName(searchurl)[0]) {
       console.log('showing pre-loaded page');
       document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
@@ -323,7 +322,7 @@ pre {
     } else {
       var sort = sortby;
     }
-    history.pushState('Search', null, '?Search='+replace(query)+'&'+sort);
+    history.pushState('Search', null, '?Search='+replace(query)+'_'+sort);
     navigate('Search');
   }
   function moreResults(url,from) {
