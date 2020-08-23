@@ -424,6 +424,14 @@ pre {
       </tbody>
     </table>`;
     document.body.appendChild(div);
+    document.querySelector('.'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
+      let content = document.querySelector('.'+infohash+' #filelist');
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
   }
   function buildTrackerTable(tracker, data) { //build tracker table
     let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "y": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]};
@@ -458,14 +466,6 @@ pre {
     history.pushState('Hash', null, '?Hash='+hash);
     navigate('Hash');
   }
-  document.getElementById("numberoffiles").addEventListener("click", function() { //filelist collapse
-    let content = document.getElementById("filelist");
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
   function replace(string) {
     string = string.replace(/[^ \-"0-9a-z]/gi,' ');
     //replace "'" with ""
