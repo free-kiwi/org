@@ -176,6 +176,7 @@ pre {
     let searchurl = decodeURIComponent(location.search.split("=")[1]); //location.search = ?Search=ex ample_4
     let query = searchurl.split('_')[0];
     searchurl = searchurl.replace(/[ ]/g,'\\ ');
+    console.log(searchurl);
     document.getElementById("searchbox").value = query;
     if (query == '') {
       document.getElementById("globalsearchinfo").innerHTML = "Nothing to search";
