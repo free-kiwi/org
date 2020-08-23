@@ -388,18 +388,16 @@ pre {
               document.querySelector('.h'+infohash+' #filelist').appendChild(li);
             }
           }
-          document.querySelector('.h'+infohash+' #hashtablebody').innerHTML = ""; //clear the hashtablebody
           let trackers = ["c", "l", "y", "u", "o"];
           for (tracker of trackers) {
             if (array[tracker]) {
-              buildTrackerTable(tracker, array[tracker], infohash);
-              let earliest = Math.min(...Object.keys(array[tracker]));
+              let earliest = Math.min(...Object.keys(array[tracker])), latest = Math.max(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
-              let latest = Math.max(...Object.keys(array[tracker]));
               if (latest > Date.now()/1000-999999) {
                 if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
                 if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
               }
+              buildTrackerTable(tracker, array[tracker], infohash);
             }
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
@@ -439,6 +437,7 @@ pre {
       </thead>
       <tbody id="hashtablebody">
       </tbody>
+      <canvas id="trackerCanvas" width="500" height="100" style="border:1px solid #d3d3d3;"></canvas>
     </table>
     </div>`;
     document.body.appendChild(div);
@@ -453,7 +452,7 @@ pre {
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
     let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
-    let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
+    let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span"), latest = Math.max(...Object.keys(data)), earliest = Math.min(...Object.keys(data));
     td.setAttribute("id", "hashresulttitle");
     td.innerHTML = trackers[tracker];
     tr.appendChild(td);
@@ -476,6 +475,14 @@ pre {
     td.appendChild(document.createTextNode(data[latest]["d"]))
     tr.appendChild(td);
     document.querySelector('.h'+infohash+' #hashtablebody').appendChild(tr);
+    let canvas = document.querySelector('.h'+infohash+' #trackerCanvas');
+    for (let key in data) {
+      console.log(key);
+      console.log(data[key]);
+      let dif = latest-earliest;
+      let x = ((key-earliest)/(latest-earliest))*500;
+      let y = data[key]['s'];
+      canvas.lineTo(x,y);
   }
   function openHash(hash) {
     event.preventDefault();
