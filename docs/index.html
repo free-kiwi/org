@@ -108,7 +108,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.58</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.59</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -129,30 +129,7 @@ pre {
     <p id="globalsearchinfo"></p>
   </div>
   <div id='Hash' class='page'>
-    <p id="hashinfo"></p>
-    <div id='hash'>
-    <h4 id="hashtitle"></h4>
-    <p id="infohash"></p>
-    <p id="trackerinfo"></p>
-    <p id="uploaded"></p>
-    <p id="size"></p>
-    <p><span id="numberoffiles"></span></p>
-    <ol id="filelist"></ol>
-    <pre id="description"></pre>
-    <table id="hashtable">
-      <thead>
-        <tr>
-          <th>Tracker</th>
-          <th>Updated</th>
-          <th>Seeders</th>
-          <th>Leechers</th>
-          <th>Downloads</th>
-        </tr>
-      </thead>
-      <tbody id="hashtablebody">
-      </tbody>
-    </table>
-    </div>
+    <p id="globalhashinfo"></p>
   </div>
 
   <script type="text/javascript">
@@ -229,7 +206,7 @@ pre {
             if (array["hits"]["hits"].length == 26) {
               array["hits"]["hits"].pop(); //remove the 26th result
               document.querySelector('.'+searchurl+' #moreresults').innerHTML = "More Results";
-              document.querySelector('.'+searchurl+' #moreresults').style.display = "block"; //unhide the More Results button
+              document.querySelector('.'+searchurl+' #moreresults').style.display = "block"; //show More Results button
               document.querySelector('.'+searchurl+' #moreresults').disabled = false; //clickable
             }
             document.querySelector('.'+searchurl+' #searchtablebody').innerHTML = ""; //clear the table body
@@ -239,7 +216,7 @@ pre {
             } else {
               document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "Search took "+array["took"]+"ms";
             }
-            //document.querySelector('.'+searchurl).style.display = "block"; //unhide the search table
+            document.querySelector('.'+searchurl).style.display = "block"; //show the page
           }
         } else { //show status and message
           document.getElementById("globalsearchinfo").innerHTML = this.status+" "+this.statusText;
@@ -342,14 +319,20 @@ pre {
     xhttp.send();
   }
   function hash() {
-    document.getElementById("hash").style.display = "none";
-    document.getElementById("hashinfo").innerHTML = "Loading...";
+    //document.getElementById("hash").style.display = "none";
+    document.getElementById("globalhashinfo").innerHTML = "Loading...";
     let infohash = location.search.substring(1).split("=")[1].toUpperCase(), xhttp = new XMLHttpRequest();
+    if (document.body.getElementsByClassName(infohash)[0]) {
+      document.querySelector('.'+infohash).style.display = 'block'; //show the pre-loaded page
+      return;
+    }
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
         if (this.status == 0) {
-          document.getElementById("hashinfo").innerHTML = "No response";
+          document.getElementById("globalhashinfo").innerHTML = "No response";
         } else if (this.status == 200) {
+          document.getElementById('Hash').style.display = 'none'; //hide Hash page
+          createHashPage(infohash)
           let sources = ["b", "t", "m", "p"], array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           for (source of sources) {
@@ -362,16 +345,16 @@ pre {
               if (array[source]['n']) {numberoffiles = array[source]['n'];}
             }
           }
-          document.getElementById("pagetitle").innerHTML = title;
-          document.getElementById("hashtitle").innerHTML = title;
-          document.getElementById("infohash").innerHTML = infohash;
-          document.getElementById("size").innerHTML = 'Size: '+readableSize(size);
-          document.getElementById("size").setAttribute("title", size+" bytes");
-          document.getElementById("description").innerHTML = description;
-          document.getElementById("numberoffiles").innerHTML = "Files: "+numberoffiles;
-          document.getElementById("filelist").innerHTML = "";
+          document.querySelector('.'+infohash+' #pagetitle').innerHTML = title;
+          document.querySelector('.'+infohash+' #hashtitle').innerHTML = title;
+          document.querySelector('.'+infohash+' #infohash').innerHTML = infohash;
+          document.querySelector('.'+infohash+' #size').innerHTML = 'Size: '+readableSize(size);
+          document.querySelector('.'+infohash+' #size').setAttribute("title", size+" bytes");
+          document.querySelector('.'+infohash+' #description').innerHTML = description;
+          document.querySelector('.'+infohash+' #numberoffiles').innerHTML = "Files: "+numberoffiles;
+          document.querySelector('.'+infohash+' #filelist').innerHTML = "";
           if (files == '') {
-            document.getElementById("numberoffiles").innerHTML += " (Filelist not available)";
+            document.querySelector('.'+infohash+' #numberoffiles').innerHTML += " (Filelist not available)";
           } else {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
@@ -383,11 +366,11 @@ pre {
               span.setAttribute("style", "float: right");
               span.setAttribute("title", size+" bytes");
               li.appendChild(span);
-              document.getElementById("filelist").appendChild(li);
+              document.querySelector('.'+infohash+' #filelist').appendChild(li);
             }
-            document.getElementById("filelist").style.display = "none";
+            document.querySelector('.'+infohash+' #filelist').style.display = "none";
           }
-          document.getElementById("hashtablebody").innerHTML = ""; //clear the hashtablebody
+          document.querySelector('.'+infohash+' #hashtablebody').innerHTML = ""; //clear the hashtablebody
           let trackers = ["c", "l", "y", "u", "o"];
           for (tracker of trackers) {
             if (array[tracker]) {
@@ -401,18 +384,46 @@ pre {
               }
             }
           }
-          document.getElementById("uploaded").innerHTML = "Uploaded: "+uploadedDate(uploaded);
-          document.getElementById("trackerinfo").innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
-          document.getElementById("hashinfo").innerHTML = ""; //remove "Loading..."
-          document.getElementById("hash").style.display = "block"; //unhide hash
+          document.querySelector('.'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
+          document.querySelector('.'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
+          document.querySelector('.'+infohash+' #hashinfo').innerHTML = ""; //remove "Loading..."
+          document.querySelector('.'+infohash).style.display = "block"; //show hash page
         } else { //if status not 200 - show status and associated text
-          document.getElementById("hashinfo").innerHTML = this.status+" "+this.statusText;
+          document.getElementById("globalhashinfo").innerHTML = this.status+" "+this.statusText;
         }
       }
     }
     xhttp.timeout=9000;
     xhttp.open("GET", 'https://api.freekiwi.org:9400/hashapi/'+infohash, true);
     xhttp.send();
+  }
+  function createHashPage(infohash) {
+    let div = document.createElement("div");
+    div.setAttribute("class", "page "+infohash);
+    div.innerHTML = `
+    <p id="hashinfo"></p>
+    <h4 id="hashtitle"></h4>
+    <p id="infohash"></p>
+    <p id="trackerinfo"></p>
+    <p id="uploaded"></p>
+    <p id="size"></p>
+    <p><span id="numberoffiles"></span></p>
+    <ol id="filelist"></ol>
+    <pre id="description"></pre>
+    <table id="hashtable">
+      <thead>
+        <tr>
+          <th>Tracker</th>
+          <th>Updated</th>
+          <th>Seeders</th>
+          <th>Leechers</th>
+          <th>Downloads</th>
+        </tr>
+      </thead>
+      <tbody id="hashtablebody">
+      </tbody>
+    </table>`;
+    document.body.appendChild(div);
   }
   function buildTrackerTable(tracker, data) { //build tracker table
     let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "y": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]};
