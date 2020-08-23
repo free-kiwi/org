@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.36</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.37</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -437,7 +437,7 @@ pre {
       </thead>
       <tbody id="hashtablebody">
       </tbody>
-      <tbody id="detailedhashtablebody">
+      <tbody id="detailedhashtablebody" style="display: none;">
       </tbody>
     </table>
     </div>`;
@@ -453,34 +453,33 @@ pre {
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
     let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
-    let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span"), latest = Math.max(...Object.keys(data)), earliest = Math.min(...Object.keys(data));
-    td.setAttribute("id", "hashresulttitle");
-    td.innerHTML = trackers[tracker];
-    tr.appendChild(td);
-    td = document.createElement("td");
-    span.setAttribute("title", uploadedDate(latest));
-    span.appendChild(document.createTextNode(getAge(latest)+" ago"));
-    td.appendChild(span);
-    tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
-    td.appendChild(document.createTextNode(data[latest]["s"]));
-    tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
-    td.appendChild(document.createTextNode(data[latest]["l"]));
-    tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
-    if (typeof data[latest]["d"] == 'undefined') {data[latest]["d"] = '';}
-    td.appendChild(document.createTextNode(data[latest]["d"]))
-    tr.appendChild(td);
-    document.querySelector('.h'+infohash+' #hashtablebody').appendChild(tr);
-	console.log(data)
+    let latest = Math.max(...Object.keys(data));
     for (let key in data) {
-      console.log(key);
-      console.log(data[key])
-	}
+      let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span");
+      td.setAttribute("id", "hashresulttitle");
+      td.innerHTML = trackers[tracker];
+      tr.appendChild(td);
+      td = document.createElement("td");
+      span.setAttribute("title", uploadedDate(key));
+      span.appendChild(document.createTextNode(getAge(key)+" ago"));
+      td.appendChild(span);
+      tr.appendChild(td);
+      td = document.createElement("td");
+      td.setAttribute("style", "text-align: right");
+      td.appendChild(document.createTextNode(data[key]["s"]));
+      tr.appendChild(td);
+      td = document.createElement("td");
+      td.setAttribute("style", "text-align: right");
+      td.appendChild(document.createTextNode(data[key]["l"]));
+      tr.appendChild(td);
+      td = document.createElement("td");
+      td.setAttribute("style", "text-align: right");
+      if (typeof data[key]["d"] == 'undefined') {data[key]["d"] = '';}
+      td.appendChild(document.createTextNode(data[key]["d"]))
+      tr.appendChild(td);
+      document.querySelector('.h'+infohash+' #detailedhashtablebody').appendChild(tr);
+      if (key == latest) {document.querySelector('.h'+infohash+' #hashtablebody').appendChild(tr);}
+    }
   }
   function openHash(hash) {
     event.preventDefault();
