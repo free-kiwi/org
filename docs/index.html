@@ -454,12 +454,10 @@ pre {
     });
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
-    let trackers = {"c": ["udp://tracker.coppersurfer.tk:6969/announce", "http://tracker.coppersurfer.tk/"], "l": ["udp://tracker.leechers-paradise.org:6969/announce", "http://tracker.leechers-paradise.org/"], "y": ["udp://tracker.cyberia.is:6969/announce", "http://tracker.cyberia.is/"], "u": ["PublicBT",], "o": ["OpenBitTorrent",]};
+    let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">udp://tracker.coppersurfer.tk:6969/announce</a>', "l": '<a href="http://tracker.leechers-paradise.org/">udp://tracker.leechers-paradise.org:6969/announce</a>', "y": '<a href="http://tracker.cyberia.is/">udp://tracker.cyberia.is:6969/announce</a>', "u": "PublicBT", "o": "OpenBitTorrent"};
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
-    a.setAttribute("href", trackers[tracker][1]);
-    a.appendChild(document.createTextNode(trackers[tracker][0]));
     td.setAttribute("id", "hashresulttitle");
-    td.appendChild(a);
+    td.innerHTML = trackers[tracker];
     tr.appendChild(td);
     td = document.createElement("td");
     span.setAttribute("title", uploadedDate(latest));
