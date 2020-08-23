@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.34</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.35</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -437,7 +437,6 @@ pre {
       </thead>
       <tbody id="hashtablebody">
       </tbody>
-      <canvas id="trackerCanvas" width="500" height="100" style="border:1px solid #d3d3d3;"></canvas>
     </table>
     </div>`;
     document.body.appendChild(div);
@@ -475,14 +474,6 @@ pre {
     td.appendChild(document.createTextNode(data[latest]["d"]))
     tr.appendChild(td);
     document.querySelector('.h'+infohash+' #hashtablebody').appendChild(tr);
-    let canvas = document.querySelector('.h'+infohash+' #trackerCanvas');
-    for (let key in data) {
-      console.log(key);
-      console.log(data[key]);
-      let dif = latest-earliest;
-      let x = ((key-earliest)/(latest-earliest))*500;
-      let y = data[key]['s'];
-      canvas.lineTo(x,y);
   }
   function openHash(hash) {
     event.preventDefault();
