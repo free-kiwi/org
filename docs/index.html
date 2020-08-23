@@ -235,7 +235,7 @@ pre {
     <table id="searchtable">
       <thead>
         <tr>
-          <th>Type</th>
+          <th></th>
           <th>Name</th>
           <th><a onclick="sort(0)">Age</a></th>
           <th><a onclick="sort(2)">Size</a></th>
@@ -296,7 +296,7 @@ pre {
       return String.fromCharCode(127916);
     } else if (['mp3','m4b','flac'].includes(type)) {
       return String.fromCharCode(9834);
-    } else if (['epub','pdf','azw3','mobi'].includes(type) {
+    } else if (['epub','pdf','azw3','mobi'].includes(type)) {
       return String.fromCharCode(128221);
     }
     return type;
