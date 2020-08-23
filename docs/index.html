@@ -217,11 +217,13 @@ pre {
     }
     document.getElementById("pagetitle").innerHTML = query;
 	console.log(document.getElementsByClassName(searchurl));
-    if (document.body.getElementsByClassName(searchurl)) {
-      console.log('showing pre-loaded page');
-      document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
-      return;
-    }
+	console.log(document.getElementsByClassName(searchurl).classList);
+	console.log(document.getElementsByClassName(searchurl)[0]);
+    //if (document.body.getElementsByClassName(searchurl)) {
+    //  console.log('showing pre-loaded page');
+    //  document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
+    //  return;
+    //}
     document.getElementById("searchbutton").disabled = true; //search button not clickable
     document.getElementById("searchbox").disabled = true; //search box not enterable
     document.getElementById("searchinfo").innerHTML = "Searching...";
