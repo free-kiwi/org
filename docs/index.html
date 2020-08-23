@@ -111,7 +111,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.7</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.8</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -179,7 +179,7 @@ pre {
       return;
     }
     document.getElementById("pagetitle").innerHTML = query+' - Title';
-    if (document.body.getElementsByClassName(searchurl)[0]) {
+    if (document.body.getElementsByClassName('s'+searchurl)[0]) {
       document.getElementById('Search').style.display = 'none'; //hide Search page
       document.querySelector('.s'+searchurl).style.display = 'block'; //show the pre-loaded page
       return;
@@ -240,7 +240,7 @@ pre {
           <th><a onclick="sort(0)">Age</a></th>
           <th><a onclick="sort(2)">Size</a></th>
           <th><a onclick="sort(4)">Seeds</a></th>
-          <th><a onclick="sort(6)">Leeches</a>)</th>
+          <th><a onclick="sort(6)">Leeches</a></th>
         </tr>
       </thead>
       <tbody id="searchtablebody">
@@ -252,6 +252,7 @@ pre {
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
     td.appendChild(document.createTextNode(fileType(data['_source']['f'])));
+    td.setAttribute("style", "text-align: right");
     tr.appendChild(td);
     td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
