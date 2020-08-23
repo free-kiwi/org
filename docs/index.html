@@ -292,7 +292,9 @@ pre {
     navigate('Search');
   }
   function fileType(type) {
-    if (['MP4','mkv','avi','m4v'].includes(type)) {
+    if (typeof type == 'undefined') {
+      return '?';
+    } else if (['MP4','mkv','avi','m4v'].includes(type)) {
       return String.fromCharCode(127916);
     } else if (['mp3','m4b','flac'].includes(type)) {
       return String.fromCharCode(9834);
