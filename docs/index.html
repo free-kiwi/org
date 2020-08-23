@@ -233,7 +233,7 @@ pre {
   }
   function createSearchPage(searchurl) {
     let div = document.createElement("div");
-    div.setAttribute("class", "page s"+searchurl.replace(/[\\\\ ]/g,'\\ '));
+    div.setAttribute("class", "page s"+searchurl.replace(/[\\\\ ]/,'\\ '));
     div.innerHTML = `
     <p id="searchinfo"></p>
     <table id="searchtable">
