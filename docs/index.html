@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <link rel="preconnect" href="https://api.freekiwi.org:9400/">
-<link rel="dns-prefetch" href="https://api.freekiwi.org:9400/">
 <meta charset="utf-8"/>
 <title id="pagetitle"></title>
 <style>
@@ -208,7 +207,7 @@ pre {
               array["hits"]["hits"].pop(); //remove the 26th result
               document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "More Results";
               document.querySelector('.s'+searchurl+' #moreresults').style.display = "block"; //show More Results button
-              document.querySelector('.'+searchurl+' #moreresults').disabled = false; //clickable
+              document.querySelector('.s'+searchurl+' #moreresults').disabled = false; //clickable
             }
             document.querySelector('.'+searchurl+' #searchtablebody').innerHTML = ""; //clear the table body
             array["hits"]["hits"].forEach(buildSearchTable,searchurl); //add each result to the table individually
