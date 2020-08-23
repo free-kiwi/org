@@ -296,11 +296,11 @@ pre {
     if (typeof type == 'undefined') {return '';}
     type = type.toLowerCase();
     if (['mp4','mkv','avi','m4v'].includes(type)) {
-      return '\u1F3AC '+type;
+      return '\u{1F3AC} '+type;
     } else if (['mp3','m4b','flac'].includes(type)) {
-      return String.fromCharCode(9834)+' '+type;
+      return '\u266A '+type;
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
-      return String.fromCharCode(128221)+' '+type;
+      return '\u{1F4DD} '+type;
     }
     return type;
   }
