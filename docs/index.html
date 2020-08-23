@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.25</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.27</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -233,7 +233,7 @@ pre {
   }
   function createSearchPage(searchurl) {
     let div = document.createElement("div");
-    div.setAttribute("class", "page s"+searchurl.replace(/[_]/,' '));
+    div.setAttribute("class", "page s"+searchurl);
     div.innerHTML = `
     <p id="searchinfo"></p>
     <table id="searchtable">
@@ -311,7 +311,7 @@ pre {
   function moreResults(searchurl,from) {
     document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
     document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "Loading...";
-    let xhttp = new XMLHttpRequest(), query = searchurl.split('_')[0], sort = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"][location.search.split("_")[1]];
+    let xhttp = new XMLHttpRequest(), query = searchurl.split('_')[:-1], sort = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"][location.search.split("_")[-1]];
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
         if (this.status == 200) {
