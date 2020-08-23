@@ -111,7 +111,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.8</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.9</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -293,13 +293,14 @@ pre {
     navigate('Search');
   }
   function fileType(type) {
+    type = type.toLowerCase();
     if (typeof type == 'undefined') {
       return '';
-    } else if (['MP4','MKV','AVI','M4V'].includes(type.toUpperCase())) {
-      return String.fromCharCode(127916)+' '+type;
-    } else if (['MP3','M4B','FLAC'].includes(type.toUpperCase())) {
+    } else if (['mp4','mkv','avi','m4v'].includes(type)) {
+      return '\u1F3AC '+type;
+    } else if (['mp3','m4b','flac'].includes(type)) {
       return String.fromCharCode(9834)+' '+type;
-    } else if (['EPUB','PDF','AZW3','MOBI'].includes(type.toUpperCase())) {
+    } else if (['epub','pdf','azw3','mobi'].includes(type)) {
       return String.fromCharCode(128221)+' '+type;
     }
     return type;
