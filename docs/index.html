@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.33</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.34</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -372,7 +372,6 @@ pre {
           document.querySelector('.h'+infohash+' #size').setAttribute("title", size+" bytes");
           document.querySelector('.h'+infohash+' #description').innerHTML = description;
           document.querySelector('.h'+infohash+' #numberoffiles').innerHTML = "Files: "+numberoffiles;
-          document.querySelector('.h'+infohash+' #filelist').innerHTML = "";
           if (files == '') {
             document.querySelector('.h'+infohash+' #numberoffiles').innerHTML += " (Filelist not available)";
           } else {
@@ -388,7 +387,6 @@ pre {
               li.appendChild(span);
               document.querySelector('.h'+infohash+' #filelist').appendChild(li);
             }
-            document.querySelector('.h'+infohash+' #filelist').style.display = "none";
           }
           document.querySelector('.h'+infohash+' #hashtablebody').innerHTML = ""; //clear the hashtablebody
           let trackers = ["c", "l", "y", "u", "o"];
@@ -427,7 +425,7 @@ pre {
     <p id="uploaded"></p>
     <p id="size"></p>
     <p><span id="numberoffiles"></span></p>
-    <ol id="filelist"></ol>
+    <ol id="filelist" style="display: none;"></ol>
     <pre id="description"></pre>
     <table id="hashtable">
       <thead>
@@ -446,7 +444,7 @@ pre {
     document.body.appendChild(div);
     document.querySelector('.h'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
       let content = document.querySelector('.h'+infohash+' #filelist');
-      if (content.style.display === "block") {
+      if (content.style.display == "block") {
         content.style.display = "none";
       } else {
         content.style.display = "block";
