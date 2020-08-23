@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.32</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.33</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -454,8 +454,8 @@ pre {
     });
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
-    let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">udp://tracker.coppersurfer.tk:6969/announce</a>', "l": '<a href="http://tracker.leechers-paradise.org/">udp://tracker.leechers-paradise.org:6969/announce</a>', "y": '<a href="http://tracker.cyberia.is/">udp://tracker.cyberia.is:6969/announce</a>', "u": "PublicBT", "o": "OpenBitTorrent"};
-    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
+    let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
+    let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span"), latest = Math.max(...Object.keys(data));
     td.setAttribute("id", "hashresulttitle");
     td.innerHTML = trackers[tracker];
     tr.appendChild(td);
@@ -492,28 +492,18 @@ pre {
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
     if (typeof unixtime != 'number') {return 'unknown';}
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let date = new Date(unixtime*1000);
-    let HH = date.getUTCHours();
+    let date = new Date(unixtime*1000), HH = date.getUTCHours(), mm = date.getUTCMinutes();
     if (HH < 10) {
       HH = '0'+HH;
     }
-    let mm = date.getUTCMinutes();
     if (mm < 10) {
       mm = '0'+mm;
     }
-    let uploaded = HH+':'+mm;
-    uploaded += ' '+date.getUTCDate();
-    uploaded += ' '+months[date.getUTCMonth()];
-    uploaded += ' '+date.getUTCFullYear();
-    return uploaded;
+    return HH+':'+mm+' '+date.getUTCDate()+' '+months[date.getUTCMonth()]+' '+date.getUTCFullYear();
   }
   function getAge(unixtime) { //convert unixtime to age
     if (typeof unixtime != 'number') {return 'unknown';}
-    let date = new Date(unixtime*1000);
-    let yyyy = new Date().getUTCFullYear() - date.getUTCFullYear();
-    let MM = new Date().getUTCMonth() - date.getUTCMonth();
-    let dd = new Date().getUTCDate() - date.getUTCDate();
-    let HH = new Date().getUTCHours() - date.getUTCHours();
+    let date = new Date(unixtime*1000), yyyy = new Date().getUTCFullYear() - date.getUTCFullYear(), MM = new Date().getUTCMonth() - date.getUTCMonth(), dd = new Date().getUTCDate() - date.getUTCDate(), HH = new Date().getUTCHours() - date.getUTCHours();
     if (HH < 0) {
       dd--;
       HH += 24;
@@ -541,9 +531,9 @@ pre {
   function readableSize(size) { //convert bits to human readable form
     if (typeof size != 'number') {return 'unknown';}
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
-    for (step = 1; step < 7; step++) {
-      if (size < 1024**step) {
-        return(Number((size/1024**(step-1)).toPrecision(4)).toString()+" "+sizes[step-1]);
+    for (step = 0; step < 6; step++) {
+      if (size < 1024**(step+1)) {
+        return(Number((size/1024**step).toPrecision(4)).toString()+" "+sizes[step]);
       }
     }
   }
