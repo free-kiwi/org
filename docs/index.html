@@ -109,7 +109,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.54</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.55</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -217,11 +217,11 @@ pre {
     }
     document.getElementById("pagetitle").innerHTML = query;
 	console.log(document.getElementsByClassName(searchurl));
-    //if (document.body.getElementsByClassName(searchurl).classList.contains(searchurl)) {
-    //  console.log('showing pre-loaded page');
-    //  document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
-    //  return;
-    //}
+    if (document.body.getElementsByClassName(searchurl)) {
+      console.log('showing pre-loaded page');
+      document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
+      return;
+    }
     document.getElementById("searchbutton").disabled = true; //search button not clickable
     document.getElementById("searchbox").disabled = true; //search box not enterable
     document.getElementById("searchinfo").innerHTML = "Searching...";
