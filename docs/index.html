@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.23</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.24</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -233,7 +233,7 @@ pre {
   }
   function createSearchPage(searchurl) {
     let div = document.createElement("div");
-    div.setAttribute("class", "page s"+searchurl.replace(/[\\]/g,''));
+    div.setAttribute("class", "page s"+searchurl.replace(/[\\\\ ]/g,'\\ '));
     div.innerHTML = `
     <p id="searchinfo"></p>
     <table id="searchtable">
