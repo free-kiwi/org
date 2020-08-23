@@ -111,7 +111,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.00</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.1</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -251,7 +251,7 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
-    td.appendChild(document.createTextNode(data['_source']['f']));
+    td.appendChild(document.createTextNode(fileType(data['_source']['f'])));
     tr.appendChild(td);
     td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
@@ -290,6 +290,12 @@ pre {
     let query = decodeURIComponent(location.search.split("=")[1].split('_')[0]);
     history.pushState('Search', null, '?Search='+replace(query)+'_'+sort);
     navigate('Search');
+  }
+  function fileType(type) {
+    if (type == 'mp3') {
+      return '';
+    }
+    return;
   }
   function moreResults(searchurl,from) {
     document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
