@@ -111,7 +111,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.9</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.10</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -293,10 +293,9 @@ pre {
     navigate('Search');
   }
   function fileType(type) {
+    if (typeof type == 'undefined') {return '';}
     type = type.toLowerCase();
-    if (typeof type == 'undefined') {
-      return '';
-    } else if (['mp4','mkv','avi','m4v'].includes(type)) {
+    if (['mp4','mkv','avi','m4v'].includes(type)) {
       return '\u1F3AC '+type;
     } else if (['mp3','m4b','flac'].includes(type)) {
       return String.fromCharCode(9834)+' '+type;
