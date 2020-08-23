@@ -216,8 +216,8 @@ pre {
       return;
     }
     document.getElementById("pagetitle").innerHTML = query;
-	console.log(body.classList);
-    if (body.classList.contains(searchurl)) {
+	console.log(document.getElementsByClassName(searchurl));
+    if (document.body.getElementsByClassName(searchurl).classList.contains(searchurl)) {
       console.log('showing pre-loaded page');
       document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
       return;
