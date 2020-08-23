@@ -313,7 +313,7 @@ pre {
     td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
-    document.getElementsByClassName(searchurl).getElementById("searchtablebody").appendChild(tr);
+    document.querySelector('.'+searchurl+' #searchtablebody').appendChild(tr);
   }
   function sort(sortby) {
     let query = decodeURIComponent(location.search.split("=")[1].split('&')[0]);
