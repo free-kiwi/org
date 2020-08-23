@@ -286,7 +286,7 @@ pre {
     <button id="moreresults" type="button"></button>`;
     document.body.appendChild(div);
   }
-  function buildSearchTable(data, searchurl) { //put one search result into the table
+  function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
     a.setAttribute("href", "?Hash="+data["_id"]);
@@ -313,7 +313,7 @@ pre {
     td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
-    document.querySelector('.'+searchurl+' #searchtablebody').appendChild(tr);
+    document.querySelector('.'+this+' #searchtablebody').appendChild(tr);
   }
   function sort(sortby) {
     let query = decodeURIComponent(location.search.split("=")[1].split('&')[0]);
