@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="preconnect" href="https://api.freekiwi.org:9400/" crossorigin>
+<link rel="dns-prefetch" href="https://api.freekiwi.org:9400/">
 <meta charset="utf-8"/>
 <title id="pagetitle"></title>
 <style>
@@ -111,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.71</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.0.72</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -178,10 +179,10 @@ pre {
       document.getElementById("globalsearchinfo").innerHTML = "Nothing to search";
       return;
     }
-    document.getElementById("pagetitle").innerHTML = query;
+    document.getElementById("pagetitle").innerHTML = query+' - Title';
     if (document.body.getElementsByClassName(searchurl)[0]) {
       document.getElementById('Search').style.display = 'none'; //hide Search page
-      document.querySelector('.'+searchurl).style.display = 'block'; //show the pre-loaded page
+      document.querySelector('.s'+searchurl).style.display = 'block'; //show the pre-loaded page
       return;
     }
     document.getElementById("searchbutton").disabled = true; //search button not clickable
@@ -198,25 +199,25 @@ pre {
         } else if (this.status == 200) {
           document.getElementById('Search').style.display = 'none'; //hide Search page
           createSearchPage(searchurl);
-          document.querySelector('.'+searchurl+' #moreresults').setAttribute('onclick', "moreResults('"+searchurl+"', '25')"); //More Results button url and from
+          document.querySelector('.s'+searchurl+' #moreresults').setAttribute('onclick', "moreResults('"+searchurl+"', '25')"); //More Results button url and from
           let array = JSON.parse(this.responseText);
           if (array["hits"]["hits"] == "") {
-            document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "No results in "+array["took"]+"ms";
+            document.querySelector('.s'+searchurl+' #searchinfo').innerHTML = "No results in "+array["took"]+"ms";
           } else {
             if (array["hits"]["hits"].length == 26) {
               array["hits"]["hits"].pop(); //remove the 26th result
-              document.querySelector('.'+searchurl+' #moreresults').innerHTML = "More Results";
-              document.querySelector('.'+searchurl+' #moreresults').style.display = "block"; //show More Results button
+              document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "More Results";
+              document.querySelector('.s'+searchurl+' #moreresults').style.display = "block"; //show More Results button
               document.querySelector('.'+searchurl+' #moreresults').disabled = false; //clickable
             }
             document.querySelector('.'+searchurl+' #searchtablebody').innerHTML = ""; //clear the table body
             array["hits"]["hits"].forEach(buildSearchTable,searchurl); //add each result to the table individually
             if (array["timed_out"] == "true") {
-              document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
+              document.querySelector('.s'+searchurl+' #searchinfo').innerHTML = "TIMED OUT in "+array["took"]+"ms (Showing partial results)";
             } else {
-              document.querySelector('.'+searchurl+' #searchinfo').innerHTML = "Search took "+array["took"]+"ms";
+              document.querySelector('.s'+searchurl+' #searchinfo').innerHTML = "Search took "+array["took"]+"ms";
             }
-            document.querySelector('.'+searchurl).style.display = "block"; //show the page
+            document.querySelector('.s'+searchurl).style.display = "block"; //show the page
           }
         } else { //show status and message
           document.getElementById("globalsearchinfo").innerHTML = this.status+" "+this.statusText;
@@ -229,7 +230,7 @@ pre {
   }
   function createSearchPage(searchurl) {
     let div = document.createElement("div");
-    div.setAttribute("class", "page "+searchurl);
+    div.setAttribute("class", "page s"+searchurl);
     div.innerHTML = `
     <p id="searchinfo"></p>
     <table id="searchtable">
@@ -275,7 +276,7 @@ pre {
     td.setAttribute("style", "text-align: right");
     td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
-    document.querySelector('.'+this+' #searchtablebody').appendChild(tr);
+    document.querySelector('.s'+this+' #searchtablebody').appendChild(tr);
   }
   function sort(sortby) {
     if (Number(location.search.split("=")[1].split('_')[1]) == sortby) { //if already sorted, reverse
@@ -288,8 +289,8 @@ pre {
     navigate('Search');
   }
   function moreResults(searchurl,from) {
-    document.querySelector('.'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
-    document.querySelector('.'+searchurl+' #moreresults').innerHTML = "Loading...";
+    document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
+    document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "Loading...";
     let xhttp = new XMLHttpRequest(), query = searchurl.split('_')[0], sort = ["udes", "uas", "bdes", "bas", "sdel", "sal", "ldes", "las"][location.search.split("_")[1]];
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
@@ -297,19 +298,19 @@ pre {
           let array = JSON.parse(this.responseText);
           if (array["hits"]["hits"].length == 26) {
             array["hits"]["hits"].pop(); //remove the 26th result
-            document.querySelector('.'+searchurl+' #moreresults').innerHTML = "More Results"; //rename
-            document.querySelector('.'+searchurl+' #moreresults').setAttribute('onclick', "moreResults('"+searchurl+"', '"+(Number(from)+25).toString()+"')");
-            document.querySelector('.'+searchurl+' #moreresults').disabled = false; //button can be clicked again
+            document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "More Results"; //rename
+            document.querySelector('.s'+searchurl+' #moreresults').setAttribute('onclick', "moreResults('"+searchurl+"', '"+(Number(from)+25).toString()+"')");
+            document.querySelector('.s'+searchurl+' #moreresults').disabled = false; //button can be clicked again
           } else {
-            document.querySelector('.'+searchurl+' #moreresults').style.display = "none"; //hide Loading...
+            document.querySelector('.s'+searchurl+' #moreresults').style.display = "none"; //hide Loading...
           }
           array["hits"]["hits"].forEach(buildSearchTable, searchurl);
         } else {
-          document.querySelector('.'+searchurl+' #moreresults').disabled = false;
+          document.querySelector('.s'+searchurl+' #moreresults').disabled = false;
           if (this.status == 0) {
-            document.querySelector('.'+searchurl+' #moreresults').innerHTML = "Try again (No response)";
+            document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "Try again (No response)";
           } else {
-          document.querySelector('.'+searchurl+' #moreresults').innerHTML = "Try again ("+this.status+" "+this.statusText+")";
+          document.querySelector('.s'+searchurl+' #moreresults').innerHTML = "Try again ("+this.status+" "+this.statusText+")";
           }
         }
       }
@@ -322,7 +323,7 @@ pre {
     document.getElementById("globalhashinfo").innerHTML = "Loading...";
     let infohash = location.search.substring(1).split("=")[1].toUpperCase(), xhttp = new XMLHttpRequest();
     if (document.body.getElementsByClassName('h'+infohash)[0]) {
-      document.getElementById("pagetitle").innerHTML = document.querySelector('.h'+infohash+' #hashtitle').innerHTML;
+      document.getElementById("pagetitle").innerHTML = document.querySelector('.h'+infohash+' #hashtitle').innerHTML+' - Title';
       document.getElementById('Hash').style.display = 'none'; //hide Hash page
       document.querySelector('.h'+infohash).style.display = 'block'; //show the pre-loaded page
       return;
@@ -346,7 +347,7 @@ pre {
               if (array[source]['n']) {numberoffiles = array[source]['n'];}
             }
           }
-          document.getElementById("pagetitle").innerHTML = title;
+          document.getElementById("pagetitle").innerHTML = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
           document.querySelector('.h'+infohash+' #size').innerHTML = 'Size: '+readableSize(size);
