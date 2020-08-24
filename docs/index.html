@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.48</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.49</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -274,11 +274,11 @@ pre {
     td.appendChild(span);
     tr.appendChild(td);
     td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
+    td.setAttribute("style", "text-align: right;");
     td.appendChild(document.createTextNode(data["_source"]["s"]));
     tr.appendChild(td);
     td = document.createElement("td");
-    td.setAttribute("style", "text-align: right");
+    td.setAttribute("style", "text-align: right;");
     td.appendChild(document.createTextNode(data["_source"]["l"]));
     tr.appendChild(td);
     document.querySelector('.s'+this+' #searchtablebody').appendChild(tr);
@@ -297,11 +297,11 @@ pre {
     if (typeof type == 'undefined') {return '';}
     type = type.toLowerCase();
     if (['mp4','mkv','avi','m4v'].includes(type)) {
-      return '\u{1F3A5} <span style="float: right"'+type+'</span>';
+      return '\u{1F3A5} <span style="float: right;">'+type+'</span>';
     } else if (['mp3','m4b','flac'].includes(type)) {
-      return '\u{1F3B5} <span style="float: right"'+type+'</span>';
+      return '\u{1F3B5} <span style="float: right;">'+type+'</span>';
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
-      return '\u{1F4DD} <span style="float: right"'+type+'</span>';
+      return '\u{1F4DD} <span style="float: right;">'+type+'</span>';
     }
     return type;
   }
@@ -379,7 +379,7 @@ pre {
               let li = document.createElement("li"), span = document.createElement("span");
               li.innerHTML = file;
               span.appendChild(document.createTextNode(readableSize(Number(size))));
-              span.setAttribute("style", "float: right");
+              span.setAttribute("style", "float: right;");
               span.setAttribute("title", size+" bytes");
               li.appendChild(span);
               document.querySelector('.h'+infohash+' #filelist').appendChild(li);
@@ -480,7 +480,7 @@ pre {
     sorted.forEach(function(scrape) {
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
       let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>'
-      let inner2 = '</td><td style="text-align: right">'+scrape[1]['s']+'</td><td style="text-align: right">'+scrape[1]['l']+'</td><td style="text-align: right">'+scrape[1]['d']+'</td>';
+      let inner2 = '</td><td style="text-align: right;">'+scrape[1]['s']+'</td><td style="text-align: right;">'+scrape[1]['l']+'</td><td style="text-align: right;">'+scrape[1]['d']+'</td>';
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
       if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+inner2;}
     });
