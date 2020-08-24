@@ -479,6 +479,7 @@ pre {
     let sorted = []
     for (let key in data) {
       sorted.push([key, data[key]]);
+    }
     sorted.sort(function(a,b){console.log(a);console.log(b);return(a[0]-b[0]);});
     sorted.forEach(function(scrape) {
       console.log(scrape);
