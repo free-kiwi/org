@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.45</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.46</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -426,7 +426,7 @@ pre {
     <ol id="filelist" style="display: none;"></ol>
     <pre id="description"></pre>
     <p><span id='hashtabletitle'>Tracker Information (toggle)</span></p>
-    <table id="hashtable" style="width: 100%;">
+    <table id="hashtable">
       <thead>
         <tr>
           <th>Tracker</th>
@@ -439,7 +439,7 @@ pre {
       <tbody id="tbody">
       </tbody>
     </table>
-    <table id="detailedhashtable" style="width: 100%;display: none;">
+    <table id="detailedhashtable" style="display: none;">
       <thead>
         <tr>
           <th>Tracker</th>
@@ -465,11 +465,13 @@ pre {
     document.querySelector('.h'+infohash+' #hashtabletitle').addEventListener("click", function() { //filelist collapse
       let detailed = document.querySelector('.h'+infohash+' #detailedhashtable'), normal = document.querySelector('.h'+infohash+' #hashtable');
       if (detailed.style.display == 'none') {
-        detailed.style.display = "block";
         normal.style.display = "none";
+        detailed.style.display = "block";
+        detailed.style.width = "100%";
       } else {
         detailed.style.display = "none";
         normal.style.display = "block";
+        normal.style.width = "100%";
       }
     });
   }
