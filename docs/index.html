@@ -471,20 +471,22 @@ pre {
     });
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
-    let sorted = [], trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
+    let canvasinstruction = [], sorted = [], trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
     for (let key in data) {
       sorted.push([key, data[key]]);
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
+    let start = sorted[0][0], end = sorted[-1][0];
+    console.log(sorted[0][0], sorted[-1][0]);
     sorted.forEach(function(scrape) {
-      var canvasinstruction = 
+      canvasinstruction += (scrape[0],scrape[1]['s']);
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
       let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>';
       let inner2 = '</td><td style="text-align: right;">'+scrape[1]['s']+'</td><td style="text-align: right;">'+scrape[1]['l']+'</td><td style="text-align: right;">'+scrape[1]['d']+'</td>';
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
       if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+' ago'+inner2;}
     });
-    return('test for '+tracker);
+    return(canvasinstruction+'test for '+tracker);
   }
   function openHash(hash) {
     event.preventDefault();
