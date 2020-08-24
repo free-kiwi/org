@@ -345,12 +345,7 @@ pre {
               if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty[sources[source]]['files'] = array[source]['f'];}
             }
           }
-          console.log(JSON.stringify(pretty));
-          console.log(JSON.stringify(pretty, null, 0));
-          console.log(JSON.stringify(pretty, null, 1));
-          console.log(JSON.stringify(pretty, null, 2));
-          console.log(JSON.stringify(pretty, null, 3));
-          document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty, null, 2);
+          document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty, null, 1);
           document.getElementById("pagetitle").innerHTML = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
@@ -395,7 +390,7 @@ pre {
     div.innerHTML = `
     <div id="hash">
     <p><span id='viewsources'>Source</span></p>
-    <p id="sources" style="display: none;"></p>
+    <p><span id="sources" style="display: none;"></span></p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
     <p id="trackerinfo"></p>
