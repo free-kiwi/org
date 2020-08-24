@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.55</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.56</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -258,31 +258,6 @@ pre {
 	tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
 	tr.innerHTML += '<td><span title="'+data["_source"]["b"]+' bytes">'+readableSize(data["_source"]["b"])+'</span></td>';
 	tr.innerHTML += '<td style="text-align: right;">'+data["_source"]["s"]+'</td><td style="text-align: right;">'+data["_source"]["l"]+'</td>';
-    // a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
-    // a.setAttribute("href", "?Hash="+data["_id"]);
-    // a.innerHTML = data["_source"]["t"];
-    // td.setAttribute("id", "searchresulttitle");
-    // td.appendChild(a);
-    // tr.appendChild(td);
-    // td = document.createElement("td");
-    // span.setAttribute("title", uploadedDate(data["_source"]["u"]));
-    // span.appendChild(document.createTextNode(getAge(data["_source"]["u"])))
-    // td.appendChild(span);
-    // tr.appendChild(td);
-    // td = document.createElement("td");
-    // span = document.createElement("span");
-    // span.setAttribute("title", data["_source"]["b"]+" bytes");
-    // span.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
-    // td.appendChild(span);
-    // tr.appendChild(td);
-    // td = document.createElement("td");
-    // td.setAttribute("style", "text-align: right;");
-    // td.appendChild(document.createTextNode(data["_source"]["s"]));
-    // tr.appendChild(td);
-    // td = document.createElement("td");
-    // td.setAttribute("style", "text-align: right;");
-    // td.appendChild(document.createTextNode(data["_source"]["l"]));
-    // tr.appendChild(td);
     document.querySelector('.s'+this+' #searchtablebody').appendChild(tr);
   }
   function sort(sortby) {
@@ -299,9 +274,9 @@ pre {
     let icon = '';
     if (typeof type == 'undefined') {type = '';}
     type = type.toLowerCase();
-    if (['mp4','mkv','avi','m4v'].includes(type)) {
+    if (['mp4','mkv','avi','m4v','webm','wmv'].includes(type)) {
       icon = '\u{1F3A5}';
-    } else if (['mp3','m4b','flac'].includes(type)) {
+    } else if (['mp3','m4b','flac','wav','wma','ape'].includes(type)) {
       icon = '\u{1F3B5}';
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
       icon = '\u{1F4DD}';
