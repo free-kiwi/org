@@ -474,13 +474,13 @@ pre {
     });
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
-    let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
-    let latest = Math.max(...Object.keys(data));
-    let sorted = [];
+    let sorted = [], trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
+    //let latest = Math.max(...Object.keys(data));
     for (let key in data) {
       sorted.push([key, data[key]]);
     }
-    sorted.sort(function(a,b){console.log(a);console.log(b);return(a[0]-b[0]);});
+    sorted.sort(function(a,b){return(b[0]-a[0]);});
+    let latest = sorted[0][0];
     sorted.forEach(function(scrape) {
       console.log(scrape);
       let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span");
@@ -488,22 +488,22 @@ pre {
       td.innerHTML = trackers[tracker];
       tr.appendChild(td);
       td = document.createElement("td");
-      span.setAttribute("title", uploadedDate(Number(key)));
-      span.appendChild(document.createTextNode(getAge(Number(key))+" ago"));
+      span.setAttribute("title", uploadedDate(Number(scrape[0])));
+      span.appendChild(document.createTextNode(getAge(Number(scrape[0]))+" ago"));
       td.appendChild(span);
       tr.appendChild(td);
       td = document.createElement("td");
       td.setAttribute("style", "text-align: right");
-      td.appendChild(document.createTextNode(data[key]["s"]));
+      td.appendChild(document.createTextNode(scrape[1]["s"]));
       tr.appendChild(td);
       td = document.createElement("td");
       td.setAttribute("style", "text-align: right");
-      td.appendChild(document.createTextNode(data[key]["l"]));
+      td.appendChild(document.createTextNode(scrape[1]["l"]));
       tr.appendChild(td);
       td = document.createElement("td");
       td.setAttribute("style", "text-align: right");
-      if (typeof data[key]["d"] == 'undefined') {data[key]["d"] = '';}
-      td.appendChild(document.createTextNode(data[key]["d"]))
+      if (typeof scrape[1]["d"] == 'undefined') {scrape[1]["d"] = '';}
+      td.appendChild(document.createTextNode(scrape[1]["d"]))
       tr.appendChild(td);
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').appendChild(tr);
       if (key == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').appendChild(tr);}
