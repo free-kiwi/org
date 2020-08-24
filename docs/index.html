@@ -476,9 +476,9 @@ pre {
       sorted.push([key, data[key]]);
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
-    let start = sorted[0][0], end = sorted.slice(-1)[0];
-    console.log(sorted[0][0], sorted.slice(-1)[0]);
+    let end = sorted[0][0], start = sorted.slice(-1)[0][0], high = 0;
     sorted.forEach(function(scrape) {
+      if (scrape[1]['s'] > high) {high = scrape[1]['s'];}
       canvasinstruction.push([scrape[0],scrape[1]['s']]);
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
       let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>';
@@ -486,7 +486,7 @@ pre {
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
       if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+' ago'+inner2;}
     });
-    return(canvasinstruction+'test for '+tracker);
+    return([start, end, high, canvasinstruction]);
   }
   function openHash(hash) {
     event.preventDefault();
