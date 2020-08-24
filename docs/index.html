@@ -476,7 +476,7 @@ pre {
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
     let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
     let latest = Math.max(...Object.keys(data));
-    let sorted = []
+    let sorted = [];
     for (let key in data) {
       sorted.push([key, data[key]]);
     }
@@ -507,7 +507,7 @@ pre {
       tr.appendChild(td);
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').appendChild(tr);
       if (key == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').appendChild(tr);}
-    }
+    });
   }
   function openHash(hash) {
     event.preventDefault();
