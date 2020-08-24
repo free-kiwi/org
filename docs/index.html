@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.51</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.52</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -254,8 +254,6 @@ pre {
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
-    //tr.appendChild(td);
-    //td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
     a.setAttribute("href", "?Hash="+data["_id"]);
     a.innerHTML = data["_source"]["t"];
@@ -294,16 +292,17 @@ pre {
     navigate('Search');
   }
   function fileType(type) {
-    if (typeof type == 'undefined') {return '';}
+    let icon = '';
+    if (typeof type == 'undefined') {type = '';}
     type = type.toLowerCase();
     if (['mp4','mkv','avi','m4v'].includes(type)) {
-      return '<td>\u{1F3A5}</td><td><span style="float: right;">'+type+'</span></td>';
+      icon = '\u{1F3A5}';
     } else if (['mp3','m4b','flac'].includes(type)) {
-      return '<td>\u{1F3B5}</td><td><span style="float: right;">'+type+'</span></td>';
+      icon = '\u{1F3B5}';
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
-      return '<td>\u{1F4DD}</td><td><span style="float: right;">'+type+'</span></td>';
+      icon = '\u{1F4DD}';
     }
-    return '<td></td><td>'+type+'</td>';
+    return '<td style="padding: 0, border: 0;">'+icon+'</td><td style="padding: 0, border: 0;"><span style="float: right;">'+type+'</span></td>';
   }
   function moreResults(searchurl,from) {
     document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
