@@ -371,6 +371,7 @@ pre {
             }
           }
           for (let tracker of ["c", "l", "y", "u", "o"]) {
+            let canvasvariable = tracker+infohash+'canvasinstruction';
             if (array[tracker]) {
               let earliest = Math.min(...Object.keys(array[tracker])), latest = Math.max(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
@@ -378,10 +379,11 @@ pre {
                 if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
                 if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
               }
-              let canvasvariable = tracker+infohash+'canvasinstruction';
               window[canvasvariable] = buildTrackerTable(tracker, array[tracker], infohash);
-              console.log(window[canvasvariable]);
+            } else {
+              window[canvasvariable] = [];
             }
+            console.log(canvasvariable,window[canvasvariable]);
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
