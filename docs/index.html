@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.43</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.44</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -481,33 +481,11 @@ pre {
     sorted.sort(function(a,b){return(b[0]-a[0]);});
     let latest = sorted[0][0];
     sorted.forEach(function(scrape) {
-      let tr = document.createElement("tr");
-      //, td = document.createElement("td"), span = document.createElement("span");
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
-      tr.innerHTML = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td><span title="'+new Date(scrape[0]*1000).toLocaleDateString()+'</td><td style="text-align: right">'+scrape[1]['s']+'</td><td style="text-align: right">'+scrape[1]['l']+'</td><td style="text-align: right">'+scrape[1]['d']+'</td>';
-      // td.setAttribute("id", "hashresulttitle");
-      // td.innerHTML = trackers[tracker];
-      // tr.appendChild(td);
-      // td = document.createElement("td");
-      // span.setAttribute("title", uploadedDate(Number(scrape[0])));
-      // span.appendChild(document.createTextNode(getAge(Number(scrape[0]))+" ago"));
-      // td.appendChild(span);
-      // tr.appendChild(td);
-      // td = document.createElement("td");
-      // td.setAttribute("style", "text-align: right");
-      // td.appendChild(document.createTextNode(scrape[1]["s"]));
-      // tr.appendChild(td);
-      // td = document.createElement("td");
-      // td.setAttribute("style", "text-align: right");
-      // td.appendChild(document.createTextNode(scrape[1]["l"]));
-      // tr.appendChild(td);
-      // td = document.createElement("td");
-      // td.setAttribute("style", "text-align: right");
-      // td.appendChild(document.createTextNode(scrape[1]["d"]))
-      // tr.appendChild(td);
-      // console.log(tr);
-      document.querySelector('.h'+infohash+' #detailedhashtable #tbody').appendChild(tr);
-      if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').appendChild(tr);}
+      let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>'
+      let inner2 = '</td><td style="text-align: right">'+scrape[1]['s']+'</td><td style="text-align: right">'+scrape[1]['l']+'</td><td style="text-align: right">'+scrape[1]['d']+'</td>';
+      document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
+      if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(scrape[0])+inner2;}
     });
   }
   function openHash(hash) {
