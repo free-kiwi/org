@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.53</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.54</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -254,32 +254,35 @@ pre {
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
-	//tr.innerHTML += ;
-    a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
-    a.setAttribute("href", "?Hash="+data["_id"]);
-    a.innerHTML = data["_source"]["t"];
-    td.setAttribute("id", "searchresulttitle");
-    td.appendChild(a);
-    tr.appendChild(td);
-    td = document.createElement("td");
-    span.setAttribute("title", uploadedDate(data["_source"]["u"]));
-    span.appendChild(document.createTextNode(getAge(data["_source"]["u"])))
-    td.appendChild(span);
-    tr.appendChild(td);
-    td = document.createElement("td");
-    span = document.createElement("span");
-    span.setAttribute("title", data["_source"]["b"]+" bytes");
-    span.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
-    td.appendChild(span);
-    tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right;");
-    td.appendChild(document.createTextNode(data["_source"]["s"]));
-    tr.appendChild(td);
-    td = document.createElement("td");
-    td.setAttribute("style", "text-align: right;");
-    td.appendChild(document.createTextNode(data["_source"]["l"]));
-    tr.appendChild(td);
+	tr.innerHTML += '<td id="searchresulttitle"><a onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
+	tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
+	tr.innerHTML += '<td><span title="'+data["_source"]["b"]+' bytes">'+readableSize(data["_source"]["b"])+'</span></td>';
+	tr.innerHTML += '<td style="text-align: right;">'+data["_source"]["s"]+'</td><td style="text-align: right;">'+data["_source"]["l"]+'</td>';
+    // a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
+    // a.setAttribute("href", "?Hash="+data["_id"]);
+    // a.innerHTML = data["_source"]["t"];
+    // td.setAttribute("id", "searchresulttitle");
+    // td.appendChild(a);
+    // tr.appendChild(td);
+    // td = document.createElement("td");
+    // span.setAttribute("title", uploadedDate(data["_source"]["u"]));
+    // span.appendChild(document.createTextNode(getAge(data["_source"]["u"])))
+    // td.appendChild(span);
+    // tr.appendChild(td);
+    // td = document.createElement("td");
+    // span = document.createElement("span");
+    // span.setAttribute("title", data["_source"]["b"]+" bytes");
+    // span.appendChild(document.createTextNode(readableSize(data["_source"]["b"])));
+    // td.appendChild(span);
+    // tr.appendChild(td);
+    // td = document.createElement("td");
+    // td.setAttribute("style", "text-align: right;");
+    // td.appendChild(document.createTextNode(data["_source"]["s"]));
+    // tr.appendChild(td);
+    // td = document.createElement("td");
+    // td.setAttribute("style", "text-align: right;");
+    // td.appendChild(document.createTextNode(data["_source"]["l"]));
+    // tr.appendChild(td);
     document.querySelector('.s'+this+' #searchtablebody').appendChild(tr);
   }
   function sort(sortby) {
