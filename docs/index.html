@@ -499,8 +499,8 @@ pre {
       if (typeof data[key]["d"] == 'undefined') {data[key]["d"] = '';}
       td.appendChild(document.createTextNode(data[key]["d"]))
       tr.appendChild(td);
-      document.querySelector('.h'+infohash+' #detailedhashtable').tbody.appendChild(tr);
-      if (key == latest) {document.querySelector('.h'+infohash+' #hashtable').tbody.appendChild(tr);}
+      document.querySelector('.h'+infohash+' #detailedhashtable').tBodies.appendChild(tr);
+      if (key == latest) {document.querySelector('.h'+infohash+' #hashtable').tBodies.appendChild(tr);}
     }
   }
   function openHash(hash) {
