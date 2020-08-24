@@ -338,7 +338,7 @@ pre {
           for (let source in sources) {
             if (array[source]) {
               pretty[sources[source]] = {};
-              if (array[source]['b']) {size = array[source]['b'];pretty[sources[source]]['size'] = array[source]['b'];}
+              if (array[source]['b']) {size = array[source]['b'];pretty[(sources[source])]['size'] = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
               if (array[source]['u']) {uploaded = array[source]['u'];}
