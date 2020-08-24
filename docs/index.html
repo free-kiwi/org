@@ -114,7 +114,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.57</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.58</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -393,7 +393,7 @@ pre {
     <p id="uploaded"></p>
     <p id="size"></p>
     <p><span id="numberoffiles"></span></p>
-    <table id="filelist" style="width: 100%; display: none;">
+    <table id="filelist" style="width: 100%; visibility:collapse;">
       <tbody id="tbody">
       </tbody>
     </table>
@@ -412,7 +412,7 @@ pre {
       <tbody id="tbody">
       </tbody>
     </table>
-    <table id="detailedhashtable" style="display: none;">
+    <table id="detailedhashtable" style="visibility:collapse;">
       <thead>
         <tr>
           <th>Tracker</th>
@@ -429,20 +429,20 @@ pre {
     document.body.appendChild(div);
     document.querySelector('.h'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
       let content = document.querySelector('.h'+infohash+' #filelist');
-      if (content.style.display == "") {
-        content.style.display = "none";
+      if (content.style.visibility == "collapse") {
+        content.style.visibility = "visible";
       } else {
-        content.style.display = "";
+        content.style.visibility = "collapse";
       }
     });
     document.querySelector('.h'+infohash+' #hashtabletitle').addEventListener("click", function() { //filelist collapse
       let detailed = document.querySelector('.h'+infohash+' #detailedhashtable'), normal = document.querySelector('.h'+infohash+' #hashtable');
-      if (detailed.style.display == 'none') {
-        normal.style.display = "none";
-        detailed.style.display = "block";
+      if (detailed.style.visibility == 'collapse') {
+        normal.style.visibility = "collapse";
+        detailed.style.visibility = "visible";
       } else {
-        detailed.style.display = "none";
-        normal.style.display = "block";
+        detailed.style.visibility = "collapse";
+        normal.style.visibility = "visible";
       }
     });
   }
