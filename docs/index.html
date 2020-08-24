@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.66</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.67</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -336,7 +336,7 @@ pre {
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(array);
           let sources = {'b':'BTDB','t':'Torrent Paradise','m':'Magnetico','p':'The Pirate Bay'};
 		  console.log(sources);
-          for (var source of sources) {
+          for (let source in sources) {
             if (array[source]) {
               if (array[source]['b']) {size = array[source]['b'];pretty.sources[source].size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
@@ -512,7 +512,7 @@ pre {
       MM += 12;
     }
     let ages = {0:[yyyy," year"], 1:[MM," month"], 2:[dd," day"], 3:[HH," hour"]};
-    for (x in ages) {
+    for (let x in ages) {
       if (ages[x][0] != 0) {
         if (ages[x][0] == 1) {
           return ages[x][0]+ages[x][1];
@@ -526,7 +526,7 @@ pre {
   function readableSize(size) { //convert bits to human readable form
     if (typeof size != 'number') {return '';}
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
-    for (step = 0; step < 6; step++) {
+    for (let step = 0; step < 6; step++) {
       if (size < 1024**(step+1)) {
         return(Number((size/1024**step).toPrecision(4)).toString()+" "+sizes[step]);
       }
