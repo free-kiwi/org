@@ -379,7 +379,7 @@ pre {
                 if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
               }
               let canvasvariable = tracker+infohash+'canvasinstruction';
-              let window[canvasvariable] = buildTrackerTable(tracker, array[tracker], infohash, max);
+              var window[canvasvariable] = buildTrackerTable(tracker, array[tracker], infohash, max);
               console.log(window[canvasvariable]);
             }
           }
