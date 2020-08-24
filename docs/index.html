@@ -338,7 +338,7 @@ pre {
             if (array[source]) {
               pretty1[sources[source]] = {};
               pretty2[sources[source]] = {};
-              if (array[source]['t']) {title = array[source]['t'];pretty1[sources[source]].Title = array[source]['t'];}
+              if (array[source]['t']) {title = array[source]['t'];pretty1[sources[source]]['Title'] = array[source]['t'];}
               if (array[source]['i']) {pretty1[sources[source]]['TPB ID'] = array[source]['i'];}
               if (array[source]['b']) {size = array[source]['b'];pretty1[sources[source]]['Size'] = array[source]['b'];}
               if (array[source]['u']) {uploaded = array[source]['u'];pretty1[sources[source]]['Uploaded'] = uploadedDate(array[source]['u']);}
@@ -378,7 +378,9 @@ pre {
                 if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
                 if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
               }
-              buildTrackerTable(tracker, array[tracker], infohash);
+              let canvasvariable = tracker+infohash+'canvasinstruction';
+              let window[canvasvariable] = buildTrackerTable(tracker, array[tracker], infohash, max);
+              console.log(window[canvasvariable]);
             }
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
@@ -408,8 +410,7 @@ pre {
     <p id="size"></p>
     <p><span id="numberoffiles"></span></p>
     <table id="filelist" style="visibility: collapse;">
-      <tbody id="tbody">
-      </tbody>
+      <tbody id="tbody"></tbody>
     </table>
     <pre id="description"></pre>
     <p><span id='hashtabletitle'>Tracker Information</span></p>
@@ -423,9 +424,9 @@ pre {
           <th>Downloads</th>
         </tr>
       </thead>
-      <tbody id="tbody">
-      </tbody>
+      <tbody id="tbody"></tbody>
     </table>
+    <canvas id="canvas" width="700" height="300" style="border:1px solid #d3d3d3;"></canvas>
     <table id="detailedhashtable" style="visibility: collapse;">
       <thead>
         <tr>
@@ -436,8 +437,7 @@ pre {
           <th>Downloads</th>
         </tr>
       </thead>
-      <tbody id="tbody">
-      </tbody>
+      <tbody id="tbody"></tbody>
     </table>
     </div>`;
     document.body.appendChild(div);
@@ -477,12 +477,14 @@ pre {
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
     sorted.forEach(function(scrape) {
+      var canvasinstruction = 
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
       let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>';
       let inner2 = '</td><td style="text-align: right;">'+scrape[1]['s']+'</td><td style="text-align: right;">'+scrape[1]['l']+'</td><td style="text-align: right;">'+scrape[1]['d']+'</td>';
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
       if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+' ago'+inner2;}
     });
+    return('test for '+tracker);
   }
   function openHash(hash) {
     event.preventDefault();
