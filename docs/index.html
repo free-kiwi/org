@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.65</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.66</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -334,7 +334,7 @@ pre {
           let pretty = {}, array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(array);
-          let sources = {b:'BTDB',t:'Torrent Paradise',m:'Magnetico',p:'The Pirate Bay']};
+          let sources = {b:'BTDB',t:'Torrent Paradise',m:'Magnetico',p:'The Pirate Bay'};
           for (source of sources) {
             if (array[source]) {
               if (array[source]['b']) {size = array[source]['b'];pretty.sources[source].size = array[source]['b'];}
@@ -343,10 +343,10 @@ pre {
               if (array[source]['u']) {uploaded = array[source]['u'];}
               if (array[source]['d']) {description = array[source]['d'];}
               if (array[source]['n']) {numberoffiles = array[source]['n'];}
+			  console.log(pretty);
             }
-            console.log(pretty);
-			console.log(JSON.stringify(pretty))
-			console.log(JSON.stringify(pretty, null, 2))
+			console.log(JSON.stringify(pretty));
+			console.log(JSON.stringify(pretty, null, 2));
           }
           document.getElementById("pagetitle").innerHTML = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
