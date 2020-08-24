@@ -331,25 +331,27 @@ pre {
         } else if (this.status == 200) {
           document.getElementById('Hash').style.display = 'none'; //hide Hash page
           createHashPage(infohash)
-          let pretty = {}, array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
+          let pretty1 = {}, pretty2 = {}, array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           let sources = {b:'BTDB',t:'Torrent Paradise',m:'Magnetico',p:'The Pirate Bay'};
           for (let source in sources) {
             if (array[source]) {
-              pretty[sources[source]] = {};
-              if (array[source]['t']) {title = array[source]['t'];pretty[sources[source]].Title = array[source]['t'];}
-              if (array[source]['i']) {pretty[sources[source]]['TPB ID'] = array[source]['i'];}
-              if (array[source]['b']) {size = array[source]['b'];pretty[sources[source]]['Size'] = array[source]['b'];}
-              if (array[source]['l']) {pretty[sources[source]]['Uploader'] = array[source]['l'];}
-              if (array[source]['r']) {pretty[sources[source]]['Uploader Status'] = array[source]['r'];}
-              if (array[source]['u']) {uploaded = array[source]['u'];pretty[sources[source]]['Uploaded'] = uploadedDate(array[source]['u']);}
-              if (array[source]['c']) {pretty[sources[source]]['Category'] = array[source]['c'];}
-              if (array[source]['d']) {description = array[source]['d'];pretty[sources[source]]['Description'] = '*Excluded*';}
-              if (array[source]['n']) {numberoffiles = array[source]['n'];pretty[sources[source]]['Number of files'] = array[source]['n'];}
-              if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty[sources[source]]['Files'] = '*Excluded*';}
+              pretty1[sources[source]] = {};
+              pretty2[sources[source]] = {};
+              if (array[source]['t']) {title = array[source]['t'];pretty1[sources[source]].Title = array[source]['t'];}
+              if (array[source]['i']) {pretty1[sources[source]]['TPB ID'] = array[source]['i'];}
+              if (array[source]['b']) {size = array[source]['b'];pretty1[sources[source]]['Size'] = array[source]['b'];}
+              if (array[source]['l']) {pretty1[sources[source]]['Uploader'] = array[source]['l'];}
+              if (array[source]['r']) {pretty1[sources[source]]['Uploader Status'] = array[source]['r'];}
+              if (array[source]['u']) {uploaded = array[source]['u'];pretty1[sources[source]]['Uploaded'] = uploadedDate(array[source]['u']);}
+              if (array[source]['c']) {pretty1[sources[source]]['Category'] = array[source]['c'];}
+              if (array[source]['d']) {description = array[source]['d'];pretty2[sources[source]]['Description'] = array[source]['d'];}
+              if (array[source]['n']) {numberoffiles = array[source]['n'];pretty1[sources[source]]['Number of files'] = array[source]['n'];}
+              if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty2[sources[source]]['Files'] = array[source]['f'];}
             }
           }
-          document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty, null, 1);
+          document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty1, null, 1);
+          document.querySelector('.h'+infohash+' #detailedsources').innerHTML = JSON.stringify(pretty2, null, 1);
           document.getElementById("pagetitle").innerHTML = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
@@ -393,8 +395,9 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
-    <p><span id='viewsources'>Source</span></p>
+    <p><span id='viewsources'>View Source</span></p>
     <pre id="sources" style="display: none;"></pre>
+    <pre id="detailedsources" style="display: none;"></pre>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
     <p id="trackerinfo"></p>
@@ -439,8 +442,10 @@ pre {
       let content = document.querySelector('.h'+infohash+' #sources');
       if (content.style.display == "none") {
         content.style.display = "block";
+        document.querySelector('.h'+infohash+' #detailedsources').style.display = "block";
       } else {
         content.style.display = "none";
+        document.querySelector('.h'+infohash+' #detailedsources').style.display = "none";
       }
     });
     document.querySelector('.h'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
