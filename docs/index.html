@@ -302,7 +302,7 @@ pre {
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
       icon = '\u{1F4DD}';
     }
-    return '<td style="padding: 0, border: 0;">'+icon+'</td><td style="padding: 0, border: 0;"><span style="float: right;">'+type+'</span></td>';
+    return '<td style="padding: 0; border: 0;">'+icon+'</td><td style="padding: 0; border: 0;"><span style="float: right;">'+type+'</span></td>';
   }
   function moreResults(searchurl,from) {
     document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
