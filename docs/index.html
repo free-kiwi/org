@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.39</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.40</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -436,7 +436,7 @@ pre {
           <th>Downloads</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody">
       </tbody>
     </table>
     <table id="detailedhashtable" style="display: none;">
@@ -449,7 +449,7 @@ pre {
           <th>Downloads</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody">
       </tbody>
     </table>
     </div>`;
@@ -499,8 +499,8 @@ pre {
       if (typeof data[key]["d"] == 'undefined') {data[key]["d"] = '';}
       td.appendChild(document.createTextNode(data[key]["d"]))
       tr.appendChild(td);
-      document.querySelector('.h'+infohash+' #detailedhashtable').tBodies.appendChild(tr);
-      if (key == latest) {document.querySelector('.h'+infohash+' #hashtable').tBodies.appendChild(tr);}
+      document.querySelector('.h'+infohash+' #detailedhashtable').getElementById('tbody').appendChild(tr);
+      if (key == latest) {document.querySelector('.h'+infohash+' #hashtable').getElementById('tbody').appendChild(tr);}
     }
   }
   function openHash(hash) {
