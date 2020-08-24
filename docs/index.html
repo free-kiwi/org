@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.44</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.45</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -425,7 +425,7 @@ pre {
     <p><span id="numberoffiles"></span></p>
     <ol id="filelist" style="display: none;"></ol>
     <pre id="description"></pre>
-    <p><span id='hashtabletitle'>Tracker Information</span></p>
+    <p><span id='hashtabletitle'>Tracker Information (toggle)</span></p>
     <table id="hashtable">
       <thead>
         <tr>
@@ -443,7 +443,7 @@ pre {
       <thead>
         <tr>
           <th>Tracker</th>
-          <th>Updated</th>
+          <th>Scraped</th>
           <th>Seeders</th>
           <th>Leechers</th>
           <th>Downloads</th>
@@ -471,6 +471,7 @@ pre {
         detailed.style.display = "none";
         normal.style.display = "block";
       }
+      window.location.reload(); 
     });
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
@@ -485,7 +486,7 @@ pre {
       let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>'
       let inner2 = '</td><td style="text-align: right">'+scrape[1]['s']+'</td><td style="text-align: right">'+scrape[1]['l']+'</td><td style="text-align: right">'+scrape[1]['d']+'</td>';
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
-      if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(scrape[0])+inner2;}
+      if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+inner2;}
     });
   }
   function openHash(hash) {
