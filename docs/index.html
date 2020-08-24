@@ -477,7 +477,7 @@ pre {
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
     let start = sorted[0][0], end = sorted[-1][0];
-    console.log(sorted[0][0], sorted[-1][0]);
+    console.log(sorted[0][0], sorted.slice(-1)[0]);
     sorted.forEach(function(scrape) {
       canvasinstruction.push([scrape[0],scrape[1]['s']]);
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
