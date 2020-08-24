@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.61</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.62</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -335,7 +335,16 @@ pre {
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           for (source of ["b", "t", "m", "p"]) {
             if (array[source]) {
-              document.querySelector('.h'+infohash+' #hashtitle').style.display = 'block';
+              document.querySelector('.h'+infohash+' #'+source).style.display = 'block';
+              document.querySelector('.h'+infohash+' #'+source).addEventListener("click", function() { //tracker collapse
+                let content = document.querySelector('.h'+infohash+' #'+source+source);
+                if (content.style.display == "none") {
+                  content.style.display = "block";
+                } else {
+                  content.style.display = "none";
+                }
+              });
+              document.querySelector('.h'+infohash+' #'+source+source).innerHTML = array[source];
               if (array[source]['b']) {size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
@@ -388,6 +397,7 @@ pre {
     div.innerHTML = `
     <div id="hash">
     <p>Sources:</p><p id="p" style="display: none;">The Pirate Bay</p><p id="m" style="display: none;">Magnetico (DHT)</p><p id="t" style="display: none;">Torrent Paradise</p><p id="b" style="display: none;">BTDB</p>
+    <p id="pp" style="display: none;"></p><p id="mm" style="display: none;"></p><p id="tt" style="display: none;"></p><p id="bb" style="display: none;"></p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
     <p id="trackerinfo"></p>
@@ -436,7 +446,7 @@ pre {
         content.style.visibility = "collapse";
       }
     });
-    document.querySelector('.h'+infohash+' #hashtabletitle').addEventListener("click", function() { //filelist collapse
+    document.querySelector('.h'+infohash+' #hashtabletitle').addEventListener("click", function() { //tracker collapse
       let detailed = document.querySelector('.h'+infohash+' #detailedhashtable'), normal = document.querySelector('.h'+infohash+' #hashtable');
       if (detailed.style.visibility == 'collapse') {
         normal.style.visibility = "collapse";
