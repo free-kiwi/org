@@ -336,7 +336,7 @@ pre {
           for (source of ["b", "t", "m", "p"]) {
             if (array[source]) {
               document.querySelector('.h'+infohash+' #'+source).style.display = 'block';
-              document.querySelector('.h'+infohash+' #'+source).addEventListener("click", function() { //tracker collapse
+              document.querySelector('.h'+infohash+' #'+source).addEventListener("click", function(source) { //tracker collapse
                 let content = document.querySelector('.h'+infohash+' #'+source+source);
                 if (content.style.display == "none") {
                   content.style.display = "block";
