@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.38</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.39</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -426,7 +426,7 @@ pre {
     <ol id="filelist" style="display: none;"></ol>
     <pre id="description"></pre>
     <p id='hashtabletitle'>Tracker Information (click to toggle detail)</p>
-    <table>
+    <table id="hashtable">
       <thead>
         <tr>
           <th>Tracker</th>
@@ -436,9 +436,20 @@ pre {
           <th>Downloads</th>
         </tr>
       </thead>
-      <tbody id="hashtablebody">
+      <tbody>
       </tbody>
-      <tbody id="detailedhashtablebody" style="display: none;">
+    </table>
+    <table id="detailedhashtable" style="display: none;">
+      <thead>
+        <tr>
+          <th>Tracker</th>
+          <th>Updated</th>
+          <th>Seeders</th>
+          <th>Leechers</th>
+          <th>Downloads</th>
+        </tr>
+      </thead>
+      <tbody>
       </tbody>
     </table>
     </div>`;
@@ -452,7 +463,7 @@ pre {
       }
     });
     document.querySelector('.h'+infohash+' #hashtabletitle').addEventListener("click", function() { //filelist collapse
-      let detailed = document.querySelector('.h'+infohash+' #detailedhashtablebody'), normal = document.querySelector('.h'+infohash+' #hashtablebody');
+      let detailed = document.querySelector('.h'+infohash+' #detailedhashtable'), normal = document.querySelector('.h'+infohash+' #hashtable');
       if (detailed.style.display == 'none') {
         detailed.style.display = "block";
         normal.style.display = "none";
@@ -466,14 +477,13 @@ pre {
     let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
     let latest = Math.max(...Object.keys(data));
     for (let key in data) {
-      console.log(key);
       let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span");
       td.setAttribute("id", "hashresulttitle");
       td.innerHTML = trackers[tracker];
       tr.appendChild(td);
       td = document.createElement("td");
-      span.setAttribute("title", uploadedDate(key));
-      span.appendChild(document.createTextNode(getAge(key)+" ago"));
+      span.setAttribute("title", uploadedDate(Number(key)));
+      span.appendChild(document.createTextNode(getAge(Number(key))+" ago"));
       td.appendChild(span);
       tr.appendChild(td);
       td = document.createElement("td");
@@ -489,8 +499,8 @@ pre {
       if (typeof data[key]["d"] == 'undefined') {data[key]["d"] = '';}
       td.appendChild(document.createTextNode(data[key]["d"]))
       tr.appendChild(td);
-      document.querySelector('.h'+infohash+' #detailedhashtablebody').appendChild(tr);
-      if (key == latest) {document.querySelector('.h'+infohash+' #hashtablebody').appendChild(tr);}
+      document.querySelector('.h'+infohash+' #detailedhashtable').tbody.appendChild(tr);
+      if (key == latest) {document.querySelector('.h'+infohash+' #hashtable').tbody.appendChild(tr);}
     }
   }
   function openHash(hash) {
