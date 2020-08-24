@@ -60,6 +60,7 @@ table {
   font-size: 0.8em;
   font-family: Verdana, Geneva, sans-serif;
   border-collapse: collapse;
+  width: 100%;
   white-space: nowrap;
 }
 th {
@@ -428,10 +429,10 @@ pre {
     document.body.appendChild(div);
     document.querySelector('.h'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
       let content = document.querySelector('.h'+infohash+' #filelist');
-      if (content.style.display == "block") {
+      if (content.style.display == "") {
         content.style.display = "none";
       } else {
-        content.style.display = "block";
+        content.style.display = "";
       }
     });
     document.querySelector('.h'+infohash+' #hashtabletitle').addEventListener("click", function() { //filelist collapse
