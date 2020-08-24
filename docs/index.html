@@ -484,7 +484,7 @@ pre {
       let tr = document.createElement("tr");
       //, td = document.createElement("td"), span = document.createElement("span");
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
-      tr.innerHTML = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td><span title="'+new Date(scrape[0]*1000).toLocaleTimeString()+'</td><td style="text-align: right">'+scrape[1]['s']+'</td><td style="text-align: right">'+scrape[1]['l']+'</td><td style="text-align: right">'+scrape[1]['d']+'</td>';
+      tr.innerHTML = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td><span title="'+new Date(scrape[0]*1000).toLocaleDateString()+'</td><td style="text-align: right">'+scrape[1]['s']+'</td><td style="text-align: right">'+scrape[1]['l']+'</td><td style="text-align: right">'+scrape[1]['d']+'</td>';
       // td.setAttribute("id", "hashresulttitle");
       // td.innerHTML = trackers[tracker];
       // tr.appendChild(td);
@@ -507,7 +507,7 @@ pre {
       // tr.appendChild(td);
       // console.log(tr);
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').appendChild(tr);
-      if (scrape[0] == latest) {console.log('latest',tr);document.querySelector('.h'+infohash+' #hashtable #tbody').appendChild(tr);}
+      if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').appendChild(tr);}
     });
   }
   function openHash(hash) {
