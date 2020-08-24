@@ -331,10 +331,11 @@ pre {
         } else if (this.status == 200) {
           document.getElementById('Hash').style.display = 'none'; //hide Hash page
           createHashPage(infohash)
-          let sources = ["b", "t", "m", "p"], array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
+          let array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
-          for (source of sources) {
+          for (source of ["b", "t", "m", "p"]) {
             if (array[source]) {
+              document.querySelector('.h'+infohash+' #hashtitle').style.display = 'block';
               if (array[source]['b']) {size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
@@ -386,6 +387,7 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
+    <p>Sources:</p><p id="p" style="display: none;">The Pirate Bay</p><p id="m" style="display: none;">Magnetico (DHT)</p><p id="t" style="display: none;">Torrent Paradise</p><p id="b" style="display: none;">BTDB</p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
     <p id="trackerinfo"></p>
