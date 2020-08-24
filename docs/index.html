@@ -70,7 +70,7 @@ td, th {
   border: 1px solid #e9e9e9;
   text-align: left;
   line-height: 1.3em;
-  padding: 4px 2px;
+  padding: 4px;
 }
 tr:nth-child(even) {
   background-color: #e9e9e9;
@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.46</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.47</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -218,8 +218,8 @@ pre {
             } else {
               document.querySelector('.s'+searchurl+' #searchinfo').innerHTML = "Search took "+array["took"]+"ms";
             }
-            document.querySelector('.s'+searchurl).style.display = "block"; //show the page
           }
+          document.querySelector('.s'+searchurl).style.display = "block"; //show the page
         } else { //show status and message
           document.getElementById("globalsearchinfo").innerHTML = this.status+" "+this.statusText;
         }
@@ -253,8 +253,8 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
-    td.appendChild(document.createTextNode(fileType(data['_source']['f'])));
-    td.setAttribute("style", "text-align: right");
+    td.appendChild.innerHTML = fileType(data['_source']['f']);
+    //td.setAttribute("style", "text-align: right");
     tr.appendChild(td);
     td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
@@ -298,11 +298,11 @@ pre {
     if (typeof type == 'undefined') {return '';}
     type = type.toLowerCase();
     if (['mp4','mkv','avi','m4v'].includes(type)) {
-      return '\u{1F3A5} '+type;
+      return '\u{1F3A5} <span style="float: right"'+type+'</span>';
     } else if (['mp3','m4b','flac'].includes(type)) {
-      return '\u{1F3B5} '+type;
+      return '\u{1F3B5} <span style="float: right"'+type+'</span>';
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
-      return '\u{1F4DD} '+type;
+      return '\u{1F4DD} <span style="float: right"'+type+'</span>';
     }
     return type;
   }
@@ -378,9 +378,10 @@ pre {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
               let li = document.createElement("li"), span = document.createElement("span");
-              span.appendChild(document.createTextNode(file));
-              li.appendChild(span);
-              span = document.createElement("span");
+              //span.appendChild(document.createTextNode(file));
+              //li.appendChild(span);
+              //span = document.createElement("span");
+              li.innerHTML = file;
               span.appendChild(document.createTextNode(readableSize(Number(size))));
               span.setAttribute("style", "float: right");
               span.setAttribute("title", size+" bytes");
@@ -425,7 +426,7 @@ pre {
     <p><span id="numberoffiles"></span></p>
     <ol id="filelist" style="display: none;"></ol>
     <pre id="description"></pre>
-    <p><span id='hashtabletitle'>Tracker Information (toggle)</span></p>
+    <p><span id='hashtabletitle'>Tracker Information</span></p>
     <table id="hashtable">
       <thead>
         <tr>
