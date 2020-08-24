@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.63</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.64</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -331,7 +331,7 @@ pre {
         } else if (this.status == 200) {
           document.getElementById('Hash').style.display = 'none'; //hide Hash page
           createHashPage(infohash)
-          document.querySelector('.h'+infohash+' #'+sources).innerHTML = JSON.stringify(array);
+          document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(array);
           let array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           for (source of ["b", "t", "m", "p"]) {
@@ -387,7 +387,7 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
-    <p id='viewsources'>View Source</p>
+    <p id='viewsources'>Source</p>
     <p id="sources" style="display: none;"></p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
