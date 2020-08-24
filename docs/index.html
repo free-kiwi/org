@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.47</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.48</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -253,8 +253,7 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
-    td.appendChild.innerHTML = fileType(data['_source']['f']);
-    //td.setAttribute("style", "text-align: right");
+    td.innerHTML = fileType(data['_source']['f']);
     tr.appendChild(td);
     td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
@@ -378,9 +377,6 @@ pre {
             for (i in files) {
               let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
               let li = document.createElement("li"), span = document.createElement("span");
-              //span.appendChild(document.createTextNode(file));
-              //li.appendChild(span);
-              //span = document.createElement("span");
               li.innerHTML = file;
               span.appendChild(document.createTextNode(readableSize(Number(size))));
               span.setAttribute("style", "float: right");
@@ -431,7 +427,7 @@ pre {
       <thead>
         <tr>
           <th>Tracker</th>
-          <th>Updated</th>
+          <th>Scraped</th>
           <th>Seeders</th>
           <th>Leechers</th>
           <th>Downloads</th>
