@@ -95,7 +95,7 @@ tr:nth-child(even) {
   background: #f5f7fa;
   padding: 10px;
 }
-#numberoffiles, #hashtabletitle {
+#numberoffiles, #hashtabletitle, #viewsources {
   cursor: pointer;
   border-bottom: 1px dotted;
 }
@@ -331,20 +331,11 @@ pre {
         } else if (this.status == 200) {
           document.getElementById('Hash').style.display = 'none'; //hide Hash page
           createHashPage(infohash)
+          document.querySelector('.h'+infohash+' #'+sources).innerHTML = JSON.stringify(array);
           let array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           for (source of ["b", "t", "m", "p"]) {
             if (array[source]) {
-              document.querySelector('.h'+infohash+' #'+source).style.display = 'block';
-              document.querySelector('.h'+infohash+' #'+source).addEventListener("click", function(source) { //tracker collapse
-                let content = document.querySelector('.h'+infohash+' #'+source+source);
-                if (content.style.display == "none") {
-                  content.style.display = "block";
-                } else {
-                  content.style.display = "none";
-                }
-              });
-              document.querySelector('.h'+infohash+' #'+source+source).innerHTML = JSON.stringify(array[source]);
               if (array[source]['b']) {size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
@@ -396,8 +387,8 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
-    <div><p>Sources:</p><p id="p" style="display: none;">The Pirate Bay</p><p id="m" style="display: none;">Magnetico (DHT)</p><p id="t" style="display: none;">Torrent Paradise</p><p id="b" style="display: none;">BTDB</p></div>
-    <p id="pp" style="display: none;"></p><p id="mm" style="display: none;"></p><p id="tt" style="display: none;"></p><p id="bb" style="display: none;"></p>
+    <p id='viewsources'>View Source</p>
+    <p id="sources" style="display: none;"></p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
     <p id="trackerinfo"></p>
@@ -438,6 +429,14 @@ pre {
     </table>
     </div>`;
     document.body.appendChild(div);
+    document.querySelector('.h'+infohash+' #viewsources').addEventListener("click", function() { //sources collapse
+      let content = document.querySelector('.h'+infohash+' #viewsources');
+      if (content.style.display == "none") {
+        content.style.display = "block";
+      } else {
+        content.style.display = "none";
+      }
+    });
     document.querySelector('.h'+infohash+' #numberoffiles').addEventListener("click", function() { //filelist collapse
       let content = document.querySelector('.h'+infohash+' #filelist');
       if (content.style.visibility == "collapse") {
