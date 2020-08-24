@@ -476,6 +476,7 @@ pre {
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
     let trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
     let latest = Math.max(...Object.keys(data));
+    data.sort(function(a,b){console.log(a);console.log(b);});
     for (let key in data) {
       let tr = document.createElement("tr"), td = document.createElement("td"), span = document.createElement("span");
       td.setAttribute("id", "hashresulttitle");
