@@ -335,7 +335,7 @@ pre {
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(array);
           let sources = {b:'BTDB',t:'Torrent Paradise',m:'Magnetico',p:'The Pirate Bay'};
-          for (source of sources) {
+          for (let source of sources) {
             if (array[source]) {
               if (array[source]['b']) {size = array[source]['b'];pretty.sources[source].size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
