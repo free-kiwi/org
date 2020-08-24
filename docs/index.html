@@ -337,16 +337,16 @@ pre {
           for (let source in sources) {
             if (array[source]) {
               pretty[sources[source]] = {};
-              if (array[source]['t']) {title = array[source]['t'];pretty[sources[source]]['Title'] = array[source]['t'];}
+              if (array[source]['t']) {title = array[source]['t'];pretty[sources[source]].Title = array[source]['t'];}
               if (array[source]['i']) {pretty[sources[source]]['TPB ID'] = array[source]['i'];}
               if (array[source]['b']) {size = array[source]['b'];pretty[sources[source]]['Size'] = array[source]['b'];}
               if (array[source]['l']) {pretty[sources[source]]['Uploader'] = array[source]['l'];}
               if (array[source]['r']) {pretty[sources[source]]['Uploader Status'] = array[source]['r'];}
               if (array[source]['u']) {uploaded = array[source]['u'];pretty[sources[source]]['Uploaded'] = uploadedDate(array[source]['u']);}
               if (array[source]['c']) {pretty[sources[source]]['Category'] = array[source]['c'];}
-              if (array[source]['d']) {description = array[source]['d'];pretty[sources[source]]['Description'] = array[source]['d'];}
+              if (array[source]['d']) {description = array[source]['d'];pretty[sources[source]]['Description'] = '*Excluded*';}
               if (array[source]['n']) {numberoffiles = array[source]['n'];pretty[sources[source]]['Number of files'] = array[source]['n'];}
-              if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty[sources[source]]['Files'] = array[source]['f'];}
+              if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty[sources[source]]['Files'] = '*Excluded*';}
             }
           }
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty, null, 1);
