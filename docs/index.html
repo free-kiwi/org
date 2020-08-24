@@ -473,7 +473,7 @@ pre {
     return string;
   }
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
-    if (typeof unixtime != 'number') {return 'unknown';}
+    if (typeof unixtime != 'number') {return '?';}
     let date = new Date(unixtime*1000), HH = date.getUTCHours(), mm = date.getUTCMinutes(), months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     if (HH < 10) {
       HH = '0'+HH;
@@ -484,7 +484,7 @@ pre {
     return HH+':'+mm+' '+date.getUTCDate()+' '+months[date.getUTCMonth()]+' '+date.getUTCFullYear();
   }
   function getAge(unixtime) { //convert unixtime to age
-    if (typeof unixtime != 'number') {return 'unknown';}
+    if (typeof unixtime != 'number') {return '?';}
     let date = new Date(unixtime*1000), yyyy = new Date().getUTCFullYear() - date.getUTCFullYear(), MM = new Date().getUTCMonth() - date.getUTCMonth(), dd = new Date().getUTCDate() - date.getUTCDate(), HH = new Date().getUTCHours() - date.getUTCHours();
     if (HH < 0) {
       dd--;
@@ -511,7 +511,7 @@ pre {
     return '0 hours';
   }
   function readableSize(size) { //convert bits to human readable form
-    if (typeof size != 'number') {return 'unknown';}
+    if (typeof size != 'number') {return '?';}
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
     for (step = 0; step < 6; step++) {
       if (size < 1024**(step+1)) {
