@@ -112,7 +112,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.49</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.50</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -385,8 +385,8 @@ pre {
               document.querySelector('.h'+infohash+' #filelist').appendChild(li);
             }
           }
-          let trackers = ["c", "l", "y", "u", "o"];
-          for (tracker of trackers) {
+          //let trackers = ["c", "l", "y", "u", "o"];
+          for (tracker of ["c", "l", "y", "u", "o"]) {
             if (array[tracker]) {
               let earliest = Math.min(...Object.keys(array[tracker])), latest = Math.max(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
@@ -476,13 +476,12 @@ pre {
       sorted.push([key, data[key]]);
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
-    let latest = sorted[0][0];
     sorted.forEach(function(scrape) {
       if (typeof scrape[1]['d'] == 'undefined') {scrape[1]['d'] = '';}
-      let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>'
+      let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>';
       let inner2 = '</td><td style="text-align: right;">'+scrape[1]['s']+'</td><td style="text-align: right;">'+scrape[1]['l']+'</td><td style="text-align: right;">'+scrape[1]['d']+'</td>';
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
-      if (scrape[0] == latest) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+inner2;}
+      if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+inner2;}
     });
   }
   function openHash(hash) {
@@ -497,8 +496,7 @@ pre {
   }
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
     if (typeof unixtime != 'number') {return 'unknown';}
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    let date = new Date(unixtime*1000), HH = date.getUTCHours(), mm = date.getUTCMinutes();
+    let date = new Date(unixtime*1000), HH = date.getUTCHours(), mm = date.getUTCMinutes(), months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     if (HH < 10) {
       HH = '0'+HH;
     }
