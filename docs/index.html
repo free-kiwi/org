@@ -101,7 +101,6 @@ tr:nth-child(even) {
 }
 #filelist {
   padding: 0;
-  display: none;
   background: #fff;
   list-style-type: none;
 }
@@ -114,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.58</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.59</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -393,7 +392,7 @@ pre {
     <p id="uploaded"></p>
     <p id="size"></p>
     <p><span id="numberoffiles"></span></p>
-    <table id="filelist" style="visibility:visible;">
+    <table id="filelist" style="visibility:collapse;">
       <tbody id="tbody">
       </tbody>
     </table>
