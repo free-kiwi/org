@@ -237,7 +237,7 @@ pre {
     <table id="searchtable">
       <thead>
         <tr>
-          <th></th>
+          <th colspan="2"></th>
           <th>Name</th>
           <th><a onclick="sort(0)">Age</a></th>
           <th><a onclick="sort(2)">Size</a></th>
@@ -253,9 +253,9 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
-    td.innerHTML = fileType(data['_source']['f']);
-    tr.appendChild(td);
-    td = document.createElement("td");
+    tr.innerHTML = fileType(data['_source']['f']);
+    //tr.appendChild(td);
+    //td = document.createElement("td");
     a.setAttribute("onclick", "openHash('"+data["_id"]+"')");
     a.setAttribute("href", "?Hash="+data["_id"]);
     a.innerHTML = data["_source"]["t"];
@@ -297,13 +297,13 @@ pre {
     if (typeof type == 'undefined') {return '';}
     type = type.toLowerCase();
     if (['mp4','mkv','avi','m4v'].includes(type)) {
-      return '\u{1F3A5} <span style="float: right;">'+type+'</span>';
+      return '<td>\u{1F3A5}</td><td><span style="float: right;">'+type+'</span></td>';
     } else if (['mp3','m4b','flac'].includes(type)) {
-      return '\u{1F3B5} <span style="float: right;">'+type+'</span>';
+      return '<td>\u{1F3B5}</td><td><span style="float: right;">'+type+'</span></td>';
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
-      return '\u{1F4DD} <span style="float: right;">'+type+'</span>';
+      return '<td>\u{1F4DD}</td><td><span style="float: right;">'+type+'</span></td>';
     }
-    return type;
+    return '<td></td><td>'+type+'</td>';
   }
   function moreResults(searchurl,from) {
     document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
@@ -481,7 +481,7 @@ pre {
       let inner1 = '<td id="hashresulttitle">'+trackers[tracker]+'</td><td>';
       let inner2 = '</td><td style="text-align: right;">'+scrape[1]['s']+'</td><td style="text-align: right;">'+scrape[1]['l']+'</td><td style="text-align: right;">'+scrape[1]['d']+'</td>';
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
-      if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+inner2;}
+      if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+' ago'+inner2;}
     });
   }
   function openHash(hash) {
