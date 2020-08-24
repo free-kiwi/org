@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.62</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.63</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -344,7 +344,7 @@ pre {
                   content.style.display = "none";
                 }
               });
-              document.querySelector('.h'+infohash+' #'+source+source).innerHTML = array[source];
+              document.querySelector('.h'+infohash+' #'+source+source).innerHTML = JSON.stringify(array[source]);
               if (array[source]['b']) {size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
@@ -396,7 +396,7 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
-    <p>Sources:</p><p id="p" style="display: none;">The Pirate Bay</p><p id="m" style="display: none;">Magnetico (DHT)</p><p id="t" style="display: none;">Torrent Paradise</p><p id="b" style="display: none;">BTDB</p>
+    <div><p>Sources:</p><p id="p" style="display: none;">The Pirate Bay</p><p id="m" style="display: none;">Magnetico (DHT)</p><p id="t" style="display: none;">Torrent Paradise</p><p id="b" style="display: none;">BTDB</p></div>
     <p id="pp" style="display: none;"></p><p id="mm" style="display: none;"></p><p id="tt" style="display: none;"></p><p id="bb" style="display: none;"></p>
     <h4 id="hashtitle"></h4>
     <p id="infohash"></p>
