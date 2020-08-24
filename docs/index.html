@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.67</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.68</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -334,10 +334,10 @@ pre {
           let pretty = {}, array = JSON.parse(this.responseText), seeders = 0, leechers = 0;
           let title = '', uploaded = 'unknown', size = 'unknown', files = '', description = '', numberoffiles = '';
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(array);
-          let sources = {'b':'BTDB','t':'Torrent Paradise','m':'Magnetico','p':'The Pirate Bay'};
-		  console.log(sources);
+          let sources = {b:'BTDB',t:'Torrent Paradise',m:'Magnetico',p:'The Pirate Bay'};
           for (let source in sources) {
             if (array[source]) {
+              pretty.sources[source] = {};
               if (array[source]['b']) {size = array[source]['b'];pretty.sources[source].size = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
