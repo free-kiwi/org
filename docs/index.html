@@ -338,19 +338,19 @@ pre {
             if (array[source]) {
               pretty[sources[source]] = {};
               if (array[source]['b']) {size = array[source]['b'];pretty[sources[source]]['size'] = array[source]['b'];}
-              if (array[source]['t']) {title = array[source]['t'];}
-              if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
-              if (array[source]['u']) {uploaded = array[source]['u'];}
-              if (array[source]['d']) {description = array[source]['d'];}
-              if (array[source]['n']) {numberoffiles = array[source]['n'];}
+              if (array[source]['t']) {title = array[source]['t'];pretty[sources[source]]['title'] = array[source]['t'];}
+              if (array[source]['u']) {uploaded = array[source]['u'];pretty[sources[source]]['uploaded'] = array[source]['u'];}
+              if (array[source]['n']) {numberoffiles = array[source]['n'];pretty[sources[source]]['number of files'] = array[source]['n'];}
+              if (array[source]['d']) {description = array[source]['d'];pretty[sources[source]]['description'] = array[source]['d'];}
+              if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty[sources[source]]['files'] = array[source]['f'];}
             }
-            console.log(JSON.stringify(pretty));
-            console.log(JSON.stringify(pretty, null, 0));
-            console.log(JSON.stringify(pretty, null, 1));
-            console.log(JSON.stringify(pretty, null, 2));
-            console.log(JSON.stringify(pretty, null, 3));
-            document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty, null, 2);
           }
+          console.log(JSON.stringify(pretty));
+          console.log(JSON.stringify(pretty, null, 0));
+          console.log(JSON.stringify(pretty, null, 1));
+          console.log(JSON.stringify(pretty, null, 2));
+          console.log(JSON.stringify(pretty, null, 3));
+          document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty, null, 2);
           document.getElementById("pagetitle").innerHTML = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
