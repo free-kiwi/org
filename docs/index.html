@@ -337,14 +337,14 @@ pre {
           for (let source in sources) {
             if (array[source]) {
               pretty[sources[source]] = {};
-              if (array[source]['b']) {size = array[source]['b'];pretty[(sources[source])]['size'] = array[source]['b'];}
+              if (array[source]['b']) {size = array[source]['b'];pretty[sources[source]]['size'] = array[source]['b'];}
               if (array[source]['t']) {title = array[source]['t'];}
               if (array[source]['f']) {files = array[source]['f'], numberoffiles = array[source]['f'].length;}
               if (array[source]['u']) {uploaded = array[source]['u'];}
               if (array[source]['d']) {description = array[source]['d'];}
               if (array[source]['n']) {numberoffiles = array[source]['n'];}
-              console.log(pretty);
             }
+            console.log(JSON.stringify(pretty));
             console.log(JSON.stringify(pretty, null, 0));
             console.log(JSON.stringify(pretty, null, 1));
             console.log(JSON.stringify(pretty, null, 2));
