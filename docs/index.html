@@ -413,10 +413,12 @@ pre {
               canvas.closePath()
             }
             canvas.font = "16px san-serif";
-            canvas.fillText('Seeders',350,21);
-            canvas.fillText(canvasmax,680,21);
-            canvas.fillText(canvasmax/2,680,108);
-            canvas.fillText('0',680,195);
+            canvas.fillText('Seeders',350,16);
+            canvas.fillText(canvasmax,680,16);
+            canvas.fillText(round(canvasmax*).75,680,58);
+            canvas.fillText(round(canvasmax*.5),680,108);
+            canvas.fillText(round(canvasmax*.25),680,158);
+            canvas.fillText('0',680,200);
             canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,15);
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
@@ -461,7 +463,7 @@ pre {
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-    <canvas id="canvas" width="718" height="200" style="border:1px dashed #d3d3d3;"></canvas>
+    <canvas id="canvas" width="718" height="205" style="border:1px dashed #d3d3d3;"></canvas>
     <table id="detailedhashtable" style="visibility: collapse;">
       <thead>
         <tr>
