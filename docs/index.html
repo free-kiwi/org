@@ -399,8 +399,8 @@ pre {
               canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
                 console.log(canvasinstruction[instruction][0],canvasinstruction[instruction][1]);
-                console.log((canvasinstruction[instruction][0]-canvasstart)/canvasend,canvasinstruction[instruction][1]/canvasmax);
-                console.log(((canvasinstruction[instruction][0]-canvasstart)/canvasend)*720,(canvasinstruction[instruction][1]/canvasmax)*250);
+                console.log((canvasinstruction[instruction][0]-canvasstart)*720/,canvasinstruction[instruction][1]*250);
+                console.log((canvasinstruction[instruction][0]-canvasstart)*720/canvasend,canvasinstruction[instruction][1]*250/canvasmax);
               }
             }
           }
