@@ -154,7 +154,6 @@ pre {
     }
   }
   window.addEventListener('popstate', function() {  //forward or back button
-    console.log(location.search);
     if (location.search=='') {
       navigate('Home');
     } else {
@@ -162,7 +161,6 @@ pre {
     }
   });
   function navigate(location) {
-    console.log('navigate('+location+')');
     document.getElementById("pagetitle").innerHTML = location+' - Title';
     let pages = Array.from(document.getElementsByClassName('page'));
     pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
@@ -413,13 +411,13 @@ pre {
               canvas.closePath()
             }
             canvas.font = "14px verdana";
-            canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,11);
-            canvas.fillText('Seeders',350,12);
-            canvas.fillText(canvasmax,680,13);
+            canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,10);
+            canvas.fillText('Seeders',350,11);
+            canvas.fillText(canvasmax,680,12);
             canvas.fillText(Math.round(canvasmax*.75),680,56);
             canvas.fillText(Math.round(canvasmax*.5),680,106);
             canvas.fillText(Math.round(canvasmax*.25),680,156);
-            canvas.fillText('0',680,206);
+            canvas.fillText('0',680,205);
             
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
