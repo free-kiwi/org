@@ -398,10 +398,13 @@ pre {
               window[canvasvariable] = '';
             }
           }
+          let canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
+          canvas.fillStyle = "white";
+          canvas.fillRect(0, 0, 718, 206);
+          canvas.lineCap = "round";
+          canvas.lineJoin = "round";
           for (let tracker of trackers) {
-            let canvasvariable = tracker+infohash+'canvasinstruction', canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
-            canvas.lineCap = "round";
-            canvas.lineJoin = "round";
+            let canvasvariable = tracker+infohash+'canvasinstruction';
             if (window[canvasvariable] != '') {
               let canvasinstruction = window[canvasvariable][3];
               canvas.beginPath();
