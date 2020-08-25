@@ -402,6 +402,8 @@ pre {
             canvas.font="20px Arial";
             canvas.fillText(canvasmax,660,21);
             canvas.fillText('0',660,199);
+            canvas.lineCap = "round";
+            canvas.lineJoin = "round";
             canvas.stroke();
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
