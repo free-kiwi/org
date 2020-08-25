@@ -400,8 +400,8 @@ pre {
               for (let instruction in canvasinstruction) {
                 //console.log(canvasstart,canvasend,canvasmax);
                 //console.log(canvasinstruction[instruction][0],canvasinstruction[instruction][1]);
-                console.log((canvasinstruction[instruction][0]-canvasstart)/canvasend*720,canvasinstruction[instruction][1]/canvasmax*250);
-                canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)/canvasend*720,canvasinstruction[instruction][1]/canvasmax*250);
+                console.log((canvasinstruction[instruction][0]-canvasstart)*720/(canvasend-canvasstart),canvasinstruction[instruction][1]*250/canvasmax);
+                canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*720/canvasend-canvasstart),canvasinstruction[instruction][1]*250/canvasmax);
               }
               canvas.stroke();
             }
