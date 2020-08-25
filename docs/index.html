@@ -372,7 +372,8 @@ pre {
           }
           let trackers = ["c", "l", "y", "u", "o"];
           for (let tracker of trackers) {
-            let canvasvariable = tracker+infohash+'canvasinstruction', canvasstart = 9999999999, canvasend = 0, canvasmax = 0;
+            let canvasvariable = tracker+infohash+'canvasinstruction';
+            var canvasstart = 9999999999, canvasend = 0, canvasmax = 0;
             if (array[tracker]) {
               let earliest = Math.min(...Object.keys(array[tracker])), latest = Math.max(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
