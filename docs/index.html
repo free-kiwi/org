@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.2</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.3</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -154,7 +154,7 @@ pre {
     }
   }
   window.addEventListener('popstate', function() {  //forward or back button
-    console.log(window.location);
+    console.log(location.search);
     if (event.state==null) {
       navigate('Home');
     } else {
