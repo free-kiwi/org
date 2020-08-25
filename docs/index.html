@@ -113,7 +113,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.71</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.1.72</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -395,10 +395,10 @@ pre {
             if (window[canvasvariable] != '') {
               let canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
               let canvasinstruction = window[canvasvariable][3];
-              canvas.moveTo((canvasinstruction[0][0]-canvasstart)*canvas.width/(canvasend-canvasstart),canvas.height-(canvasinstruction[0][1]*canvas.height/canvasmax));
+              canvas.moveTo((canvasinstruction[0][0]-canvasstart)*(canvas.width)/(canvasend-canvasstart),(canvas.height)-(canvasinstruction[0][1]*(canvas.height)/canvasmax));
               canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
-                canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*canvas.width/(canvasend-canvasstart),canvas.height-(canvasinstruction[instruction][1]*canvas.height/canvasmax));
+                canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*(canvas.width)/(canvasend-canvasstart),(canvas.height)-(canvasinstruction[instruction][1]*(canvas.height)/canvasmax));
               }
               canvas.stroke();
             }
