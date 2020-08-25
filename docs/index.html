@@ -258,7 +258,7 @@ pre {
     if (data["_source"]["z"] == 't') {
       data["_source"]["z"] = '<span title="Uploaded by a trusted uploaded on TPB" style="background-color: LawnGreen;">Trusted</span> ';}
     else if (data["_source"]["z"] == 's')
-      {data["_source"]["z"] = '<span title="Seed count inconsistent between trackers" style="background-color: DarkOrange;">Caution</span> ';}
+      {data["_source"]["z"] = '<span title="Seed count varies between trackers" style="background-color: DarkOrange;">Caution</span> ';}
     else {
       data["_source"]["z"] = '';
     }
@@ -412,10 +412,11 @@ pre {
               canvas.stroke();
               canvas.closePath()
             }
-            canvas.font = "15px san-serif";
-            canvas.fillText('Seeders',350,15);
-            canvas.fillText(canvasmax,680,15);
-            canvas.fillText('0',680,199);
+            canvas.font = "16px san-serif";
+            canvas.fillText('Seeders',350,21);
+            canvas.fillText(canvasmax,680,21);
+            canvas.fillText(canvasmax/2,680,108);
+            canvas.fillText('0',680,195);
             canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,15);
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
@@ -460,7 +461,7 @@ pre {
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-    <canvas id="canvas" width="720" height="200" style="border:1px solid #d3d3d3;"></canvas>
+    <canvas id="canvas" width="720" height="200" style="border:1px dashed #d3d3d3;"></canvas>
     <table id="detailedhashtable" style="visibility: collapse;">
       <thead>
         <tr>
