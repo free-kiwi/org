@@ -398,6 +398,7 @@ pre {
               canvas.moveTo(((canvasinstruction[0][0]-canvasstart)/canvasend)*720,(canvasinstruction[0][1]/canvasmax)*250);
               canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
+                console.log(canvasstart,canvasend,canvasmax);
                 console.log(canvasinstruction[instruction][0],canvasinstruction[instruction][1]);
                 console.log((canvasinstruction[instruction][0]-canvasstart)*720,canvasinstruction[instruction][1]*250);
                 console.log((canvasinstruction[instruction][0]-canvasstart)/canvasend*720,canvasinstruction[instruction][1]/canvasmax*250);
@@ -492,12 +493,13 @@ pre {
     });
   }
   function buildTrackerTable(tracker, data, infohash) { //build tracker table
-    let canvasinstruction = [], sorted = [], trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
+    let sorted = [], trackers = {"c": '<a href="http://tracker.coppersurfer.tk/">Coppersurfer</a>', "l": '<a href="http://tracker.leechers-paradise.org/">Leechers Paradise</a>', "y": '<a href="http://tracker.cyberia.is/">Cyberia</a>', "u": "PublicBitTorrent", "o": "OpenBitTorrent"};
+    var canvasinstruction = [];
     for (let key in data) {
       sorted.push([key, data[key]]);
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
-    let end = Number(sorted[0][0]), start = Number(sorted.slice(-1)[0][0]), high = 0;
+    let end = sorted[0][0], start = sorted.slice(-1)[0][0], high = 0;
     sorted.forEach(function(scrape) {
       if (scrape[1]['s'] > high) {high = scrape[1]['s'];}
       canvasinstruction.push([scrape[0],scrape[1]['s']]);
