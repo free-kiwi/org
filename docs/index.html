@@ -388,11 +388,9 @@ pre {
             } else {
               window[canvasvariable] = '';
             }
-            //console.log(canvasvariable,window[canvasvariable],canvasstart,canvasend,canvasmax);
           }
           for (let tracker of trackers) {
-            let canvasvariable = tracker+infohash+'canvasinstruction';
-            let canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
+            let canvasvariable = tracker+infohash+'canvasinstruction', canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
             if (window[canvasvariable] != '') {
               let canvasinstruction = window[canvasvariable][3];
               canvas.moveTo((canvasinstruction[0][0]-canvasstart)*660/(canvasend-canvasstart),200-(canvasinstruction[0][1]*200/canvasmax));
@@ -401,7 +399,7 @@ pre {
                 canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*660/(canvasend-canvasstart),200-(canvasinstruction[instruction][1]*200/canvasmax));
               }
             }
-            canvas.font="20px"
+            canvas.font="20px Arial";
             canvas.fillText(canvasmax,660,21);
             canvas.fillText('0',660,199);
             canvas.stroke();
