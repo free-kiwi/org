@@ -395,12 +395,12 @@ pre {
             if (window[canvasvariable] != '') {
               let canvasinstruction = window[canvasvariable][3];
               canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
-              canvas.moveTo(((canvasinstruction[0][0]-canvasstart)/canvasend)*720,(canvasinstruction[0][1]/canvasmax)*250);
+              canvas.moveTo((canvasinstruction[0][0]-canvasstart)/canvasend*720,canvasinstruction[0][1]/canvasmax*250);
               canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
                 //console.log(canvasstart,canvasend,canvasmax);
                 //console.log(canvasinstruction[instruction][0],canvasinstruction[instruction][1]);
-                //console.log((canvasinstruction[instruction][0]-canvasstart)*720,canvasinstruction[instruction][1]*250);
+                console.log((canvasinstruction[instruction][0]-canvasstart)/canvasend*720,canvasinstruction[instruction][1]/canvasmax*250);
                 canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)/canvasend*720,canvasinstruction[instruction][1]/canvasmax*250);
               }
               canvas.stroke();
