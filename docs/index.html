@@ -162,6 +162,7 @@ pre {
     }
   });
   function navigate(location) {
+    console.log('navigate('+location+')');
     document.getElementById("pagetitle").innerHTML = location+' - Title';
     let pages = Array.from(document.getElementsByClassName('page'));
     pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
