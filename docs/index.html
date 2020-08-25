@@ -392,16 +392,16 @@ pre {
           }
           for (let tracker of trackers) {
             let canvasvariable = tracker+infohash+'canvasinstruction';
+            let canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
             if (window[canvasvariable] != '') {
-              let canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
               let canvasinstruction = window[canvasvariable][3];
-              canvas.moveTo((canvasinstruction[0][0]-canvasstart)*(canvas.width)/(canvasend-canvasstart),(canvas.height)-(canvasinstruction[0][1]*(canvas.height)/canvasmax));
+              canvas.moveTo((canvasinstruction[0][0]-canvasstart)*600/(canvasend-canvasstart),200-(canvasinstruction[0][1]*200/canvasmax));
               canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
-                canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*(canvas.width)/(canvasend-canvasstart),(canvas.height)-(canvasinstruction[instruction][1]*(canvas.height)/canvasmax));
+                canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*600/(canvasend-canvasstart),200-(canvasinstruction[instruction][1]*200/canvasmax));
               }
-              canvas.stroke();
             }
+            canvas.stroke();
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
@@ -446,7 +446,7 @@ pre {
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-    <canvas id="canvas" width="600" height="200" style="border:1px solid #d3d3d3;"></canvas>
+    <canvas id="canvas" width="720" height="200" style="border:1px solid #d3d3d3;"></canvas>
     <table id="detailedhashtable" style="visibility: collapse;">
       <thead>
         <tr>
