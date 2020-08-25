@@ -406,7 +406,7 @@ pre {
               canvas.closePath()
             }
             canvas.font = "15px san-serif";
-            canvas.fillText('Seeders',300,15);
+            canvas.fillText('Seeders',350,15);
             canvas.fillText(canvasmax,680,15);
             canvas.fillText('0',680,199);
             canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,15);
@@ -428,10 +428,10 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
-    <pre id="detailedsources" style="display: none;"></pre>
     <h4 id="hashtitle"></h4>
     <span id="infohash"></span><span style="float: right;" id='viewsources'>View Source</span>
     <pre id="sources" style="display: none;"></pre>
+    <pre id="detailedsources" style="display: none;"></pre>
     <p id="trackerinfo"></p>
     <p id="uploaded"></p>
     <p id="size"></p>
