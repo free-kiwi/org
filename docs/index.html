@@ -426,11 +426,10 @@ pre {
     div.setAttribute("class", "page h"+infohash);
     div.innerHTML = `
     <div id="hash">
-    <p><span id='viewsources'>View Source</span></p>
     <pre id="sources" style="display: none;"></pre>
     <pre id="detailedsources" style="display: none;"></pre>
     <h4 id="hashtitle"></h4>
-    <p id="infohash"></p>
+    <span id="infohash"></span><span style="float: right;" id='viewsources'>View Source</span>
     <p id="trackerinfo"></p>
     <p id="uploaded"></p>
     <p id="size"></p>
