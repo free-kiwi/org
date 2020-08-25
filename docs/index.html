@@ -414,11 +414,11 @@ pre {
             }
             canvas.font = "16px san-serif";
             canvas.fillText('Seeders',350,16);
-            canvas.fillText(canvasmax,680,16);
+            canvas.fillText(canvasmax,680,0);
             canvas.fillText(Math.round(canvasmax*.75),680,58);
             canvas.fillText(Math.round(canvasmax*.5),680,108);
             canvas.fillText(Math.round(canvasmax*.25),680,158);
-            canvas.fillText('0',680,200);
+            canvas.fillText('0',680,205);
             canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,15);
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
