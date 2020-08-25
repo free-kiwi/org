@@ -394,8 +394,8 @@ pre {
             if (window[canvasvariable] != '') {
               let canvasinstruction = window[canvasvariable][3];
               canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
-              canvas.moveTo(canvasinstruction[0]);
-              canvasinstruction.shift()
+              canvas.moveTo(canvasinstruction[0][0],canvasinstruction[0][1]);
+              canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
                 console.log(instruction);
               }
