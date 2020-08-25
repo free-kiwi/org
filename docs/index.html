@@ -370,8 +370,9 @@ pre {
               document.querySelector('.h'+infohash+' #filelist #tbody').innerHTML += '<td style="white-space: normal; border: 0;">'+file+'</td><td title="'+size+' bytes" style="text-align: right; border: 0;">'+readableSize(Number(size))+'</td>';
             }
           }
-          for (let tracker of ["c", "l", "y", "u", "o"]) {
-            let canvasvariable = tracker+infohash+'canvasinstruction';
+          let trackers = ["c", "l", "y", "u", "o"];
+          for (let tracker of trackers) {
+            let canvasvariable = tracker+infohash+'canvasinstruction', canvasstart = 9999999999, canvasend = 0, canvasmax = 0;
             if (array[tracker]) {
               let earliest = Math.min(...Object.keys(array[tracker])), latest = Math.max(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
@@ -380,10 +381,25 @@ pre {
                 if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
               }
               window[canvasvariable] = buildTrackerTable(tracker, array[tracker], infohash);
+              if (window[canvasvariable][0] < canvasstart) {canvasstart = window[canvasvariable][0];}
+              if (window[canvasvariable][1] > canvasend) {canvasend = window[canvasvariable][1];}
+              if (window[canvasvariable][2] > canvasmax) {canvasmax = window[canvasvariable][2];}
             } else {
-              window[canvasvariable] = [];
+              window[canvasvariable] = '';
             }
             console.log(canvasvariable,window[canvasvariable]);
+          }
+          for (let tracker of trackers) {
+            let canvasvariable = tracker+infohash+'canvasinstruction';
+            if (window[canvasvariable] != '') {
+              let canvasinstruction = window[canvasvariable][3];
+              canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
+              canvas.moveTo(canvasinstruction[0]);
+              canvasinstruction.shift()
+              for (let instruction in canvasinstruction) {
+                console.log(instruction);
+              }
+            }
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
@@ -428,7 +444,7 @@ pre {
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-    <canvas id="canvas" width="700" height="300" style="border:1px solid #d3d3d3;"></canvas>
+    <canvas id="canvas" width="720" height="250" style="border:1px solid #d3d3d3;"></canvas>
     <table id="detailedhashtable" style="visibility: collapse;">
       <thead>
         <tr>
