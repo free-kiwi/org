@@ -254,7 +254,8 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
-    if (data["_source"]["z"] == 't') {data["_source"]["z"] = '<span style="background-color: LawnGreen;">Trusted</span> ';} else {data["_source"]["z"] = '';}
+    if (data["_source"]["z"] == 't') {data["_source"]["z"] = '<span style="background-color: LawnGreen;">Trusted</span> ';}
+    if (data["_source"]["z"] == 's') {data["_source"]["z"] = '<span style="background-color: DarkOrange;">Caution</span> ';} else {data["_source"]["z"] = '';}
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
     tr.innerHTML += '<td id="searchresulttitle">'+data["_source"]["z"]+'<a onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
@@ -371,8 +372,7 @@ pre {
               document.querySelector('.h'+infohash+' #filelist #tbody').innerHTML += '<td style="white-space: normal; border: 0;">'+file+'</td><td title="'+size+' bytes" style="text-align: right; border: 0;">'+readableSize(Number(size))+'</td>';
             }
           }
-          let trackers = ["c", "l", "y", "u", "o"];
-          let canvasstart = 9999999999, canvasend = 0, canvasmax = 0;
+          let trackers = ["c", "l", "y", "u", "o"], canvasstart = 9999999999, canvasend = 0, canvasmax = 0;
           for (let tracker of trackers) {
             let canvasvariable = tracker+infohash+'canvasinstruction';
             if (array[tracker]) {
