@@ -497,7 +497,7 @@ pre {
       sorted.push([key, data[key]]);
     }
     sorted.sort(function(a,b){return(b[0]-a[0]);});
-    let end = sorted[0][0], start = sorted.slice(-1)[0][0], high = 0;
+    let end = Number(sorted[0][0]), Number(start = sorted.slice(-1)[0][0]), high = 0;
     sorted.forEach(function(scrape) {
       if (scrape[1]['s'] > high) {high = scrape[1]['s'];}
       canvasinstruction.push([scrape[0],scrape[1]['s']]);
