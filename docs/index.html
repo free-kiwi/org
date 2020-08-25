@@ -391,6 +391,8 @@ pre {
           }
           for (let tracker of trackers) {
             let canvasvariable = tracker+infohash+'canvasinstruction', canvas = document.querySelector('.h'+infohash+' #canvas').getContext('2d');
+            canvas.lineCap = "round";
+            canvas.lineJoin = "round";
             if (window[canvasvariable] != '') {
               let canvasinstruction = window[canvasvariable][3];
               canvas.moveTo((canvasinstruction[0][0]-canvasstart)*660/(canvasend-canvasstart),200-(canvasinstruction[0][1]*200/canvasmax));
@@ -398,13 +400,12 @@ pre {
               for (let instruction in canvasinstruction) {
                 canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*660/(canvasend-canvasstart),200-(canvasinstruction[instruction][1]*200/canvasmax));
               }
+              canvas.strokeStyle='rgb('+Math.random()*128+64+','+Math.random()*128+64+','+Math.random()*128+64+')';
+              canvas.stroke();
             }
-            canvas.font="20px Arial";
-            canvas.fillText(canvasmax,660,21);
+            canvas.font="15px Arial";
+            canvas.fillText(canvasmax,660,15);
             canvas.fillText('0',660,199);
-            canvas.lineCap = "round";
-            canvas.lineJoin = "round";
-            canvas.stroke();
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
