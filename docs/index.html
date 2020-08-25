@@ -395,6 +395,7 @@ pre {
             canvas.lineJoin = "round";
             if (window[canvasvariable] != '') {
               let canvasinstruction = window[canvasvariable][3];
+              canvas.beginPath();
               canvas.moveTo((canvasinstruction[0][0]-canvasstart)*660/(canvasend-canvasstart),200-(canvasinstruction[0][1]*200/canvasmax));
               canvasinstruction.shift();
               for (let instruction in canvasinstruction) {
