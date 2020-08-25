@@ -155,10 +155,10 @@ pre {
   }
   window.addEventListener('popstate', function() {  //forward or back button
     console.log(location.search);
-    if (event.state==null) {
+    if (location.search=='') {
       navigate('Home');
     } else {
-      navigate(event.state);
+      navigate(decodeURIComponent(location.search.substring(1).split('=')[0]));
     }
   });
   function navigate(location) {
