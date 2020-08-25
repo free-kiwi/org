@@ -401,6 +401,8 @@ pre {
                 canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*600/(canvasend-canvasstart),200-(canvasinstruction[instruction][1]*200/canvasmax));
               }
             }
+            canvas.fillText(canvasmax,0,650);
+            canvas.fillText('0',200,650)
             canvas.stroke();
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
