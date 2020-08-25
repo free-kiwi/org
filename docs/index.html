@@ -400,8 +400,8 @@ pre {
               for (let instruction in canvasinstruction) {
                 canvas.lineTo((canvasinstruction[instruction][0]-canvasstart)*canvas.width/(canvasend-canvasstart),canvas.height-(canvasinstruction[instruction][1]*canvas.height/canvasmax));
               }
+              canvas.stroke();
             }
-            canvas.stroke();
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
