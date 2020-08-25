@@ -413,16 +413,15 @@ pre {
               canvas.strokeStyle = 'rgb('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
               canvas.stroke();
               canvas.closePath()
+              canvas.font = "14px verdana";
+              canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,11);
+              canvas.fillText('Seeders',330,11);
+              canvas.fillText(canvasmax,680,11);
+              canvas.fillText(Math.round(canvasmax*.75),680,55);
+              canvas.fillText(Math.round(canvasmax*.5),680,105);
+              canvas.fillText(Math.round(canvasmax*.25),680,155);
+              canvas.fillText('0',680,205);
             }
-            canvas.font = "14px verdana";
-            canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,11);
-            canvas.fillText('Seeders',330,11);
-            canvas.fillText(canvasmax,680,11);
-            canvas.fillText(Math.round(canvasmax*.75),680,55);
-            canvas.fillText(Math.round(canvasmax*.5),680,105);
-            canvas.fillText(Math.round(canvasmax*.25),680,155);
-            canvas.fillText('0',680,205);
-            
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
           document.querySelector('.h'+infohash+' #trackerinfo').innerHTML = "Seeders: "+seeders+" Leechers: "+leechers;
