@@ -256,9 +256,9 @@ pre {
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
     if (data["_source"]["z"] == 't') {
-      data["_source"]["z"] = '<span style="background-color: LawnGreen;">Trusted</span> ';}
+      data["_source"]["z"] = '<span title="Uploaded by a trusted uploaded on TPB" style="background-color: LawnGreen;">Trusted</span> ';}
     else if (data["_source"]["z"] == 's')
-      {data["_source"]["z"] = '<span style="background-color: DarkOrange;">Caution</span> ';}
+      {data["_source"]["z"] = '<span title="Seed count inconsistent between trackers" style="background-color: DarkOrange;">Caution</span> ';}
     else {
       data["_source"]["z"] = '';
     }
