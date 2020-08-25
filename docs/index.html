@@ -129,31 +129,32 @@ pre {
   <div id='About' class='page'>
     <h3>About</h3>
   </div>
-  <div class='page'>
+  <div id='Search' class='page'>
     <p id="globalsearchinfo"></p>
   </div>
-  <div class='page'>
+  <div id='Hash' class='page'>
     <p id="globalhashinfo"></p>
   </div>
 
   <script type="text/javascript">
   function goto(location) { //navigation bar button
-    history.pushState(location, null, '?'+location);
+    history.pushState({}, null, '?'+location);
     navigate(location);
   }
   function submit(event) {
     if (event.key==='Enter' || event.buttons===0) {
       let query = decodeURIComponent(document.getElementById("searchbox").value);
       if (/^[A-F0-9]{40}$|^[a-f0-9]{40}$/.test(query)) {
-        history.pushState('Hash', null, '?Hash='+query);
+        history.pushState({}, null, '?Hash='+query);
         navigate('Hash');
       } else {
-        history.pushState('Search', null, '?Search='+replace(query)+'_4');
+        history.pushState({}, null, '?Search='+replace(query)+'_4');
         navigate('Search');
       }
     }
   }
   window.addEventListener('popstate', function() {  //forward or back button
+    console.log(window.location);
     if (event.state==null) {
       navigate('Home');
     } else {
