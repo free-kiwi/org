@@ -413,13 +413,13 @@ pre {
               canvas.closePath()
             }
             canvas.font = "16px san-serif";
-            canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,8);
-            canvas.fillText('Seeders',350,10);
-            canvas.fillText(canvasmax,680,12);
-            canvas.fillText(Math.round(canvasmax*.75),680,58);
-            canvas.fillText(Math.round(canvasmax*.5),680,108);
-            canvas.fillText(Math.round(canvasmax*.25),680,158);
-            canvas.fillText('0',680,205);
+            canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,11);
+            canvas.fillText('Seeders',350,12);
+            canvas.fillText(canvasmax,680,13);
+            canvas.fillText(Math.round(canvasmax*.75),680,56);
+            canvas.fillText(Math.round(canvasmax*.5),680,106);
+            canvas.fillText(Math.round(canvasmax*.25),680,156);
+            canvas.fillText('0',680,206);
             
           }
           document.querySelector('.h'+infohash+' #uploaded').innerHTML = "Uploaded: "+uploadedDate(uploaded);
