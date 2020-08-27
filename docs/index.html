@@ -119,7 +119,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.9</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.10</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -264,7 +264,7 @@ pre {
     } else if (data["_source"]["z"] == 0) {
       data["_source"]["z"] = '<span title="Seed count varies between trackers" style="background-color: DarkOrange;">Caution</span> ';
     } else if (data["_source"]["z"] < -2) {
-      data["_source"]["z"] = '<span title="No seeds for '+data["_source"]["z"]+' months" style="color: white; background-color: black;">Dead</span> ';
+      data["_source"]["z"] = '<span title="No seeds for '+(0-data["_source"]["z"])+' months" style="color: white; background-color: black;">Dead</span> ';
     } else {
       data["_source"]["z"] = '';
     }
