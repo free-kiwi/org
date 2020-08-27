@@ -119,7 +119,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.13</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.14</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -353,14 +353,14 @@ pre {
               pretty1[sources[source]] = {};
               pretty2[sources[source]] = {};
               if (array[source]['t']) {title = array[source]['t'];pretty1[sources[source]]['Title'] = array[source]['t'];}
-              if (array[source]['i']) {pretty1[sources[source]]['TPB ID'] = '<a href=https://thepiratebay.org/description.php?id='+array[source]['i']+'>'+array[source]['i']+'</a>';}
+              if (array[source]['i']) {pretty1[sources[source]]['TPB ID'] = '<a href=https://thepiratebay.org/description.php?id='+array[source]['i']+' target="_blank">'+array[source]['i']+'</a>';}
               if (array[source]['b']) {size = array[source]['b'];pretty1[sources[source]]['Size'] = array[source]['b'];}
               if (array[source]['u']) {uploaded = array[source]['u'];pretty1[sources[source]]['Uploaded'] = uploadedDate(array[source]['u']);}
-              if (array[source]['l']) {pretty1[sources[source]]['Uploader'] = '<a href=https://thepiratebay.org/search.php?q=user:'+array[source]['l']+'>'+array[source]['l']+'</a>';}
+              if (array[source]['l']) {pretty1[sources[source]]['Uploader'] = '<a href=https://thepiratebay.org/search.php?q=user:'+array[source]['l']+' target="_blank">'+array[source]['l']+'</a>';}
               if (array[source]['r']) {pretty1[sources[source]]['Uploader Status'] = array[source]['r'];}
-              if (array[source]['c']) {pretty1[sources[source]]['Category'] = '<a href=https://thepiratebay.org/search.php?q=category:'+array[source]['c']+'>'+array[source]['c']+'</a>';}
+              if (array[source]['c']) {pretty1[sources[source]]['Category'] = '<a href=https://thepiratebay.org/search.php?q=category:'+array[source]['c']+' target="_blank">'+array[source]['c']+'</a>';}
               if (array[source]['n']) {numberoffiles = array[source]['n'];pretty1[sources[source]]['Number of files'] = array[source]['n'];}
-              if (array[source]['m']) {pretty1[sources[source]]['IMDB'] = '<a href=https://www.imdb.com/title/'+array[source]['m']+'>'+array[source]['m']+'</a>';}
+              if (array[source]['m']) {pretty1[sources[source]]['IMDB'] = '<a href=https://www.imdb.com/title/'+array[source]['m']+' target="_blank">'+array[source]['m']+'</a>';}
               if (array[source]['a']) {pretty1[sources[source]]['Language'] = array[source]['a'];}
               if (array[source]['x']) {pretty1[sources[source]]['Text Language'] = array[source]['x'];}
               if (array[source]['d']) {description = array[source]['d'];pretty2[sources[source]]['Description'] = array[source]['d'];}
