@@ -119,7 +119,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.8</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.9</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -259,12 +259,12 @@ pre {
   }
   function buildSearchTable(data) { //put one search result into the table
     let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
-    if (data["_source"]["z"] == 't') {
+    if (data["_source"]["z"] == 10) {
       data["_source"]["z"] = '<span title="Uploaded by a trusted uploader on TPB" style="background-color: LawnGreen;">Trusted</span> ';
-    } else if (data["_source"]["z"] == 's') {
+    } else if (data["_source"]["z"] == 0) {
       data["_source"]["z"] = '<span title="Seed count varies between trackers" style="background-color: DarkOrange;">Caution</span> ';
-    } else if (data["_source"]["z"] == 'd') {
-      data["_source"]["z"] = '<span title="No seeds for 5 months" style="color: white; background-color: black;">Dead</span> ';
+    } else if (data["_source"]["z"] < -2) {
+      data["_source"]["z"] = '<span title="No seeds for '+data["_source"]["z"]+' months" style="color: white; background-color: black;">Dead</span> ';
     } else {
       data["_source"]["z"] = '';
     }
