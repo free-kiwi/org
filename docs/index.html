@@ -262,7 +262,7 @@ pre {
     if (data["_source"]["z"] == 10) {
       data["_source"]["z"] = '<span title="Uploaded by a trusted uploader on TPB" style="background-color: LawnGreen;">Trusted</span> ';
     } else if (data["_source"]["z"] == 0) {
-      data["_source"]["z"] = '<span title="Seed count varies between trackers" style="background-color: DarkOrange;">Caution</span> ';
+      data["_source"]["z"] = '<span title="Seed count varies between trackers" style="background-color: Yellow;">Caution</span> ';
     } else if (data["_source"]["z"] < -2) {
       data["_source"]["z"] = '<span title="No seeds for '+(0-data["_source"]["z"])+' months" style="color: white; background-color: black;">Dead</span> ';
     } else {
@@ -423,6 +423,7 @@ pre {
               canvas.font = "14px verdana";
               canvas.fillStyle = "black";
               canvas.fillText(new Date(canvasstart*1000).toLocaleDateString(),1,11);
+              canvas.fillText(new Date(canvasend*1000).toLocaleDateString(),600,11);
               canvas.fillText('Seeders',330,11);
               canvas.fillText(canvasmax,680,11);
               canvas.fillText(Math.round(canvasmax*.75),680,55);
@@ -542,9 +543,8 @@ pre {
     navigate('Hash');
   }
   function replace(string) {
-    string = string.replace(/[^ \-"0-9a-z]/gi,' ');
+    return string.replace(/[^ \-"0-9a-z]/gi,' ').trim();
     //replace "'" with ""
-    return string;
   }
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
     if (typeof unixtime != 'number') {return '';}
