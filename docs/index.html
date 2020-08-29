@@ -273,7 +273,7 @@ pre {
       data["_source"]["z"] = '';
     }
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
-    tr.innerHTML += '<td id="searchresulttitle">'+'\u{1F9F2} '+data["_source"]["z"]+'<a onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
+    tr.innerHTML += '<td id="searchresulttitle">'+'<a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
     tr.innerHTML += '<td><span title="'+data["_source"]["b"]+' bytes">'+readableSize(data["_source"]["b"])+'</span></td>';
     tr.innerHTML += '<td style="text-align: right;">'+data["_source"]["s"]+'</td><td style="text-align: right;">'+data["_source"]["l"]+'</td>';
@@ -464,8 +464,8 @@ pre {
     <table id="filelist" style="visibility: collapse;">
       <tbody id="tbody"></tbody>
     </table>
+    <a>\u{1F9F2}</a>
     <pre id="description"></pre>
-    <p>\u{1F9F2}</p>
     <p><span id='hashtabletitle'>Tracker Information</span></p>
     <table id="hashtable">
       <thead>
