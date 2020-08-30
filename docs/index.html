@@ -550,8 +550,8 @@ pre {
     navigate('Hash');
   }
   function replace(string) {
-    return string.replace(/[^ \-"0-9a-z]/gi,' ').trim();
-    //replace "'" with ""
+    string = string.replace(/[']/g,'');
+    return string.replace(/[^ \-()0-9a-z]/gi,' ').trim();
   }
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
     if (typeof unixtime != 'number') {return '';}
