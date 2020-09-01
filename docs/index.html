@@ -125,7 +125,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.17</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.18</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -208,7 +208,7 @@ pre {
         document.getElementById("searchbutton").disabled = false; //search button clickable
         document.getElementById("searchbox").disabled = false; //search box enterable
         if (this.status == 0) {
-          document.getElementById("globalsearchinfo").innerHTML = "No response";
+          document.getElementById("globalsearchinfo").innerHTML = "No response. Please try again.";
         } else if (this.status == 200) {
           document.getElementById('Search').style.display = 'none'; //hide Search page
           createSearchPage(searchurl);
@@ -274,6 +274,8 @@ pre {
     } else {
       data["_source"]["z"] = '';
     }
+    if (typeof(data["_source"]["s"]) != 'number') {data["_source"]["s"] = '';}
+    if (typeof(data["_source"]["l"]) != 'number') {data["_source"]["l"] = '';}
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
     tr.innerHTML += '<td>'+'<a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
