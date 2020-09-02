@@ -264,7 +264,7 @@ pre {
     document.body.appendChild(div);
   }
   function buildSearchTable(data) { //put one search result into the table
-    let tr = document.createElement("tr"), td = document.createElement("td"), a = document.createElement("a"), span = document.createElement("span");
+    let tr = document.createElement("tr");
     if (data["_source"]["z"] == 10) {
       data["_source"]["z"] = '<span title="Uploaded by a trusted uploader on TPB" style="background-color: LawnGreen;">Trusted</span> ';
     } else if (data["_source"]["z"] == 0) {
@@ -274,8 +274,8 @@ pre {
     } else {
       data["_source"]["z"] = '';
     }
-    if (typeof(data["_source"]["s"]) != 'number') {data["_source"]["s"] = 0;}
-    if (typeof(data["_source"]["l"]) != 'number') {data["_source"]["l"] = 0;}
+    if (typeof data["_source"]["s"] != 'number') {data["_source"]["s"] = 0;}
+    if (typeof data["_source"]["l"] != 'number') {data["_source"]["l"] = 0;}
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
     tr.innerHTML += '<td>'+'<a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
