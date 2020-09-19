@@ -277,7 +277,7 @@ pre {
     if (typeof data["_source"]["s"] != 'number') {data["_source"]["s"] = 0;}
     if (typeof data["_source"]["l"] != 'number') {data["_source"]["l"] = 0;}
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
-    tr.innerHTML += '<td>'+'<a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
+    tr.innerHTML += '<td><a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
     tr.innerHTML += '<td><span title="'+data["_source"]["b"]+' bytes">'+readableSize(data["_source"]["b"])+'</span></td>';
     tr.innerHTML += '<td style="text-align: right;">'+data["_source"]["s"]+'</td><td style="text-align: right;">'+data["_source"]["l"]+'</td>';
@@ -297,14 +297,14 @@ pre {
     let icon = '';
     if (typeof type == 'undefined') {type = '';}
     type = type.toLowerCase();
-    if (['mp4','mkv','avi','m4v','webm','wmv'].includes(type)) {
-      icon = '\u{1F3A5}';
-    } else if (['mp3','m4b','flac','wav','wma','ape'].includes(type)) {
+    if (['mp4','mkv','avi','m4v','webm','wmv','mpg','mpeg','mov','vob','flv'].includes(type)) {
+      icon = '\u{1F3AC}';
+    } else if (['mp3','m4a','m4b','flac','wav','wma','ape','ogg','wv'].includes(type)) {
       icon = '\u{1F3B5}';
     } else if (['epub','pdf','azw3','mobi'].includes(type)) {
       icon = '\u{1F4DD}';
     }
-    return '<td style="font-size: 1.2em; padding: 0; border: 0;">'+icon+'</td><td style="font-size: 1.2em; padding: 0 0 0 4px; border: 0;"><span style="float: right;">'+type+'</span></td>';
+    return '<td style="font-size: 1.2em; padding: 0; border: 0;">'+type+'</td><td style="font-size: 1.2em; padding: 0 0 0 4px; border: 0;"><span style="float: right;">'+icon+'</span></td>';
   }
   function moreResults(searchurl,from) {
     document.querySelector('.s'+searchurl+' #moreresults').disabled = true; //stop button being pressed again
