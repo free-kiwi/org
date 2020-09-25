@@ -125,7 +125,7 @@ pre {
 
 <body>
   <div class='header'>
-      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.18</a></h1>
+      <h1><a onclick='goto("Home")' style='color: #000;text-decoration: none;'>v0.0.2.19</a></h1>
   </div>
   <div class='navbar'>
     <a onclick='goto("Home")'>Home</a>
@@ -277,7 +277,7 @@ pre {
     if (typeof data["_source"]["s"] != 'number') {data["_source"]["s"] = 0}
     if (typeof data["_source"]["l"] != 'number') {data["_source"]["l"] = 0}
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
-    tr.innerHTML += '<td><a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
+    tr.innerHTML += '<td><a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"].replace(/[<]/g,'&lt;')+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
     tr.innerHTML += '<td><span title="'+data["_source"]["b"]+' bytes">'+readableSize(data["_source"]["b"])+'</span></td>';
     tr.innerHTML += '<td style="text-align: right;">'+data["_source"]["s"]+'</td><td style="text-align: right;">'+data["_source"]["l"]+'</td>';
