@@ -376,7 +376,7 @@ pre {
             }
           }
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty1, null, 1);
-          document.querySelector('.h'+infohash+' #detailedsources').innerHTML = JSON.stringify(pretty2, null, 1);
+          document.querySelector('.h'+infohash+' #detailedsources').innerHTML = JSON.stringify(pretty2, null, 1).replace(/[<]/g,'&lt;');
           document.getElementById("pagetitle").innerHTML = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
