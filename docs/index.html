@@ -175,7 +175,7 @@ pre {
   function navigate(location) {
     document.getElementById("pagetitle").innerHTML = location+' - Title';
     let pages = Array.from(document.getElementsByClassName('page'));
-    pages.forEach(function(page){page.style.display = 'none';}); //hide all pages
+    pages.forEach(function(page){page.style.display = 'none'}); //hide all pages
     document.getElementById(location).style.display = 'block'; //unhide selected page
     if (location == 'Search') {
       search();
@@ -274,8 +274,8 @@ pre {
     } else {
       data["_source"]["z"] = '';
     }
-    if (typeof data["_source"]["s"] != 'number') {data["_source"]["s"] = 0;}
-    if (typeof data["_source"]["l"] != 'number') {data["_source"]["l"] = 0;}
+    if (typeof data["_source"]["s"] != 'number') {data["_source"]["s"] = 0}
+    if (typeof data["_source"]["l"] != 'number') {data["_source"]["l"] = 0}
     tr.innerHTML = '<td><table><tbody>'+fileType(data['_source']['f'])+'</tbody></table></td>';
     tr.innerHTML += '<td><a>\u{1F9F2}</a> '+data["_source"]["z"]+'<a id="searchresulttitle" onclick=openHash("'+data['_id']+'") href="?Hash='+data["_id"]+'">'+data["_source"]["t"]+'</a></td>';
     tr.innerHTML += '<td><span title="'+uploadedDate(data["_source"]["u"])+'">'+getAge(data["_source"]["u"])+'</span></td>';
@@ -360,19 +360,19 @@ pre {
             if (array[source]) {
               pretty1[sources[source]] = {};
               pretty2[sources[source]] = {};
-              if (array[source]['t']) {title = array[source]['t'];pretty1[sources[source]]['Title'] = array[source]['t'];}
-              if (array[source]['i']) {pretty1[sources[source]]['TPB ID'] = '<a href=https://thepiratebay.org/description.php?id='+array[source]['i']+' target=_blank>'+array[source]['i']+'</a>';}
-              if (array[source]['b']) {size = array[source]['b'];pretty1[sources[source]]['Size'] = array[source]['b'];}
-              if (array[source]['u']) {uploaded = array[source]['u'];pretty1[sources[source]]['Uploaded'] = uploadedDate(array[source]['u']);}
-              if (array[source]['l']) {pretty1[sources[source]]['Uploader'] = '<a href=https://thepiratebay.org/search.php?q=user:'+array[source]['l']+' target=_blank>'+array[source]['l']+'</a>';}
-              if (array[source]['r']) {pretty1[sources[source]]['Uploader Status'] = array[source]['r'];}
-              if (array[source]['c']) {pretty1[sources[source]]['Category'] = '<a href=https://thepiratebay.org/search.php?q=category:'+array[source]['c']+' target=_blank>'+array[source]['c']+'</a>';}
-              if (array[source]['n']) {numberoffiles = array[source]['n'];pretty1[sources[source]]['Number of files'] = array[source]['n'];}
-              if (array[source]['m']) {pretty1[sources[source]]['IMDB'] = '<a href=https://www.imdb.com/title/'+array[source]['m']+' target=_blank>'+array[source]['m']+'</a>';}
-              if (array[source]['a']) {pretty1[sources[source]]['Language'] = array[source]['a'];}
-              if (array[source]['x']) {pretty1[sources[source]]['Text Language'] = array[source]['x'];}
-              if (array[source]['d']) {description = array[source]['d'];pretty2[sources[source]]['Description'] = array[source]['d'];}
-              if (array[source]['f']) {files = array[source]['f'];numberoffiles = array[source]['f'].length;pretty2[sources[source]]['Files'] = array[source]['f'];}
+              if (array[source]['t']) {title = array[source]['t'];pretty1[sources[source]]['Title'] = title;}
+              if (array[source]['i']) {pretty1[sources[source]]['TPB ID'] = '<a href=https://thepiratebay.org/description.php?id='+array[source]['i']+' target=_blank>'+array[source]['i']+'</a>'}
+              if (array[source]['b']) {size = array[source]['b'];pretty1[sources[source]]['Size'] = size;}
+              if (array[source]['u']) {uploaded = array[source]['u'];pretty1[sources[source]]['Uploaded'] = uploadedDate(uploaded);}
+              if (array[source]['l']) {pretty1[sources[source]]['Uploader'] = '<a href=https://thepiratebay.org/search.php?q=user:'+array[source]['l']+' target=_blank>'+array[source]['l']+'</a>'}
+              if (array[source]['r']) {pretty1[sources[source]]['Uploader Status'] = array[source]['r']}
+              if (array[source]['c']) {pretty1[sources[source]]['Category'] = '<a href=https://thepiratebay.org/search.php?q=category:'+array[source]['c']+' target=_blank>'+array[source]['c']+'</a>'}
+              if (array[source]['n']) {numberoffiles = array[source]['n'];pretty1[sources[source]]['Number of files'] = numberoffiles;}
+              if (array[source]['m']) {pretty1[sources[source]]['IMDB'] = '<a href=https://www.imdb.com/title/'+array[source]['m']+' target=_blank>'+array[source]['m']+'</a>'}
+              if (array[source]['a']) {pretty1[sources[source]]['Language'] = array[source]['a']}
+              if (array[source]['x']) {pretty1[sources[source]]['Text Language'] = array[source]['x']}
+              if (array[source]['d']) {description = array[source]['d'].replace(/[<]/g,'&lt;');pretty2[sources[source]]['Description'] = description;}
+              if (array[source]['f']) {files = array[source]['f'];numberoffiles = files.length;pretty2[sources[source]]['Files'] = files;}
             }
           }
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty1, null, 1);
@@ -399,13 +399,13 @@ pre {
               let earliest = Math.min(...Object.keys(array[tracker])), latest = Math.max(...Object.keys(array[tracker]));
               if (earliest < uploaded || uploaded == 'unknown') {uploaded = earliest;}
               if (latest > Date.now()/1000-999999) {
-                if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"];}
-                if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"];}
+                if (array[tracker][latest]["s"] > seeders) {seeders = array[tracker][latest]["s"]}
+                if (array[tracker][latest]["l"] > leechers) {leechers = array[tracker][latest]["l"]}
               }
               window[canvasvariable] = buildTrackerTable(tracker, array[tracker], infohash);
-              if (window[canvasvariable][0] < canvasstart) {canvasstart = window[canvasvariable][0];}
-              if (window[canvasvariable][1] > canvasend) {canvasend = window[canvasvariable][1];}
-              if (window[canvasvariable][2] > canvasmax) {canvasmax = window[canvasvariable][2];}
+              if (window[canvasvariable][0] < canvasstart) {canvasstart = window[canvasvariable][0]}
+              if (window[canvasvariable][1] > canvasend) {canvasend = window[canvasvariable][1]}
+              if (window[canvasvariable][2] > canvasmax) {canvasmax = window[canvasvariable][2]}
             } else {
               window[canvasvariable] = '';
             }
@@ -533,7 +533,7 @@ pre {
     for (let key in data) {
       sorted.push([key, data[key]]);
     }
-    sorted.sort(function(a,b){return(b[0]-a[0]);});
+    sorted.sort(function(a,b){return( b[0]-a[0]});
     let end = sorted[0][0], start = sorted.slice(-1)[0][0], high = 0;
     sorted.forEach(function(scrape) {
       if (scrape[1]['s'] > high) {high = scrape[1]['s'];}
@@ -544,7 +544,7 @@ pre {
       document.querySelector('.h'+infohash+' #detailedhashtable #tbody').innerHTML += inner1+new Date(scrape[0]*1000).toLocaleDateString()+inner2;
       if (scrape[0] == sorted[0][0]) {document.querySelector('.h'+infohash+' #hashtable #tbody').innerHTML += inner1+getAge(Number(scrape[0]))+' ago'+inner2;}
     });
-    return([start, end, high, canvasinstruction]);
+    return [start, end, high, canvasinstruction];
   }
   function openHash(hash) {
     event.preventDefault();
@@ -556,7 +556,7 @@ pre {
     return string.replace(/[^ \-0-9a-z]/gi,' ').trim();
   }
   function uploadedDate(unixtime) { //convert unix time to HH:mm dd MMM yyyy
-    if (typeof unixtime != 'number') {return '';}
+    if (typeof unixtime != 'number') {return ''}
     let date = new Date(unixtime*1000), HH = date.getUTCHours(), mm = date.getUTCMinutes(), months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     if (HH < 10) {
       HH = '0'+HH;
@@ -567,7 +567,7 @@ pre {
     return HH+':'+mm+' '+date.getUTCDate()+' '+months[date.getUTCMonth()]+' '+date.getUTCFullYear();
   }
   function getAge(unixtime) { //convert unixtime to age
-    if (typeof unixtime != 'number') {return '';}
+    if (typeof unixtime != 'number') {return ''}
     let date = new Date(unixtime*1000), yyyy = new Date().getUTCFullYear() - date.getUTCFullYear(), MM = new Date().getUTCMonth() - date.getUTCMonth(), dd = new Date().getUTCDate() - date.getUTCDate(), HH = new Date().getUTCHours() - date.getUTCHours();
     if (HH < 0) {
       dd--;
@@ -594,11 +594,11 @@ pre {
     return '0 hours';
   }
   function readableSize(size) { //convert bits to human readable form
-    if (typeof size != 'number') {return '';}
+    if (typeof size != 'number') {return ''}
     let sizes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
     for (let step = 0; step < 6; step++) {
       if (size < 1024**(step+1)) {
-        return(Number((size/1024**step).toPrecision(4)).toString()+" "+sizes[step]);
+        return Number((size/1024**step).toPrecision(4)).toString()+" "+sizes[step];
       }
     }
   }
