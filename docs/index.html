@@ -3,7 +3,7 @@
 <head>
 <link rel="preconnect" href="https://api.freekiwi.org:9400" crossorigin>
 <meta charset="utf-8"/>
-<title id="pagetitle"></title>
+<title></title>
 <style>
 body {
   margin: 20px 20px 20px 5%;
@@ -173,7 +173,7 @@ pre {
     }
   });
   function navigate(location) {
-    document.getElementById("pagetitle").innerHTML = location+' - Title';
+    document.title = location+' - Title';
     let pages = Array.from(document.getElementsByClassName('page'));
     pages.forEach(function(page){page.style.display = 'none'}); //hide all pages
     document.getElementById(location).style.display = 'block'; //unhide selected page
@@ -192,7 +192,7 @@ pre {
       document.getElementById("globalsearchinfo").innerHTML = "Nothing to search";
       return;
     }
-    document.getElementById("pagetitle").innerHTML = query+' - Title';
+    document.title = query+' - Title';
     if (document.body.getElementsByClassName('s'+searchurl)[0]) {
       document.getElementById('Search').style.display = 'none'; //hide Search page
       document.querySelector('.s'+searchurl).style.display = 'block'; //show the pre-loaded page
@@ -341,7 +341,7 @@ pre {
     document.getElementById("globalhashinfo").innerHTML = "Loading...";
     let infohash = location.search.substring(1).split("=")[1].toUpperCase(), xhttp = new XMLHttpRequest();
     if (document.body.getElementsByClassName('h'+infohash)[0]) {
-      document.getElementById("pagetitle").innerHTML = document.querySelector('.h'+infohash+' #hashtitle').innerHTML+' - Title';
+      document.title = document.querySelector('.h'+infohash+' #hashtitle').innerHTML+' - Title';
       document.getElementById('Hash').style.display = 'none'; //hide Hash page
       document.querySelector('.h'+infohash).style.display = 'block'; //show the pre-loaded page
       return;
@@ -372,12 +372,12 @@ pre {
               if (array[source]['a']) {pretty1[sources[source]]['Language'] = array[source]['a']}
               if (array[source]['x']) {pretty1[sources[source]]['Text Language'] = array[source]['x']}
               if (array[source]['d']) {description = array[source]['d'].replace(/[<]/g,'&lt;');pretty2[sources[source]]['Description'] = description;}
-              if (array[source]['f']) {files = array[source]['f'];numberoffiles = files.length;pretty2[sources[source]]['Files'] = files;}
+              if (array[source]['f']) {files = array[source]['f'].replace(/[<]/g,'&lt;');numberoffiles = files.length;pretty2[sources[source]]['Files'] = files;}
             }
           }
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty1, null, 1);
-          document.querySelector('.h'+infohash+' #detailedsources').innerHTML = JSON.stringify(pretty2, null, 1).replace(/[<]/g,'&lt;');
-          document.getElementById("pagetitle").innerHTML = title+' - Title';
+          document.querySelector('.h'+infohash+' #detailedsources').innerHTML = JSON.stringify(pretty2, null, 1);
+          document.title = title+' - Title';
           document.querySelector('.h'+infohash+' #hashtitle').innerHTML = title;
           document.querySelector('.h'+infohash+' #infohash').innerHTML = infohash;
           document.querySelector('.h'+infohash+' #size').innerHTML = 'Size: '+readableSize(size);
@@ -388,7 +388,7 @@ pre {
             document.querySelector('.h'+infohash+' #numberoffiles').innerHTML += " (Filelist not available)";
           } else {
             for (let i in files) {
-              let file = files[i].substring(0,files[i].lastIndexOf(':')).replace(/[<]/g,'&lt;'), size = files[i].substring(files[i].lastIndexOf(':')+1);
+              let file = files[i].substring(0,files[i].lastIndexOf(':')), size = files[i].substring(files[i].lastIndexOf(':')+1);
               document.querySelector('.h'+infohash+' #filelist #tbody').innerHTML += '<td style="white-space: normal; border: 0;">'+file+'</td><td title="'+size+' bytes" style="text-align: right; border: 0;">'+readableSize(Number(size))+'</td>';
             }
           }
