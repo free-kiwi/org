@@ -137,6 +137,10 @@ pre {
   </div>
   <div id='Home' class='page'>
     <h3>Home</h3>
+    <p>Want to watch Brooklyn Nine-Nine?  That will be <a href="https://www.finder.com/nz/internet-tv/netflix">$16.99</a> a month for Netflix Standard.</p>
+    <p>Want to watch Chernobyl?  That will be <a href="https://www.neontv.co.nz/about-neon">$13.95</a> a month for Neon.</p>
+    <p>Want to watch The Grand Tour?  That will be <a href="https://www.moneyhub.co.nz/amazon-prime-video-review.html">$9</a> a month for Prime Video.</p>
+    <p>Want to watch The Mandalorian? That will be <a href="https://www.disneyplus.com/en-nz">$9.99</a> a month for Disney+.</p>
   </div>
   <div id='About' class='page'>
     <h3>About</h3>
@@ -372,7 +376,7 @@ pre {
               if (array[source]['a']) {pretty1[sources[source]]['Language'] = array[source]['a']}
               if (array[source]['x']) {pretty1[sources[source]]['Text Language'] = array[source]['x']}
               if (array[source]['d']) {description = array[source]['d'].replace(/[<]/g,'&lt;');pretty2[sources[source]]['Description'] = description;}
-              if (array[source]['f']) {files = array[source]['f'].replace(/[<]/g,'&lt;');numberoffiles = files.length;pretty2[sources[source]]['Files'] = files;}
+              if (array[source]['f']) {files = array[source]['f'];numberoffiles = files.length;pretty2[sources[source]]['Files'] = files.replace(/[<]/g,'&lt;');}
             }
           }
           document.querySelector('.h'+infohash+' #sources').innerHTML = JSON.stringify(pretty1, null, 1);
